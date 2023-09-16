@@ -1,7 +1,8 @@
+import Menu from "../components/Menu"
 function Home() {
     return (
         <div className={"main-div"}>
-            <h1>Home Page</h1>
+            <Menu />
         </div>
     );
 }
