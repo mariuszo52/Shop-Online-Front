@@ -5,11 +5,11 @@ function Menu() {
     return (
         <div className={"menu-div"}>
             <div className={"menu-panel"}>
-                <p>Menu item</p>
-                <p>Menu item</p>
-                <p>Menu item</p>
-                <p>Menu item</p>
-                <p>Menu item</p>
+                <a href={"#"}> <p>Menu item</p></a>
+                <a href={"#"}> <p>Menu item</p></a>
+                <a href={"#"}> <p>Menu item</p></a>
+                <a href={"#"}> <p>Menu item</p></a>
+                <a href={"#"}> <p>Menu item</p></a>
                 </div>
             <div className={"logo-div"}>
                 <img className={"logo"} src={logo}/>
