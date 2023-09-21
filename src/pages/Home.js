@@ -4,11 +4,24 @@ import games1 from "../images/games-photos/1.jpg"
 import games2 from "../images/games-photos/2.jpg"
 import games3 from "../images/games-photos/3.jpg"
 import cover from "../images/game-covers/wiedzmin.jpg"
-
+import axios from "axios";
 
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
 
+    useEffect(() => {
+        const config = {
+            headers: {
+                'X-Api-Key': '5cbbfc909dc69600f9406469c0775254'
+            },
+        };
+        function getProducts(){
+            axios.get("https://gateway.kinguin.net/esa/api/v1/products?name=fifa",config)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err))
+        }
+        getProducts()
+    }, []);
     function handleMouseOut(){
         let span = document.getElementsByClassName("add-to-cart");
         for (let spanElement of span) {
