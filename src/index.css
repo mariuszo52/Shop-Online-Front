@@ -9,8 +9,9 @@
 .main-div {
     display: flex;
     flex-direction: column;
-    background-image: url("./images/background.jpg");
     align-items: center;
+    background-color: #20143c;
+    color: white;
 }
 
 .menu-panel {
@@ -80,14 +81,16 @@
 .section-list-el {
     color: white;
     font-size: 40px;
-    background: green;
     display: flex;
     border: 1px solid;
     padding: 10px 10px 10px 10px;
     margin-right: 5px;
     border-radius: 10px;
 }
-
+.section-list-el:hover{
+    cursor: pointer;
+    scale: 101%;
+}
 .slideshow-container {
     width: 100%;
     height: 500px;
@@ -142,6 +145,7 @@
     font-size: x-large;
     font-weight: bolder;
     margin-top: 5px;
+    color: black;
 }
 .add-to-cart{
     display: none;
@@ -159,5 +163,88 @@
     height: 50px;
     background-color: green;
     text-align: center;
+}
+.pagination-bar{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pagination-bar p{
+    font-size: xx-large;
+    font-weight: bolder;
+}
+.pages-numbers{
+    display: flex;
+    flex-direction: row;
+}
+.pages-numbers p{
+    border-radius: 30px;
+    padding: 5px 10px 10px 5px;
+    border: solid white;
+    margin: 10px 5px;
+}
 
+.pages-numbers p:hover{
+    cursor: pointer;
+    scale: 101%;
+}
+.info-div{
+    width: 100%;
+    margin: 10px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+}
+.social-media-div, .payment-methods-div{
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.social-media-div > img{
+    width: 50px;
+    margin-right: 5px;
+}
+.social-media-div > p{
+    font-weight: bolder;
+    margin-right: 5px;
+}
+.social-media-div > img:hover{
+   cursor: pointer;
+    scale: 101%;
+}
+.payment-methods-div > img{
+    width: 50px;
+    margin-left: 5px;
+}
+.footer{
+    margin-top: 10px;
+    font-size: large;
+    font-weight: bolder;
+}
+.search-form{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.search-form > input[type=text] {
+    border-radius: 10px 10px 10px 10px;
+    width: 50%;
+    color: black;
+    height: 30px;
+    font-family: "Arial Black", serif;
+}
+#submit-search-icon{
+    margin-left: 5px;
+    font-size: 30px;
+    color: white;
+}
+#submit-search-icon:hover {
+    cursor: pointer;
 }
