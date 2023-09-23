@@ -255,3 +255,11 @@
 #product-price{
     margin-bottom: 5px;
 }
+.add-to-fav{
+    display: none;
+    scale: 3;
+    color: green;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+}

@@ -8,7 +8,7 @@ import instagramLogo from "../images/social-media/instagram.png";
 import facebookLogo from "../images/social-media/facebook.png";
 import cardLogo from "../images/social-media/card.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass, faHeart} from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
@@ -25,12 +25,17 @@ function Home() {
 
     function handleMouseOut(index){
         let span = document.getElementsByClassName("add-to-cart");
+        let favButton = document.getElementsByClassName("add-to-fav");
+        favButton[index].style.display = "none"
         span[index].style.display = "none"
     }
 
     function handleMouseOver(index){
         let span = document.getElementsByClassName("add-to-cart");
+        let favButton = document.getElementsByClassName("add-to-fav");
+        favButton[index].style.display = "flex"
         span[index].style.display = "flex"
+
     }
 
 
@@ -55,6 +60,20 @@ function Home() {
     }, [slideIndex]);
 
 
+    function handleFavIconClick(index) {
+        let favIcon = document.getElementsByClassName("add-to-fav")[index];
+        let computedStyle = window.getComputedStyle(favIcon);
+        let color = computedStyle.getPropertyValue("color");
+        if (color === "rgb(0, 128, 0)"){
+            favIcon.style.scale = "3.5";
+            favIcon.style.color = "red";
+        }
+        else {
+            favIcon.style.scale = "3.0";
+            favIcon.style.color = "green"
+        }
+    }
+
     return (
         <div className={"main-div"}>
             <Menu/>
@@ -72,14 +91,15 @@ function Home() {
             <br/>
             <form className={"search-form"}>
                 <input type={"text"} placeholder={"Insert name of game you want to find."}/>
-                <FontAwesomeIcon id={"submit-search-icon"} icon={faMagnifyingGlass} />
+                <FontAwesomeIcon className={"submit-search-icon"} icon={faMagnifyingGlass} />
             </form>
 
             <div className={"products-div"}>
                 <ul className={"products-list"}>
                     {products?.map((product, index) => (
                         <li key={index} onMouseOver={() =>  handleMouseOver(index)} onMouseOut={() => handleMouseOut(index)} className={"products-list-el"}>
-                            <span className={"add-to-cart"}>DO KOSZYKA</span>
+                            <span className={"add-to-cart"}>TO CART</span>
+                            <FontAwesomeIcon onClick={() => handleFavIconClick(index)} className={"add-to-fav"} icon={faHeart} />
                             <img src={product.coverImage} alt={product.name}/>
                             <div className={"product-main-info"}>
                                 <p id={"product-name"}>{product.name}</p>
