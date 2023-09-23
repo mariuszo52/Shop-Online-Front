@@ -3,28 +3,34 @@ import React, {useEffect, useState} from 'react';
 import games1 from "../images/games-photos/1.jpg"
 import games2 from "../images/games-photos/2.jpg"
 import games3 from "../images/games-photos/3.jpg"
-import cover from "../images/game-covers/wiedzmin.jpg"
 import tiktokLogo from "../images/social-media/tiktok.png";
 import instagramLogo from "../images/social-media/instagram.png";
 import facebookLogo from "../images/social-media/facebook.png";
 import cardLogo from "../images/social-media/card.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
+    const [products, setProducts] = useState([]);
 
-    function handleMouseOut(){
-        let span = document.getElementsByClassName("add-to-cart");
-        for (let spanElement of span) {
-            spanElement.style.display = "none"
+    useEffect(() => {
+        function fetchProducts(){
+            axios.get("http://localhost:8080")
+                .then(response => setProducts(response.data))
+                .catch(error => console.log(error));
         }
+        fetchProducts();
+    }, []);
+
+    function handleMouseOut(index){
+        let span = document.getElementsByClassName("add-to-cart");
+        span[index].style.display = "none"
     }
 
-    function handleMouseOver(){
+    function handleMouseOver(index){
         let span = document.getElementsByClassName("add-to-cart");
-        for (let spanElement of span) {
-            spanElement.style.display = "flex"
-        }
+        span[index].style.display = "flex"
     }
 
 
@@ -65,53 +71,23 @@ function Home() {
                 </ul>
             <br/>
             <form className={"search-form"}>
-                <input type={"text"}/>
+                <input type={"text"} placeholder={"Insert name of game you want to find."}/>
                 <FontAwesomeIcon id={"submit-search-icon"} icon={faMagnifyingGlass} />
             </form>
 
             <div className={"products-div"}>
                 <ul className={"products-list"}>
-                    <li onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className={"products-list-el"}>
-                        <span className={"add-to-cart"}>DO KOSZYKA</span>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
-                    <li className={"products-list-el"}>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
-                    <li className={"products-list-el"}>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
-                    <li className={"products-list-el"}>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
-                    <li className={"products-list-el"}>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
-                    <li className={"products-list-el"}>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
-                    <li className={"products-list-el"}>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
-                    <li className={"products-list-el"}>
-                        <img src={cover} alt={"game-name"}/>
-                        <p>GAME NAME</p>
-                        <p>GAME Price</p>
-                    </li>
+                    {products?.map((product, index) => (
+                        <li key={index} onMouseOver={() =>  handleMouseOver(index)} onMouseOut={() => handleMouseOut(index)} className={"products-list-el"}>
+                            <span className={"add-to-cart"}>DO KOSZYKA</span>
+                            <img src={product.coverImage} alt={product.name}/>
+                            <div className={"product-main-info"}>
+                                <p id={"product-name"}>{product.name}</p>
+                                <p id={"product-price"}>{product.price} PLN</p>
+                            </div>
+
+                        </li>
+                    ))}
                 </ul>
                 <div className={"pagination-bar"}>
                     <p>20 of 50 games loaded</p>
