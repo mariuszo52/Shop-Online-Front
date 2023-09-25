@@ -1,5 +1,5 @@
 import Menu from "../components/Menu"
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef, useMemo} from 'react';
 import games1 from "../images/games-photos/1.jpg"
 import games2 from "../images/games-photos/2.jpg"
 import games3 from "../images/games-photos/3.jpg"
@@ -12,16 +12,44 @@ import {faMagnifyingGlass, faHeart} from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
-    const [products, setProducts] = useState([]);
+    const [productsPageable, setProductsPageable] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [currentSize, setCurrentSize] = useState(24);
+    const [lastProductIndex, setLastProductIndex] = useState(0);
+    const [pagination, setPagination] = useState([]);
+    const [pageButton, setPageButton] = useState(0);
+    let buttons = document.getElementsByClassName("page-button");
+
+    function calculatePageNumbers(data){
+        const numbers = [];
+        for (let i= 0 ; i < data.totalPages ; i++ ){
+            numbers.push(i);
+        }
+        setPagination(numbers);
+    }
 
     useEffect(() => {
-        function fetchProducts(){
-            axios.get("http://localhost:8080")
-                .then(response => setProducts(response.data))
+        setLastProductIndex((currentPage * currentSize) + currentSize);
+    }, [currentPage, currentSize]);
+
+
+
+    useEffect(() => {
+        async function fetchProducts() {
+            const params = {
+                page: currentPage,
+                size: currentSize,
+            };
+            await axios.get("http://localhost:8080", {params})
+                .then(response => {
+                    setProductsPageable(response.data)
+                    calculatePageNumbers(response.data)
+                    console.log(response.data)
+                })
                 .catch(error => console.log(error));
         }
-        fetchProducts();
-    }, []);
+        fetchProducts().then(() => console.log("Products fetched"))
+    }, [currentPage]);
 
     function handleMouseOut(index){
         let span = document.getElementsByClassName("add-to-cart");
@@ -74,6 +102,40 @@ function Home() {
         }
     }
 
+     function setPreviousPage() {
+        if (currentPage > 0 ){
+            for (let button of buttons) {
+                button.style.backgroundColor = "initial"
+            }
+            buttons.item(currentPage - 1).style.backgroundColor = "grey"
+            setCurrentPage(prevState => prevState - 1)
+        }
+    }
+
+    function setNextPage() {
+        if(currentPage < productsPageable.totalPages -1){
+            for (let button of buttons) {
+                button.style.backgroundColor = "initial"
+            }
+            buttons.item(currentPage +1).style.backgroundColor = "grey"
+            setCurrentPage(prevState => prevState + 1)
+
+
+        }
+
+    }
+
+    function handlePageClick(pageValue) {
+        setCurrentPage(pageValue)
+        setPageButton(pageValue)
+        for (let button of buttons) {
+            button.style.backgroundColor = "initial"
+        }
+        buttons.item(pageValue).style.backgroundColor = "grey"
+
+
+    }
+
     return (
         <div className={"main-div"}>
             <Menu/>
@@ -96,7 +158,7 @@ function Home() {
 
             <div className={"products-div"}>
                 <ul className={"products-list"}>
-                    {products?.map((product, index) => (
+                    {productsPageable.content?.map((product, index) => (
                         <li key={index} onMouseOver={() =>  handleMouseOver(index)} onMouseOut={() => handleMouseOut(index)} className={"products-list-el"}>
                             <span className={"add-to-cart"}>TO CART</span>
                             <FontAwesomeIcon onClick={() => handleFavIconClick(index)} className={"add-to-fav"} icon={faHeart} />
@@ -110,13 +172,13 @@ function Home() {
                     ))}
                 </ul>
                 <div className={"pagination-bar"}>
-                    <p>20 of 50 games loaded</p>
+                    <p>{(currentPage) * currentSize} - {lastProductIndex < productsPageable.totalElements ? lastProductIndex : productsPageable.totalElements} of {productsPageable.totalElements}  games loaded</p>
                     <div className={"pages-numbers"}>
-                        <p>prev</p>
-                        <p>1</p>
-                        <p>2</p>
-                        <p>3</p>
-                        <p>next</p>
+                        <li onClick={setPreviousPage}>prev</li>
+                        {pagination?.map((value, index) =>(
+                            <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>{value + 1}</li>
+                        ))}
+                        <li onClick={setNextPage}>next</li>
                     </div>
                 </div>
             </div>

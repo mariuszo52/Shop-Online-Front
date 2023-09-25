@@ -169,22 +169,22 @@
     flex-direction: column;
     align-items: center;
 }
-.pagination-bar p{
-    font-size: xx-large;
-    font-weight: bolder;
+.pagination-bar p, .pagination-bar li{
+    font-size: x-large;
+    list-style: none;
 }
 .pages-numbers{
     display: flex;
     flex-direction: row;
 }
-.pages-numbers p{
+.pages-numbers li{
     border-radius: 30px;
-    padding: 5px 10px 10px 5px;
+    padding: 5px 15px 5px 15px;
     border: solid white;
     margin: 10px 5px;
 }
 
-.pages-numbers p:hover{
+.pages-numbers li:hover{
     cursor: pointer;
     scale: 101%;
 }
@@ -262,4 +262,7 @@
     position: absolute;
     top: 20%;
     left: 50%;
+}
+.page-button{
+
 }
