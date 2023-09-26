@@ -1,5 +1,5 @@
 import Menu from "../components/Menu"
-import React, {useEffect, useState, useRef, useMemo} from 'react';
+import React, {useEffect, useState} from 'react';
 import games1 from "../images/games-photos/1.jpg"
 import games2 from "../images/games-photos/2.jpg"
 import games3 from "../images/games-photos/3.jpg"
@@ -9,6 +9,7 @@ import facebookLogo from "../images/social-media/facebook.png";
 import cardLogo from "../images/social-media/card.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass, faHeart} from "@fortawesome/free-solid-svg-icons";
+import {Circles, ThreeCircles} from 'react-loader-spinner';
 import axios from 'axios';
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
@@ -17,8 +18,7 @@ function Home() {
     const [currentSize, setCurrentSize] = useState(24);
     const [lastProductIndex, setLastProductIndex] = useState(0);
     const [pagination, setPagination] = useState([]);
-    const [pageButton, setPageButton] = useState(0);
-    let buttons = document.getElementsByClassName("page-button");
+    const [dataLoading, setDataLoading] = useState(true)
 
     function calculatePageNumbers(data){
         const numbers = [];
@@ -47,8 +47,12 @@ function Home() {
                     console.log(response.data)
                 })
                 .catch(error => console.log(error));
+            setDataLoading(prevState => false)
+
         }
-        fetchProducts().then(() => console.log("Products fetched"))
+        fetchProducts().then(() =>{
+            console.log("Products fetched")
+        })
     }, [currentPage]);
 
     function handleMouseOut(index){
@@ -104,37 +108,28 @@ function Home() {
 
      function setPreviousPage() {
         if (currentPage > 0 ){
-            for (let button of buttons) {
-                button.style.backgroundColor = "initial"
-            }
-            buttons.item(currentPage - 1).style.backgroundColor = "grey"
             setCurrentPage(prevState => prevState - 1)
         }
     }
 
     function setNextPage() {
         if(currentPage < productsPageable.totalPages -1){
-            for (let button of buttons) {
-                button.style.backgroundColor = "initial"
-            }
-            buttons.item(currentPage +1).style.backgroundColor = "grey"
             setCurrentPage(prevState => prevState + 1)
-
-
         }
 
     }
 
     function handlePageClick(pageValue) {
         setCurrentPage(pageValue)
-        setPageButton(pageValue)
-        for (let button of buttons) {
-            button.style.backgroundColor = "initial"
-        }
-        buttons.item(pageValue).style.backgroundColor = "grey"
-
-
     }
+
+    function setFirstPage() {
+        setCurrentPage(0)
+    }
+    function setLastPage() {
+        setCurrentPage(productsPageable.totalPages -1)
+    }
+
 
     return (
         <div className={"main-div"}>
@@ -157,7 +152,7 @@ function Home() {
             </form>
 
             <div className={"products-div"}>
-                <ul className={"products-list"}>
+                {!dataLoading ?( <ul className={"products-list"}>
                     {productsPageable.content?.map((product, index) => (
                         <li key={index} onMouseOver={() =>  handleMouseOver(index)} onMouseOut={() => handleMouseOut(index)} className={"products-list-el"}>
                             <span className={"add-to-cart"}>TO CART</span>
@@ -170,15 +165,44 @@ function Home() {
 
                         </li>
                     ))}
-                </ul>
+                </ul>) :
+                    <ul className={"products-list"}>
+                    <ThreeCircles
+                        color="#00BFFF"
+                        height={200}
+                        width={200}
+                    />
+                    </ul>
+                }
                 <div className={"pagination-bar"}>
                     <p>{(currentPage) * currentSize} - {lastProductIndex < productsPageable.totalElements ? lastProductIndex : productsPageable.totalElements} of {productsPageable.totalElements}  games loaded</p>
+                    <p>Current page: {currentPage + 1}</p>
                     <div className={"pages-numbers"}>
+                        <li onClick={setFirstPage}>first</li>
                         <li onClick={setPreviousPage}>prev</li>
-                        {pagination?.map((value, index) =>(
-                            <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>{value + 1}</li>
-                        ))}
+                        {productsPageable.totalPages <= 15 ? (
+                            pagination?.map((value, index) => (
+                                <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>
+                                    {value + 1}
+                                </li>
+                            ))
+                        ) : (
+                            <>
+                                {pagination?.slice(currentPage -3, currentPage).map((value, index) => (
+                                    <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>
+                                        {value + 1}
+                                    </li>
+                                ))}
+                                <li>...</li>
+                                {pagination?.slice(currentPage, currentPage +3).map((value, index) => (
+                                    <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>
+                                        {value + 1}
+                                    </li>
+                                ))}
+                            </>
+                        )}
                         <li onClick={setNextPage}>next</li>
+                        <li onClick={setLastPage}>last</li>
                     </div>
                 </div>
             </div>
