@@ -9,7 +9,7 @@ function Menu() {
                 <a href={"#"}> <p>PSN</p></a>
                 <a href={"#"}> <p>XBOX</p></a>
                 <a href={"#"}> <p>NINTENDO</p></a>
-                <a href={"#"}> <p>TOP-UPS</p></a>
+                <a href={"#"}> <p>TOP</p></a>
                 </div>
             <div className={"logo-div"}>
                 <img className={"logo"} src={logo}/>

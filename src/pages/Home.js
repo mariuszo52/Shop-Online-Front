@@ -9,7 +9,7 @@ import facebookLogo from "../images/social-media/facebook.png";
 import cardLogo from "../images/social-media/card.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass, faHeart} from "@fortawesome/free-solid-svg-icons";
-import {Circles, ThreeCircles} from 'react-loader-spinner';
+import {ThreeCircles} from 'react-loader-spinner';
 import axios from 'axios';
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
@@ -19,6 +19,7 @@ function Home() {
     const [lastProductIndex, setLastProductIndex] = useState(0);
     const [pagination, setPagination] = useState([]);
     const [dataLoading, setDataLoading] = useState(true)
+    const [productName, setProductName] = useState(null)
 
     function calculatePageNumbers(data){
         const numbers = [];
@@ -32,24 +33,27 @@ function Home() {
         setLastProductIndex((currentPage * currentSize) + currentSize);
     }, [currentPage, currentSize]);
 
+    async function fetchProducts() {
+        setDataLoading(true)
+        const params = {
+            page: currentPage,
+            size: currentSize,
+        };
+        if (productName !== null) {
+            params.name = productName;
+        }
+        await axios.get("http://localhost:8080", {params})
+            .then(response => {
+                setProductsPageable(response.data)
+                calculatePageNumbers(response.data)
+                console.log(response.data)
+            })
+            .catch(error => console.log(error));
+        setDataLoading(prevState => false)
 
+    }
 
     useEffect(() => {
-        async function fetchProducts() {
-            const params = {
-                page: currentPage,
-                size: currentSize,
-            };
-            await axios.get("http://localhost:8080", {params})
-                .then(response => {
-                    setProductsPageable(response.data)
-                    calculatePageNumbers(response.data)
-                    console.log(response.data)
-                })
-                .catch(error => console.log(error));
-            setDataLoading(prevState => false)
-
-        }
         fetchProducts().then(() =>{
             console.log("Products fetched")
         })
@@ -146,10 +150,10 @@ function Home() {
                     <li className={"section-list-el"}>Preorder</li>
                 </ul>
             <br/>
-            <form className={"search-form"}>
-                <input type={"text"} placeholder={"Insert name of game you want to find."}/>
-                <FontAwesomeIcon className={"submit-search-icon"} icon={faMagnifyingGlass} />
-            </form>
+            <div className={"search-form"}>
+                <input onChange={event => setProductName(event.target.value)} type={"text"} placeholder={"Insert name of game you want to find."}/>
+                <FontAwesomeIcon onClick={fetchProducts} className={"submit-search-icon"} icon={faMagnifyingGlass} />
+            </div>
 
             <div className={"products-div"}>
                 {!dataLoading ?( <ul className={"products-list"}>
