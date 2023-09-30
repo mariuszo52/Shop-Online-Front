@@ -19,9 +19,10 @@
     margin: auto;
     max-width: 33%;
     max-height: 100%;
+    flex-wrap: wrap;
 }
 
-.menu-panel p, .user-panel a, .menu-panel a {
+.menu-panel p{
     text-align: center;
     margin-right: 10px;
     font-size: xx-large;
@@ -30,6 +31,22 @@
     max-width: 100%;
     max-height: 100%;
     text-decoration: none;
+    border: white solid;
+    border-radius: 10px;
+}
+.user-panel a, .menu-panel a{
+    text-align: center;
+    margin-right: 10px;
+    font-size: xx-large;
+    font-weight: bolder;
+    color: white;
+    max-width: 100%;
+    max-height: 100%;
+    text-decoration: none;
+}
+.menu-panel p:hover{
+    cursor: pointer;
+
 }
 
 .menu-div {
@@ -63,6 +80,9 @@
     width: 45%;
     max-height: 100%;
     max-width: 100%;
+}
+.logo:hover{
+    cursor: pointer;
 }
 
 .section-list {
@@ -264,6 +284,57 @@
     top: 20%;
     left: 50%;
 }
-.page-button{
+.category-name-container{
+    height: 300px;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
 
+}
+.category-name-container hr{
+    width: 90%;
+}
+.filter-container{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 20px;
+    height: 150px;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+.filter{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 20px;
+    height: 60px;
+    width: 100%;
+}
+.filter-option{
+    width: 100%;
+    border-radius: 20px;
+}
+.filter-container label{
+    width: 15%;
+    margin-left: 10px;
+}
+.filter-container p{
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+.no-products-div{
+    flex-direction: column;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
 }

@@ -1,26 +1,31 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping, faUser, faHeart } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
 import logo from "../images/logo.png"
+import {useNavigate} from "react-router-dom";
+
 function Menu() {
+    const navigate = useNavigate();
     return (
         <div className={"menu-div"}>
             <div className={"menu-panel"}>
-                <a href={"#"}> <p>PC</p></a>
-                <a href={"#"}> <p>PSN</p></a>
-                <a href={"#"}> <p>XBOX</p></a>
-                <a href={"#"}> <p>NINTENDO</p></a>
-                <a href={"#"}> <p>TOP</p></a>
-                </div>
+                <p onClick={() => navigate("/pc")}>PC</p>
+                <p onClick={() => navigate("/psn")}>PSN</p>
+                <p onClick={() => navigate("/xbox")}>XBOX</p>
+                <p onClick={() => navigate("/nintendo")}>NINTENDO</p>
+                <p onClick={() => navigate("/rockstar-games")}>ROCKSTAR GAMES</p>
+                <p onClick={() => navigate("/others")}>OTHER</p>
+            </div>
             <div className={"logo-div"}>
-                <img className={"logo"} src={logo}/>
+                <img onClick={() => navigate("/")} alt="logo" className={"logo"} src={logo}/>
             </div>
             <div className={"user-panel"}>
                 <a href={"#"}><FontAwesomeIcon icon={faUser}/></a>
                 <a href={"#"}><FontAwesomeIcon icon={faHeart}/></a>
-                <a href={"#"}><FontAwesomeIcon icon={faCartShopping} /></a>
+                <a href={"#"}><FontAwesomeIcon icon={faCartShopping}/></a>
             </div>
         </div>
-    );
+    )
+        ;
 }
 
 export default Menu;
