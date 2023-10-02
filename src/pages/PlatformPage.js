@@ -8,7 +8,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Pagination from "../components/Pagination";
 import FilterProducts from "../components/FilterProducts";
-function PlatformPage({platformName}){
+function PlatformPage({deviceName}){
     const [productsPageable, setProductsPageable] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
     const [currentSize, setCurrentSize] = useState(24);
@@ -29,7 +29,7 @@ function PlatformPage({platformName}){
             const params = {
                 page: currentPage,
                 size: currentSize,
-                platform: platformName
+                device: deviceName
             };
             await axios.get("http://localhost:8080", {params})
                 .then(response => {
@@ -48,10 +48,18 @@ function PlatformPage({platformName}){
         <div className={"main-div"}>
             <Menu/>
             <div className={"category-name-container"}>
-                <h1>{platformName} KEYS</h1><br/>
+                <h1>{deviceName} KEYS</h1><br/>
                 <hr/>
             </div>
-           <FilterProducts productsPageable={productsPageable} />
+           <FilterProducts
+               deviceName = {deviceName}
+               productsPageable={productsPageable}
+               setProductsPageable={setProductsPageable}
+               currentPage={currentPage}
+               currentSize={currentSize}
+               calculatePageNumbers={calculatePageNumbers}
+               setDataLoading={setDataLoading}
+           />
             <br/>
             <ProductList
                 productsPageable={productsPageable}
