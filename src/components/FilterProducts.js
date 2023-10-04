@@ -36,22 +36,16 @@ function FilterProducts({
     }, [productsPageable]);
 
     useEffect(() => {
-        function getGenres() {
-            let uniqueGenres = []
-            for (const product of productsPageable.content) {
-                let productGenres = product.genres;
-                for (const genre of productGenres) {
-                    if (!uniqueGenres?.includes(genre.name)) {
-                        uniqueGenres.push(genre.name)
-                    }
-                }
-            }
-            setGenres(uniqueGenres)
-        }
+        const params = {
+            device:deviceName
+        };
 
-        if (productsPageable !== null) {
-            getGenres()
+       async function getGenres() {
+           await axios.get("http://localhost:8080/genre/device-genres", {params})
+                .then(r => setGenres(r.data))
+               .then(err => console.log(err))
         }
+        getGenres()
     }, [productsPageable]);
 
     useEffect(() => {
