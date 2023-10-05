@@ -16,23 +16,22 @@ function FilterProducts({
     let [minPrice, setMinPrice] = useState()
     let [maxPrice, setMaxPrice] = useState()
     let [platform, setPlatform] = useState("");
+    let [region, setRegion] = useState("");
+    let [genre, setGenre] = useState("");
+    let [language, setLanguage] = useState("");
 
 
     useEffect(() => {
-        function getPlatforms() {
-            let uniquePlatforms = []
-            for (const product of productsPageable.content) {
-                let platform = product.platformDto.name;
-                if (!uniquePlatforms?.includes(platform)) {
-                    uniquePlatforms.push(platform)
-                }
-            }
-            setPlatforms(uniquePlatforms);
-        }
+        const params = {
+            device:deviceName
+        };
 
-        if (productsPageable !== null) {
-            getPlatforms()
+        async function getPlatforms() {
+            await axios.get("http://localhost:8080/platform/device-platforms", {params})
+                .then(r => setPlatforms(r.data))
+                .then(err => console.log(err))
         }
+        getPlatforms()
     }, [productsPageable]);
 
     useEffect(() => {
@@ -49,22 +48,13 @@ function FilterProducts({
     }, [productsPageable]);
 
     useEffect(() => {
-        function getLanguages() {
-            let uniqueLanguages = []
-            for (const product of productsPageable.content) {
-                let productLanguages = product.languages;
-                for (const language of productLanguages) {
-                    if (!uniqueLanguages?.includes(language)) {
-                        uniqueLanguages.push(language)
-                    }
-                }
-            }
-            setLanguages(uniqueLanguages)
+        async function getLanguages() {
+            await axios.get("http://localhost:8080/language/all")
+                .then(r => setLanguages(r.data))
+                .then(err => console.log(err))
         }
+        getLanguages()
 
-        if (productsPageable !== null) {
-            getLanguages()
-        }
     }, [productsPageable]);
 
 
@@ -82,7 +72,12 @@ function FilterProducts({
             page: currentPage,
             size: currentSize,
             device: deviceName,
-            platform: platform
+            platform: platform,
+            language: language,
+            region: region,
+            genre: genre,
+            minPrice: minPrice,
+            maxPrice: maxPrice
         };
         await axios.get("http://localhost:8080", {params})
             .then(response => {
@@ -108,7 +103,7 @@ function FilterProducts({
             </label>
             <label><p>Platform</p>
                 <select onChange={event => setPlatform(event.target.value)}
-                        value={""} className={"filter"}>
+                        className={"filter"}>
                     <option className={"filter-option"}>All platforms</option>
                     {platforms?.map((platform, index) => (
                         <option value={platform} key={index}
@@ -117,22 +112,21 @@ function FilterProducts({
                 </select>
             </label>
             <label><p>Region</p>
-                <select className={"filter"}>
+                <select onChange={event => setRegion(event.target.value)} className={"filter"}>
                     <option className={"filter-option"}>All regions</option>
                     <option className={"filter-option"}>Poland</option>
                 </select>
             </label>
             <label>
-                <p>Price</p>
+                <p>Min Price: <span>{minPrice}PLN</span></p>
                 <input onChange={event => handleMinPrice(event)}
-                       defaultValue={0} type="range" id="minRange" min="0" max="100"/>
-                <p>{minPrice}</p>
-                <input onChange={event => handleMaxPrice(event)}
-                       type="range" id="maxRange" min="0" max="100" defaultValue={10000}/>
-                <p>{maxPrice}</p>
+                       defaultValue={0} step={10} type="range" id="minRange" min="0" max="10000"/>
+                <p>Max Price: <span>{maxPrice}PLN</span></p>
+                <span>-</span><input onChange={event => handleMaxPrice(event)}
+                       type="range" step={10} id="maxRange" min="0" max="10000" defaultValue={10000}/><span>+</span>
             </label>
             <label><p>Genre</p>
-                <select className={"filter"}>
+                <select onChange={event => setGenre(event.target.value)} className={"filter"}>
                     <option className={"filter-option"}>All genres</option>
                     {genres?.map((genre, index) => (
                         <option key={index} className={"filter-option"}>{genre}</option>
@@ -140,7 +134,7 @@ function FilterProducts({
                 </select>
             </label>
             <label><p>Language</p>
-                <select className={"filter"}>
+                <select onChange={event => setLanguage(event.target.value)} className={"filter"}>
                     <option className={"filter-option"}>All languages</option>
                     {languages?.map((language, index) => (
                         <option key={index} className={"filter-option"}>{language}</option>
