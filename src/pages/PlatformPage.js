@@ -20,29 +20,10 @@ function PlatformPage({deviceName}){
         for (let i = 0; i < data.totalPages; i++) {
             numbers.push(i);
         }
+        console.log(data.totalPages)
         setPagination(numbers);
     }
 
-    useEffect(() => {
-        async function fetchProducts() {
-            setDataLoading(true)
-            const params = {
-                page: currentPage,
-                size: currentSize,
-                device: deviceName
-            };
-            await axios.get("http://localhost:8080", {params})
-                .then(response => {
-                    setProductsPageable(response.data)
-                    calculatePageNumbers(response.data)
-                    console.log(response.data)
-                })
-                .catch(error => console.log(error));
-            setDataLoading(prevState => false)
-
-        }
-        fetchProducts()
-    },[]);
 
     return(
         <div className={"main-div"}>
@@ -59,6 +40,7 @@ function PlatformPage({deviceName}){
                currentSize={currentSize}
                calculatePageNumbers={calculatePageNumbers}
                setDataLoading={setDataLoading}
+               setCurrentPage={setCurrentPage}
            />
             <br/>
             <ProductList

@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { ThreeCircles } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 function ProductList({ productsPageable, dataLoading }) {
+    const navigate = useNavigate();
 
     function handleMouseOut(index) {
         let span = document.getElementsByClassName("add-to-cart");
@@ -37,6 +39,7 @@ function ProductList({ productsPageable, dataLoading }) {
                 <ul className={"products-list"}>
                     {productsPageable.content?.map((product, index) => (
                         <li
+                            onClick={event => navigate("/product/" + product.id)}
                             key={index}
                             onMouseOver={() => handleMouseOver(index)}
                             onMouseOut={() => handleMouseOut(index)}

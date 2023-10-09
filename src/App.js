@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import PlatformPage from "./pages/PlatformPage";
 import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
+import ProductPage from "./pages/ProductPage";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path={"/nintendo"} element={<ReloadablePlatformPage deviceName={"NINTENDO"} />}></Route>
             <Route path={"/rockstar-games"} element={<ReloadablePlatformPage deviceName={"ROCKSTAR GAMES"} />}></Route>
             <Route path={"/others"} element={<ReloadablePlatformPage deviceName={"OTHERS"} />}></Route>
+            <Route path={"/product/:id"} element={<ProductPage/>}></Route>
         </Routes>
       </BrowserRouter>
   );

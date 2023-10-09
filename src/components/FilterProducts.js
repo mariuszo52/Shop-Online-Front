@@ -8,7 +8,8 @@ function FilterProducts({
                             currentSize,
                             deviceName,
                             calculatePageNumbers,
-                            setDataLoading
+                            setDataLoading,
+                            setCurrentPage
                         }) {
     let [platforms, setPlatforms] = useState([]);
     let [genres, setGenres] = useState([]);
@@ -19,6 +20,9 @@ function FilterProducts({
     let [region, setRegion] = useState("");
     let [genre, setGenre] = useState("");
     let [language, setLanguage] = useState("");
+    let [sort, setSort] = useState("");
+
+
 
 
     useEffect(() => {
@@ -65,8 +69,11 @@ function FilterProducts({
     function handleMaxPrice(event) {
         setMaxPrice(event.target.value)
     }
-
-    async function filterProducts() {
+    function handleFilterClick(){
+        setCurrentPage(0)
+        filterProducts()
+    }
+        async function filterProducts() {
         setDataLoading(true)
         const params = {
             page: currentPage,
@@ -77,9 +84,10 @@ function FilterProducts({
             region: region,
             genre: genre,
             minPrice: minPrice,
-            maxPrice: maxPrice
+            maxPrice: maxPrice,
+            sort: sort
         };
-        await axios.get("http://localhost:8080", {params})
+        await axios.get("http://localhost:8080/products", {params})
             .then(response => {
                 setProductsPageable(response.data)
                 calculatePageNumbers(response.data)
@@ -89,16 +97,20 @@ function FilterProducts({
             .catch(error => console.log(error));
     }
 
+    useEffect(() => {
+        filterProducts()
+    }, [currentPage]);
+
     return (
         <div className="filter-container">
             <label><p>Sort By</p>
-                <select className={"filter"}>
-                    <option className={"filter-option"}>Name ASC</option>
-                    <option className={"filter-option"}>Name DESC</option>
-                    <option className={"filter-option"}>Price ASC</option>
-                    <option className={"filter-option"}>Price DESC</option>
-                    <option className={"filter-option"}>Release date ASC</option>
-                    <option className={"filter-option"}>Release date DESC</option>
+                <select onChange={event => setSort(event.target.value)} className={"filter"}>
+                    <option value={"ASC,name"} className={"filter-option"}>Name ASC</option>
+                    <option value={"DESC,name"} className={"filter-option"}>Name DESC</option>
+                    <option value={"ASC,price"} className={"filter-option"}>Price ASC</option>
+                    <option value={"DESC,price"} className={"filter-option"}>Price DESC</option>
+                    <option value={"ASC,releaseDate"} className={"filter-option"}>Release date ASC</option>
+                    <option value={"DESC,releaseDate"} className={"filter-option"}>Release date DESC</option>
                 </select>
             </label>
             <label><p>Platform</p>
@@ -118,12 +130,12 @@ function FilterProducts({
                 </select>
             </label>
             <label>
-                <p>Min Price: <span>{minPrice}PLN</span></p>
+                <p>Min Price: <span><input value={minPrice} onChange={event => handleMinPrice(event)} type={"number"}/>PLN</span></p>
                 <input onChange={event => handleMinPrice(event)}
-                       defaultValue={0} step={10} type="range" id="minRange" min="0" max="10000"/>
-                <p>Max Price: <span>{maxPrice}PLN</span></p>
-                <span>-</span><input onChange={event => handleMaxPrice(event)}
-                       type="range" step={10} id="maxRange" min="0" max="10000" defaultValue={10000}/><span>+</span>
+                       value={minPrice} defaultValue={0} step={10} type="range" id="minRange" min="0" max="10000"/>
+                <p>Max Price: <span><input value={maxPrice} onChange={event => handleMaxPrice(event)} type={"number"}/>PLN</span></p>
+                <input onChange={event => handleMaxPrice(event)}
+                       value={maxPrice} type="range" step={10} id="maxRange" min="0" max="10000" defaultValue={10000}/>
             </label>
             <label><p>Genre</p>
                 <select onChange={event => setGenre(event.target.value)} className={"filter"}>
@@ -141,7 +153,7 @@ function FilterProducts({
                     ))}
                 </select>
             </label>
-            <button onClick={filterProducts}>Filter</button>
+            <button onClick={handleFilterClick}>Filter</button>
         </div>
     )
 }
