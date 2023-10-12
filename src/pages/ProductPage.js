@@ -10,6 +10,7 @@ function ProductPage() {
     const { id} = useParams();
     const [product, setProduct] = useState(null)
     const navigate = useNavigate();
+    const [languages, setLanguages] = useState(null);
 
     useEffect(() => {
         const params = {
@@ -20,18 +21,31 @@ function ProductPage() {
             .catch(err => console.log("Cannot fetch product info." + err))
     }, []);
 
-    function changeMenuStyle() {
-        window.addEventListener("scroll", () => {
-            let menu = document.getElementsByClassName("menu-div");
-            if (window.scrollY > 120) {
-                menu.item(0).style.position = "fixed";
-            } else {
-                menu.item(0).style.position = "";
-            }
-        })
-    }
+    useEffect(() => {
+        const params = {
+            id: id
+        }
+        axios.get("http://localhost:8080/language/", {params})
+            .then(r=> setLanguages(r.data))
+            .catch(err => console.log("Cannot fetch languages." + err))
+    }, []);
 
-    changeMenuStyle();
+    useEffect(() => {
+        function changeMenuStyle() {
+            window.addEventListener("scroll", () => {
+                let menu = document.getElementsByClassName("menu-div");
+                if (window.scrollY > 120) {
+                    menu.item(0).style.position = "fixed";
+                } else {
+                    menu.item(0).style.position = "";
+                }
+            })
+        }
+
+        changeMenuStyle();
+    }, []);
+
+
     return (
 
         <div className={"main-div"}>
@@ -43,7 +57,7 @@ function ProductPage() {
                     <hr className={"divide-line"}/>
                     <p onClick={() =>
                         navigate("/" + product?.platformDto.device)}
-                        className={"navigation-item"}>{product?.platformDto.device}</p>
+                       className={"navigation-item"}>{product?.platformDto.device}</p>
                     <hr className={"divide-line"}/>
                     <p onClick={() => navigate("/product/" + product?.id)}
                        className={"navigation-item"}>{product?.name}</p>
@@ -52,15 +66,30 @@ function ProductPage() {
                 <img className={"product-image"} src={product?.coverImage} alt={"product"}/>
                 <div className={"product-details"}>
                     <p className={"product-name"}>{product?.name}</p>
+                    <p className={"product-description"}>{product?.description}</p>
                     <p className={"products-price"}></p>
-                        <p>{product?.price}</p>
-                        <button className={"add-product-to-cart"}>To cart</button>
+                        <span className={"price"}>{product?.price} PLN</span>
+                        <button className={"add-product-to-cart"}>TO CART</button>
                     <ul>
                         <li>CAN ACTIVATE IN POLAND</li>
                         <li>CURRENTLY IN STOCK</li>
                         <li>CODE DELIVERED TO YOU DIGITALLY</li>
                     </ul>
                 </div>
+                </div>
+                <div className={"product-information-container"}>
+                    <div className={"info-el"}>
+                        <p>Plarform</p>
+                        <p>{product?.platformDto.name}</p>
+                    </div>
+                    <div className={"info-el"}>
+                        <p>Release Date</p>
+                        <p>{product?.releaseDate}</p>
+                    </div>
+                    <div className={"info-el"}>
+                        <p>Languages</p>
+                        <p>{languages}</p>
+                    </div>
                 </div>
                 <div className={"long-description"}>
 
