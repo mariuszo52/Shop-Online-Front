@@ -24,8 +24,7 @@ function Menu() {
                 <a href={"#"}><FontAwesomeIcon icon={faCartShopping}/></a>
             </div>
         </div>
-    )
-        ;
+    );
 }
 
 export default Menu;

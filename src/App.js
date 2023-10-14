@@ -17,7 +17,7 @@ function App() {
             <Route path={"/nintendo"} element={<ReloadablePlatformPage deviceName={"NINTENDO"} />}></Route>
             <Route path={"/rockstar-games"} element={<ReloadablePlatformPage deviceName={"ROCKSTAR GAMES"} />}></Route>
             <Route path={"/others"} element={<ReloadablePlatformPage deviceName={"OTHERS"} />}></Route>
-            <Route path={"/product/:id"} element={<ProductPage/>}></Route>
+            <Route path={"/product/:id"} element={<ReloadableProductPage/>}></Route>
         </Routes>
       </BrowserRouter>
   );
@@ -31,6 +31,17 @@ function App() {
         }, [location.pathname]);
 
         return <PlatformPage key={key} deviceName={deviceName} />;
+    }
+    function ReloadableProductPage() {
+        const location = useLocation();
+        const [key, setKey] = useState(0);
+
+        useEffect(() => {
+
+            setKey(prevKey => prevKey + 1);
+        }, [location.pathname]);
+
+        return <ProductPage key={key} />;
     }
 
 }

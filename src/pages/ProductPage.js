@@ -1,16 +1,19 @@
 import Menu from "../components/Menu";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import ProductListElement from "../components/ProductListElement";
 
 function ProductPage() {
     const { id} = useParams();
     const [product, setProduct] = useState(null)
     const navigate = useNavigate();
-    const [languages, setLanguages] = useState(null);
+    const [languages, setLanguages] = useState([]);
+    const [similarProducts, setSimilarProducts] = useState([]);
+
 
     useEffect(() => {
         const params = {
@@ -18,6 +21,15 @@ function ProductPage() {
         }
         axios.get("http://localhost:8080/product", {params})
             .then(r=> setProduct(r.data))
+            .catch(err => console.log("Cannot fetch product info." + err))
+    }, []);
+
+    useEffect(() => {
+        const params = {
+            id: id
+        }
+        axios.get("http://localhost:8080/similar-products", {params})
+            .then(r=> setSimilarProducts(r.data))
             .catch(err => console.log("Cannot fetch product info." + err))
     }, []);
 
@@ -79,7 +91,7 @@ function ProductPage() {
                 </div>
                 <div className={"product-information-container"}>
                     <div className={"info-el"}>
-                        <p>Plarform</p>
+                        <p>Platform</p>
                         <p>{product?.platformDto.name}</p>
                     </div>
                     <div className={"info-el"}>
@@ -88,13 +100,20 @@ function ProductPage() {
                     </div>
                     <div className={"info-el"}>
                         <p>Languages</p>
-                        <p>{languages}</p>
+                        <div className={"language-icons-container"}>
+                        {languages.map((language, index) => (
+                            <img className={"language-icon"} alt={language.name} key={index} src={language.iconUrl}/>
+                            ))
+                        }
+                        </div>
+                        </div>
                     </div>
-                </div>
-                <div className={"long-description"}>
-
-
-                </div>
+            </div>
+            <h1>YOU MAY ALSO LIKE</h1>
+            <div className={"may-also-like-container"}>
+                <ul className={"products-list"}>
+                    <ProductListElement products={similarProducts}/>
+                </ul>
             </div>
             <SocialMedia/>
             <Footer/>

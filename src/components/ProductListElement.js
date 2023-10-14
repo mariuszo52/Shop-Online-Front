@@ -1,0 +1,64 @@
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faHeart} from '@fortawesome/free-solid-svg-icons'
+import {useNavigate} from "react-router-dom";
+
+function ProductListElement({products}) {
+    let navigate = useNavigate();
+
+    function handleMouseOut(index) {
+        let span = document.getElementsByClassName("add-to-cart");
+        let favButton = document.getElementsByClassName("add-to-fav");
+        favButton[index].style.display = "none";
+        span[index].style.display = "none";
+    }
+
+    function handleMouseOver(index) {
+        let span = document.getElementsByClassName("add-to-cart");
+        let favButton = document.getElementsByClassName("add-to-fav");
+        favButton[index].style.display = "flex";
+        span[index].style.display = "flex";
+    }
+
+    function handleFavIconClick(index) {
+        let favIcon = document.getElementsByClassName("add-to-fav")[index];
+        let computedStyle = window.getComputedStyle(favIcon);
+        let color = computedStyle.getPropertyValue("color");
+        if (color === "rgb(0, 128, 0)") {
+            favIcon.style.scale = "3.5";
+            favIcon.style.color = "red";
+        } else {
+            favIcon.style.scale = "3.0";
+            favIcon.style.color = "green";
+        }
+    }
+
+    return (
+        products.map((product, index)=> (
+                <li
+                    key={index}
+                    onMouseOver={() => handleMouseOver(index)}
+                    onMouseOut={() => handleMouseOut(index)}
+                    className={"products-list-el"}
+                >
+                    <span className={"add-to-cart"}>TO CART</span>
+                    <FontAwesomeIcon
+                        onClick={() => handleFavIconClick(index)}
+                        className={"add-to-fav"}
+                        icon={faHeart}
+                    />
+                    <img
+                        key={index}
+                        onClick={() => navigate("/product/" + product.id)}
+                        src={product.coverImage} alt={product.name} />
+                    <div className={"product-main-info"}>
+                        <p id={"product-name"}>{product.name}</p>
+                        <p id={"product-price"}>{product.price} PLN</p>
+                    </div>
+                </li>
+            ))
+
+    )
+        ;
+}
+
+export default ProductListElement;

@@ -408,6 +408,8 @@
 }
 .product-description{
     width: 90%;
+    max-height: 300px;
+    overflow-y: auto;
 }
 .product-information-container{
     margin-top: 15px;
@@ -424,4 +426,14 @@
     justify-content: center;
     align-items: center;
 
+}
+.language-icons-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.language-icon{
+    margin: 2px;
+    width: 25px;
+    height: 15px;
 }
