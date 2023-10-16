@@ -8,12 +8,20 @@ import axios from "axios";
 import ProductListElement from "../components/ProductListElement";
 
 function ProductPage() {
-    const { id} = useParams();
+    const {id} = useParams();
     const [product, setProduct] = useState(null)
     const navigate = useNavigate();
     const [languages, setLanguages] = useState([]);
     const [similarProducts, setSimilarProducts] = useState([]);
-
+    const [productActivation, setProductActivation] = useState([]);
+    useEffect(() => {
+        function activationInfo(){
+            let activationParagraphs = product?.activationDetails.split("\n");
+            console.log(activationParagraphs)
+            setProductActivation(activationParagraphs)
+        }
+        activationInfo()
+    }, []);
 
     useEffect(() => {
         const params = {
@@ -56,7 +64,22 @@ function ProductPage() {
 
         changeMenuStyle();
     }, []);
-
+    const handleClickInfoMenuButton = (event) => {
+        let moreInfoContentName = event.target.textContent.toLowerCase();
+        let moreInfoMenuElements = document.getElementsByClassName("more-info-el");
+        for (let moreInfoMenuElement of moreInfoMenuElements) {
+            moreInfoMenuElement.style.backgroundColor = "#160e2a"
+        }
+        event.target.style.backgroundColor = "#0e081c";
+        let moreInfoContentElements = document.getElementsByClassName("more-info-content");
+        for (let moreInfoContentElement of moreInfoContentElements) {
+            if(moreInfoContentElement !== null)
+            moreInfoContentElement.style.display = "none";
+        }
+        let moreInfoContentElement = document.getElementById(moreInfoContentName);
+        if(moreInfoContentElement !== null)
+        moreInfoContentElement.style.display = "flex";
+    }
 
     return (
 
@@ -114,6 +137,42 @@ function ProductPage() {
                 <ul className={"products-list"}>
                     <ProductListElement products={similarProducts}/>
                 </ul>
+            </div>
+            <div className={"product-more-info"}>
+                <div className={"more-info-menu"}>
+                    <p onClick={event => handleClickInfoMenuButton(event)}
+                       className={"more-info-el"}>INFORMATION</p>
+                    <p onClick={event => handleClickInfoMenuButton(event)}
+                       className={"more-info-el"}>VIDEOS</p>
+                    <p onClick={event => handleClickInfoMenuButton(event)}
+                       className={"more-info-el"}>SCREENSHOTS</p>
+                    <p onClick={event => handleClickInfoMenuButton(event)}
+                       className={"more-info-el"}>ACTIVATION</p>
+                </div>
+                <div id={"information"} className={"more-info-content"}>
+                    <h1>What are the system requirements?</h1>
+                    <p>{product?.systemRequirements}</p>
+                </div>
+                    <div id={"videos"} className={"more-info-content"}>
+                        {product?.videoUrls.map((video, index) =>(
+                    <iframe src={video}  key={index}
+                            title="YouTube video player" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
+                            web-share" allowFullScreen></iframe>
+
+                ))}
+                    </div>
+                <div id={"screenshots"} className={"more-info-content"}>
+                    {product?.screenshotsUrls.map((screenshot, index)=>(
+                        <img key={index} className={"screenshot"} alt={"screenshot"}
+                        src={screenshot}/>
+                    ))}
+                </div>
+                <div id={"activation"} className={"more-info-content"}>
+                    {productActivation?.map((paragraph, index)=>(
+                        <p key={index}>{paragraph}</p>
+                        ))}
+                </div>
             </div>
             <SocialMedia/>
             <Footer/>
