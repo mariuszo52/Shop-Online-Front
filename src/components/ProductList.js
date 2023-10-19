@@ -2,14 +2,17 @@
 import { ThreeCircles } from "react-loader-spinner";
 import ProductListElement from "./ProductListElement";
 
-function ProductList({ productsPageable, dataLoading }) {
+function ProductList({ productsPageable, dataLoading, isCartPreviewVisible, setIsCartPreviewVisible}) {
 
 
     return (
         <div className={"products-div"}>
             {!dataLoading ? (
                 <ul className={"products-list"}>
-                  <ProductListElement products={productsPageable.content}/>
+                  <ProductListElement
+                      isCartPreviewVisible = {isCartPreviewVisible}
+                      setIsCartPreviewVisible ={setIsCartPreviewVisible}
+                      products={productsPageable.content}/>
                 </ul>
             ) : (
                 <ul className={"products-list"}>

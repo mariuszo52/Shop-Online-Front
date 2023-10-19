@@ -15,13 +15,13 @@ function ProductPage() {
     const [similarProducts, setSimilarProducts] = useState([]);
     const [productActivation, setProductActivation] = useState([]);
     useEffect(() => {
+        console.log(product)
         function activationInfo(){
             let activationParagraphs = product?.activationDetails.split("\n");
-            console.log(activationParagraphs)
             setProductActivation(activationParagraphs)
         }
         activationInfo()
-    }, []);
+    }, [product]);
 
     useEffect(() => {
         const params = {

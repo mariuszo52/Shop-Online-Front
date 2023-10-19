@@ -10,6 +10,7 @@ import Pagination from "../components/Pagination";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
+import CartPreview from "../components/CartPreview";
 
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
@@ -19,6 +20,8 @@ function Home() {
     const [pagination, setPagination] = useState([]);
     const [dataLoading, setDataLoading] = useState(true)
     const [productName, setProductName] = useState(null)
+    const [isCartPreviewVisible, setIsCartPreviewVisible] = useState(false)
+
 
 
     function calculatePageNumbers(data) {
@@ -86,7 +89,9 @@ function Home() {
 
     return (
         <div className={"main-div"}>
-            <Menu/>
+            <Menu
+                setIsCartPreviewVisible={setIsCartPreviewVisible}/>
+
             <div className="slideshow-container">
                 <img alt={"slide1"} id={"first-slide"} className={"slide"} src={games1}/>
                 <img alt={"slide2"} className={"slide"} src={games2}/>
@@ -102,6 +107,8 @@ function Home() {
             <ProductList
                 productsPageable={productsPageable}
                 dataLoading={dataLoading}
+                setIsCartPreviewVisible = {setIsCartPreviewVisible}
+                isCartPreviewVisible = {isCartPreviewVisible}
                 />
             <Pagination
                 productsPageable={productsPageable}

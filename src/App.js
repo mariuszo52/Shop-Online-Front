@@ -5,7 +5,6 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ProductPage from "./pages/ProductPage";
 
-
 function App() {
   return (
       <BrowserRouter>

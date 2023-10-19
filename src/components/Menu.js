@@ -3,8 +3,12 @@ import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons
 import logo from "../images/logo.png"
 import {useNavigate} from "react-router-dom";
 
-function Menu() {
+function Menu({setIsCartPreviewVisible}) {
     const navigate = useNavigate();
+
+    function cartIconClick(){
+        setIsCartPreviewVisible(prevState => !prevState)
+    }
     return (
         <div className={"menu-div"}>
             <div className={"menu-panel"}>
@@ -19,9 +23,9 @@ function Menu() {
                 <img onClick={() => navigate("/")} alt="logo" className={"logo"} src={logo}/>
             </div>
             <div className={"user-panel"}>
-                <a href={"#"}><FontAwesomeIcon icon={faUser}/></a>
-                <a href={"#"}><FontAwesomeIcon icon={faHeart}/></a>
-                <a href={"#"}><FontAwesomeIcon icon={faCartShopping}/></a>
+                <FontAwesomeIcon className={"user-panel-icon"} icon={faUser}/>
+                <FontAwesomeIcon className={"user-panel-icon"} icon={faHeart}/>
+                <FontAwesomeIcon onClick={cartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
             </div>
         </div>
     );
