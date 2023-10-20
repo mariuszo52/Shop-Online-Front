@@ -62,7 +62,6 @@
     flex-direction: row;
     justify-content: space-between;
     z-index: 20;
-    position: fixed;
 }
 
 .user-panel {
@@ -496,6 +495,7 @@
     height: max-content;
 }
 .cart-preview-container{
+    color: white;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -518,9 +518,11 @@
     align-items: center;
     justify-content: space-between;
     height: 50px;
+    margin-bottom: 10px;
 }
 .cart-header h3, .cart-header h4{
     margin: 10px;
+
 }
 .close-cart{
     display: flex;

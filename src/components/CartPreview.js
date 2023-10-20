@@ -1,24 +1,29 @@
 import trash from "../images/trash.jpg"
 import {useEffect, useState} from "react";
+import {useCart} from "../context/CartContext";
 
-function CartPreview({ isCartPreviewVisible, setIsCartPreviewVisible, index}) {
+function CartPreview() {
+    const { isCartVisible, index, setIsCartVisible } = useCart();
+
     const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem("cart")))
+
     useEffect(() => {
         setCartItems(JSON.parse(sessionStorage.getItem("cart")))
     }, [index]);
+
     function closeCartPreview() {
-        setIsCartPreviewVisible(false)
+        setIsCartVisible(false)
     }
 
     return (
-        isCartPreviewVisible && (
+        isCartVisible && (
             <div className="cart-preview-container">
                 <div className="cart-header">
                     <div className={"items-quantity"}>
                     <h3>MY CART</h3>
                     <h4>{cartItems?.length} ITEMS</h4>
                 </div>
-                    <p className={"close-cart"} onClick={closeCartPreview}>X</p>
+                    <p className={"close-cart"} onClick={closeCartPreview}>x</p>
                 </div>
                 <div className={"cart-items"}>
                     {cartItems?.map((item, index) => (

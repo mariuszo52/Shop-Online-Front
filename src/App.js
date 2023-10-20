@@ -2,11 +2,15 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./pages/Home"
 import PlatformPage from "./pages/PlatformPage";
 import {useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ProductPage from "./pages/ProductPage";
+import {CartProvider} from "./context/CartContext";
+import CartPreview from "./components/CartPreview";
 
 function App() {
     return (
+        <CartProvider>
+            <CartPreview/>
         <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Home/>}></Route>
@@ -19,6 +23,7 @@ function App() {
             <Route path={"/product/:id"} element={<ReloadableProductPage/>}></Route>
         </Routes>
       </BrowserRouter>
+        </CartProvider>
   );
     function ReloadablePlatformPage({ deviceName }) {
         const location = useLocation();

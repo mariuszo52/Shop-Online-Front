@@ -4,11 +4,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import { useCookies } from "react-cookie";
 import React, {useEffect, useState} from "react";
 import CartPreview from "./CartPreview";
+import { useCart } from "../context/CartContext";
 
-
-
-function ProductListElement({products, isCartPreviewVisible, setIsCartPreviewVisible}) {
-    let [index, setIndex] = useState(0);
+function ProductListElement({products}) {
+    const { addToCart } = useCart();
 
     let navigate = useNavigate();
     function handleMouseOut(index) {
@@ -39,22 +38,8 @@ function ProductListElement({products, isCartPreviewVisible, setIsCartPreviewVis
     }
 
 
-   function addToCart(product) {
-        setIndex(prevState => prevState + 1)
-        setIsCartPreviewVisible(true)
-        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-        const updatedCart = [...cart, product];
-        sessionStorage.setItem("cart", JSON.stringify(updatedCart))
-    }
-
-
     return (
         <>
-        <CartPreview
-            index={index}
-            isCartPreviewVisible={isCartPreviewVisible}
-            setIsCartPreviewVisible={setIsCartPreviewVisible}
-        />
             {products.map((product, index) => (
                 <div
                     key={index}

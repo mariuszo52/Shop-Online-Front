@@ -88,9 +88,7 @@ function ProductPage() {
     return (
 
         <div className={"main-div"}>
-            <Menu
-                isCartPreviewVisible={isCartPreviewVisible}
-                setIsCartPreviewVisible={setIsCartPreviewVisible}/>
+            <Menu/>
             <div className={"product-info-container"}>
                 <div className={"navigation-bar"}>
                     <p onClick={() => navigate("/")}
@@ -143,8 +141,6 @@ function ProductPage() {
             <div className={"may-also-like-container"}>
                 <ul className={"products-list"}>
                     <ProductListElement
-                        isCartPreviewVisible={isCartPreviewVisible}
-                        setIsCartPreviewVisible={setIsCartPreviewVisible}
                         products={similarProducts}/>
                 </ul>
             </div>

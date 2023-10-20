@@ -28,9 +28,7 @@ function PlatformPage({deviceName}){
 
     return(
         <div className={"main-div"}>
-            <Menu
-                isCartPreviewVisible={isCartPreviewVisible}
-                setIsCartPreviewVisible={setIsCartPreviewVisible}/>
+            <Menu/>
             <div className={"category-name-container"}>
                 <h1>{deviceName} KEYS</h1><br/>
                 <hr/>
@@ -47,10 +45,8 @@ function PlatformPage({deviceName}){
            />
             <br/>
             <ProductList
-                isCartPreviewVisible={isCartPreviewVisible}
                 productsPageable={productsPageable}
                 dataLoading={dataLoading}
-                setIsCartPreviewVisible = {setIsCartPreviewVisible}
             />
             <Pagination
                 productsPageable={productsPageable}
