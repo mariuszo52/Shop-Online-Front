@@ -1,17 +1,11 @@
 import trash from "../images/trash.jpg"
-import { useCookies } from "react-cookie";
-import {useEffect} from "react";
-function CartPreview({ isCartPreviewVisible, setIsCartPreviewVisible, updatedCart}) {
-    let [cookies, setCookies] = useCookies(["cart"]);
-    const cartItems = cookies.cart || [];
+import {useEffect, useState} from "react";
 
+function CartPreview({ isCartPreviewVisible, setIsCartPreviewVisible, index}) {
+    const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem("cart")))
     useEffect(() => {
-        function updateCart(){
-            setCookies("cart", updatedCart)
-        }
-        updateCart()
-    }, [updatedCart]);
-
+        setCartItems(JSON.parse(sessionStorage.getItem("cart")))
+    }, [index]);
     function closeCartPreview() {
         setIsCartPreviewVisible(false)
     }
@@ -22,7 +16,7 @@ function CartPreview({ isCartPreviewVisible, setIsCartPreviewVisible, updatedCar
                 <div className="cart-header">
                     <div className={"items-quantity"}>
                     <h3>MY CART</h3>
-                    <h4>{cartItems.length} ITEMS</h4>
+                    <h4>{cartItems?.length} ITEMS</h4>
                 </div>
                     <p className={"close-cart"} onClick={closeCartPreview}>X</p>
                 </div>
@@ -32,7 +26,7 @@ function CartPreview({ isCartPreviewVisible, setIsCartPreviewVisible, updatedCar
                     <img src={item?.coverImage} alt={item?.name} className={"cart-product-image"}/>
                     <div className={"cart-product-info"}>
                         <div className={"title-container"}>
-                            <p className={"cart-product-title"}>{item?.name.substring(0, 30)}</p>
+                            <p className={"cart-product-title"}>{item?.name?.substring(0, 30)}</p>
                         </div>
                         <div className={"quantity-container"}>
                             <span>QTY:  </span>

@@ -1,15 +1,16 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faHeart} from '@fortawesome/free-solid-svg-icons'
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useCookies } from "react-cookie";
 import React, {useEffect, useState} from "react";
 import CartPreview from "./CartPreview";
 
-function ProductListElement({products,isCartPreviewVisible, setIsCartPreviewVisible}) {
-    const [cookies, setCookies] = useCookies(["cart"])
-    let navigate = useNavigate();
-    const [updatedCart, setUpdatedCart] = useState(cookies.cart)
 
+
+function ProductListElement({products, isCartPreviewVisible, setIsCartPreviewVisible}) {
+    let [index, setIndex] = useState(0);
+
+    let navigate = useNavigate();
     function handleMouseOut(index) {
         let span = document.getElementsByClassName("add-to-cart");
         let favButton = document.getElementsByClassName("add-to-fav");
@@ -37,21 +38,23 @@ function ProductListElement({products,isCartPreviewVisible, setIsCartPreviewVisi
         }
     }
 
-    function addToCart(product) {
+
+   function addToCart(product) {
+        setIndex(prevState => prevState + 1)
         setIsCartPreviewVisible(true)
-        const cart = cookies.cart || [];
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
         const updatedCart = [...cart, product];
-        setUpdatedCart(updatedCart)
+        sessionStorage.setItem("cart", JSON.stringify(updatedCart))
     }
 
 
     return (
         <>
-            <CartPreview
-                setIsCartPreviewVisible={setIsCartPreviewVisible}
-                isCartPreviewVisible={isCartPreviewVisible}
-                updatedCart = {updatedCart}
-            />
+        <CartPreview
+            index={index}
+            isCartPreviewVisible={isCartPreviewVisible}
+            setIsCartPreviewVisible={setIsCartPreviewVisible}
+        />
             {products.map((product, index) => (
                 <div
                     key={index}
@@ -79,7 +82,7 @@ function ProductListElement({products,isCartPreviewVisible, setIsCartPreviewVisi
                     </div>
                 </div>
             ))}
-        </>
+            </>
     );
 
 

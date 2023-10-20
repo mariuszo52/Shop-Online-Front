@@ -90,8 +90,8 @@ function Home() {
     return (
         <div className={"main-div"}>
             <Menu
+                isCartPreviewVisible={isCartPreviewVisible}
                 setIsCartPreviewVisible={setIsCartPreviewVisible}/>
-
             <div className="slideshow-container">
                 <img alt={"slide1"} id={"first-slide"} className={"slide"} src={games1}/>
                 <img alt={"slide2"} className={"slide"} src={games2}/>
@@ -105,10 +105,10 @@ function Home() {
                 <FontAwesomeIcon onClick={fetchProducts} className={"submit-search-icon"} icon={faMagnifyingGlass}/>
             </div>
             <ProductList
+                isCartPreviewVisible={isCartPreviewVisible}
                 productsPageable={productsPageable}
                 dataLoading={dataLoading}
                 setIsCartPreviewVisible = {setIsCartPreviewVisible}
-                isCartPreviewVisible = {isCartPreviewVisible}
                 />
             <Pagination
                 productsPageable={productsPageable}

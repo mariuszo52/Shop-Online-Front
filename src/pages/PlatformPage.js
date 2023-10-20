@@ -14,6 +14,7 @@ function PlatformPage({deviceName}){
     const [currentSize, setCurrentSize] = useState(24);
     const [pagination, setPagination] = useState([]);
     const [dataLoading, setDataLoading] = useState(true)
+    const [isCartPreviewVisible, setIsCartPreviewVisible] = useState(false)
 
     function calculatePageNumbers(data) {
         const numbers = [];
@@ -27,7 +28,9 @@ function PlatformPage({deviceName}){
 
     return(
         <div className={"main-div"}>
-            <Menu/>
+            <Menu
+                isCartPreviewVisible={isCartPreviewVisible}
+                setIsCartPreviewVisible={setIsCartPreviewVisible}/>
             <div className={"category-name-container"}>
                 <h1>{deviceName} KEYS</h1><br/>
                 <hr/>
@@ -44,9 +47,11 @@ function PlatformPage({deviceName}){
            />
             <br/>
             <ProductList
+                isCartPreviewVisible={isCartPreviewVisible}
                 productsPageable={productsPageable}
                 dataLoading={dataLoading}
-          />
+                setIsCartPreviewVisible = {setIsCartPreviewVisible}
+            />
             <Pagination
                 productsPageable={productsPageable}
                 pagination={pagination}

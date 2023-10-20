@@ -6,8 +6,8 @@ import {useEffect, useState} from "react";
 import ProductPage from "./pages/ProductPage";
 
 function App() {
-  return (
-      <BrowserRouter>
+    return (
+        <BrowserRouter>
         <Routes>
           <Route path={"/"} element={<Home/>}></Route>
             <Route path={"/pc"} element={<ReloadablePlatformPage deviceName={"PC"} />}></Route>

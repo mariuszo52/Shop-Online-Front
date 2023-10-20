@@ -2,7 +2,7 @@ import Menu from "../components/Menu";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import {useLocation, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import ProductListElement from "../components/ProductListElement";
@@ -14,12 +14,16 @@ function ProductPage() {
     const [languages, setLanguages] = useState([]);
     const [similarProducts, setSimilarProducts] = useState([]);
     const [productActivation, setProductActivation] = useState([]);
+    const [isCartPreviewVisible, setIsCartPreviewVisible] = useState(false)
+
     useEffect(() => {
         console.log(product)
-        function activationInfo(){
+
+        function activationInfo() {
             let activationParagraphs = product?.activationDetails.split("\n");
             setProductActivation(activationParagraphs)
         }
+
         activationInfo()
     }, [product]);
 
@@ -28,7 +32,7 @@ function ProductPage() {
             id: id
         }
         axios.get("http://localhost:8080/product", {params})
-            .then(r=> setProduct(r.data))
+            .then(r => setProduct(r.data))
             .catch(err => console.log("Cannot fetch product info." + err))
     }, []);
 
@@ -37,7 +41,7 @@ function ProductPage() {
             id: id
         }
         axios.get("http://localhost:8080/similar-products", {params})
-            .then(r=> setSimilarProducts(r.data))
+            .then(r => setSimilarProducts(r.data))
             .catch(err => console.log("Cannot fetch product info." + err))
     }, []);
 
@@ -46,7 +50,7 @@ function ProductPage() {
             id: id
         }
         axios.get("http://localhost:8080/language/", {params})
-            .then(r=> setLanguages(r.data))
+            .then(r => setLanguages(r.data))
             .catch(err => console.log("Cannot fetch languages." + err))
     }, []);
 
@@ -73,18 +77,20 @@ function ProductPage() {
         event.target.style.backgroundColor = "#0e081c";
         let moreInfoContentElements = document.getElementsByClassName("more-info-content");
         for (let moreInfoContentElement of moreInfoContentElements) {
-            if(moreInfoContentElement !== null)
-            moreInfoContentElement.style.display = "none";
+            if (moreInfoContentElement !== null)
+                moreInfoContentElement.style.display = "none";
         }
         let moreInfoContentElement = document.getElementById(moreInfoContentName);
-        if(moreInfoContentElement !== null)
-        moreInfoContentElement.style.display = "flex";
+        if (moreInfoContentElement !== null)
+            moreInfoContentElement.style.display = "flex";
     }
 
     return (
 
         <div className={"main-div"}>
-            <Menu/>
+            <Menu
+                isCartPreviewVisible={isCartPreviewVisible}
+                setIsCartPreviewVisible={setIsCartPreviewVisible}/>
             <div className={"product-info-container"}>
                 <div className={"navigation-bar"}>
                     <p onClick={() => navigate("/")}
@@ -98,19 +104,19 @@ function ProductPage() {
                        className={"navigation-item"}>{product?.name}</p>
                 </div>
                 <div className={"product-main-infos"}>
-                <img className={"product-image"} src={product?.coverImage} alt={"product"}/>
-                <div className={"product-details"}>
-                    <p className={"product-name"}>{product?.name}</p>
-                    <p className={"product-description"}>{product?.description}</p>
-                    <p className={"products-price"}></p>
+                    <img className={"product-image"} src={product?.coverImage} alt={"product"}/>
+                    <div className={"product-details"}>
+                        <p className={"product-name"}>{product?.name}</p>
+                        <p className={"product-description"}>{product?.description}</p>
+                        <p className={"products-price"}></p>
                         <span className={"price"}>{product?.price} PLN</span>
                         <button className={"add-product-to-cart"}>TO CART</button>
-                    <ul>
-                        <li>CAN ACTIVATE IN POLAND</li>
-                        <li>CURRENTLY IN STOCK</li>
-                        <li>CODE DELIVERED TO YOU DIGITALLY</li>
-                    </ul>
-                </div>
+                        <ul>
+                            <li>CAN ACTIVATE IN POLAND</li>
+                            <li>CURRENTLY IN STOCK</li>
+                            <li>CODE DELIVERED TO YOU DIGITALLY</li>
+                        </ul>
+                    </div>
                 </div>
                 <div className={"product-information-container"}>
                     <div className={"info-el"}>
@@ -124,18 +130,22 @@ function ProductPage() {
                     <div className={"info-el"}>
                         <p>Languages</p>
                         <div className={"language-icons-container"}>
-                        {languages.map((language, index) => (
-                            <img className={"language-icon"} alt={language.name} key={index} src={language.iconUrl}/>
+                            {languages.map((language, index) => (
+                                <img className={"language-icon"} alt={language.name} key={index}
+                                     src={language.iconUrl}/>
                             ))
-                        }
-                        </div>
+                            }
                         </div>
                     </div>
+                </div>
             </div>
             <h1>YOU MAY ALSO LIKE</h1>
             <div className={"may-also-like-container"}>
                 <ul className={"products-list"}>
-                    <ProductListElement products={similarProducts}/>
+                    <ProductListElement
+                        isCartPreviewVisible={isCartPreviewVisible}
+                        setIsCartPreviewVisible={setIsCartPreviewVisible}
+                        products={similarProducts}/>
                 </ul>
             </div>
             <div className={"product-more-info"}>
@@ -153,25 +163,25 @@ function ProductPage() {
                     <h1>What are the system requirements?</h1>
                     <p>{product?.systemRequirements}</p>
                 </div>
-                    <div id={"videos"} className={"more-info-content"}>
-                        {product?.videoUrls.map((video, index) =>(
-                    <iframe src={video}  key={index}
-                            title="YouTube video player" frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
+                <div id={"videos"} className={"more-info-content"}>
+                    {product?.videoUrls.map((video, index) => (
+                        <iframe src={video} key={index}
+                                title="YouTube video player" frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
                             web-share" allowFullScreen></iframe>
 
-                ))}
-                    </div>
+                    ))}
+                </div>
                 <div id={"screenshots"} className={"more-info-content"}>
-                    {product?.screenshotsUrls.map((screenshot, index)=>(
+                    {product?.screenshotsUrls.map((screenshot, index) => (
                         <img key={index} className={"screenshot"} alt={"screenshot"}
-                        src={screenshot}/>
+                             src={screenshot}/>
                     ))}
                 </div>
                 <div id={"activation"} className={"more-info-content"}>
-                    {productActivation?.map((paragraph, index)=>(
+                    {productActivation?.map((paragraph, index) => (
                         <p key={index}>{paragraph}</p>
-                        ))}
+                    ))}
                 </div>
             </div>
             <SocialMedia/>

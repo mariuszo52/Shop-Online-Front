@@ -2,14 +2,17 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
 import logo from "../images/logo.png"
 import {useNavigate} from "react-router-dom";
+import CartPreview from "./CartPreview";
+import React, {useEffect} from "react";
 
-function Menu({setIsCartPreviewVisible}) {
+function Menu({isCartPreviewVisible, setIsCartPreviewVisible}) {
     const navigate = useNavigate();
 
     function cartIconClick(){
         setIsCartPreviewVisible(prevState => !prevState)
     }
     return (
+        <>
         <div className={"menu-div"}>
             <div className={"menu-panel"}>
                 <p onClick={() => navigate("/pc")}>PC</p>
@@ -28,6 +31,7 @@ function Menu({setIsCartPreviewVisible}) {
                 <FontAwesomeIcon onClick={cartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
             </div>
         </div>
+            </>
     );
 }
 
