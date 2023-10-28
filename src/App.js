@@ -6,47 +6,25 @@ import React, {useEffect, useState} from "react";
 import ProductPage from "./pages/ProductPage";
 import {CartProvider} from "./context/CartContext";
 import CartPreview from "./components/CartPreview";
+import {NotificationProvider} from "./context/NotificationContext";
+import NotificationBar from "./components/NotificationBar";
 
 function App() {
     return (
-        <CartProvider>
-            <CartPreview/>
+        <NotificationProvider>
+            <NotificationBar/>
         <BrowserRouter>
+            <CartProvider>
+                <CartPreview/>
         <Routes>
           <Route path={"/"} element={<Home/>}></Route>
-            <Route path={"/pc"} element={<ReloadablePlatformPage deviceName={"PC"} />}></Route>
-            <Route path={"/psn"} element={<ReloadablePlatformPage deviceName={"PSN"} />}></Route>
-            <Route path={"/xbox"} element={<ReloadablePlatformPage deviceName={"XBOX"} />}></Route>
-            <Route path={"/nintendo"} element={<ReloadablePlatformPage deviceName={"NINTENDO"} />}></Route>
-            <Route path={"/rockstar-games"} element={<ReloadablePlatformPage deviceName={"ROCKSTAR GAMES"} />}></Route>
-            <Route path={"/others"} element={<ReloadablePlatformPage deviceName={"OTHERS"} />}></Route>
-            <Route path={"/product/:id"} element={<ReloadableProductPage/>}></Route>
+            <Route path={"/:deviceName"} element={<PlatformPage />}></Route>
+            <Route path={"/product/:id"} element={<ProductPage/>}></Route>
         </Routes>
+            </CartProvider>
       </BrowserRouter>
-        </CartProvider>
+        </NotificationProvider>
   );
-    function ReloadablePlatformPage({ deviceName }) {
-        const location = useLocation();
-        const [key, setKey] = useState(0);
-
-        useEffect(() => {
-
-            setKey(prevKey => prevKey + 1);
-        }, [location.pathname]);
-
-        return <PlatformPage key={key} deviceName={deviceName} />;
-    }
-    function ReloadableProductPage() {
-        const location = useLocation();
-        const [key, setKey] = useState(0);
-
-        useEffect(() => {
-
-            setKey(prevKey => prevKey + 1);
-        }, [location.pathname]);
-
-        return <ProductPage key={key} />;
-    }
 
 }
 

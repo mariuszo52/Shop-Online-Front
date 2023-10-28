@@ -2,10 +2,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
 import logo from "../images/logo.png"
 import {useNavigate} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import {useCart} from "../context/CartContext";
 
-function Menu() {
+function Menu({menuId}) {
     const navigate = useNavigate();
     const {setIsCartVisible} = useCart();
 
@@ -14,14 +14,14 @@ function Menu() {
     }
     return (
         <>
-            <div className={"menu-div"}>
+            <div id ={menuId} className={"menu-div"}>
                 <div className={"menu-panel"}>
-                    <p onClick={() => navigate("/pc")}>PC</p>
-                    <p onClick={() => navigate("/psn")}>PSN</p>
-                    <p onClick={() => navigate("/xbox")}>XBOX</p>
-                    <p onClick={() => navigate("/nintendo")}>NINTENDO</p>
-                    <p onClick={() => navigate("/rockstar-games")}>ROCKSTAR GAMES</p>
-                    <p onClick={() => navigate("/others")}>OTHER</p>
+                    <p onClick={() => navigate("/PC")}>PC</p>
+                    <p onClick={() => navigate("/PSN")}>PSN</p>
+                    <p onClick={() => navigate("/XBOX")}>XBOX</p>
+                    <p onClick={() => navigate("/NINTENDO")}>NINTENDO</p>
+                    <p onClick={() => navigate("/ROCKSTAR-GAMES")}>ROCKSTAR GAMES</p>
+                    <p onClick={() => navigate("/OTHERS")}>OTHER</p>
                 </div>
                 <div className={"logo-div"}>
                     <img onClick={() => navigate("/")} alt="logo" className={"logo"} src={logo}/>

@@ -1,11 +1,13 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import {type} from "@testing-library/user-event/dist/type";
+import {useNotification} from "./NotificationContext";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
     const [index, setIndex] = useState(0)
     const [isCartVisible, setIsCartVisible] = useState(false);
+    const {setNotificationVisible, setNotificationText} =  useNotification();
 
 
     const updateCartAndTotalElements = (cart) => {
@@ -20,19 +22,20 @@ export function CartProvider({ children }) {
     const addToCart = (product) => {
         let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
         setIsCartVisible(true);
-        setIndex((prevState) => prevState + 1);
-
         if (!cart.some((cartElement) => cartElement.id === product.id)) {
             product.cartQuantity = 1;
             cart.push(product);
             updateCartAndTotalElements(cart);
+        }else{
+            setNotificationVisible();
+            setNotificationText("Product is already in a cart.")
         }
+        setIndex((prevState) => prevState + 1);
     };
 
     const onQuantityChange = (event, product) => {
         setIndex((prevState) => prevState + 1);
         let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-
         for (const cartElement of cart) {
             if (cartElement.id === product.id) {
                 cartElement.cartQuantity = event.target.value;
@@ -52,20 +55,24 @@ export function CartProvider({ children }) {
             updateCartAndTotalElements(cart)
         }
     }
+    function clearCart(){
+        setIndex((prevState) => prevState + 1);
+        sessionStorage.setItem("cart", JSON.stringify([]));
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+        updateCartAndTotalElements(cart)
 
-
-
-
-
+    }
 
     return (
         <CartContext.Provider
             value={{
                 setIsCartVisible,
                 index,
+                setIndex,
                 addToCart,
                 isCartVisible,
                 onQuantityChange,
+                clearCart,
                 removeProductFromCart,
             }}
         >

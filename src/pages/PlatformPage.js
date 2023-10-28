@@ -8,13 +8,14 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Pagination from "../components/Pagination";
 import FilterProducts from "../components/FilterProducts";
-function PlatformPage({deviceName}){
+import {useParams} from "react-router-dom";
+function PlatformPage(){
+    const {deviceName} = useParams();
     const [productsPageable, setProductsPageable] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
     const [currentSize, setCurrentSize] = useState(24);
     const [pagination, setPagination] = useState([]);
     const [dataLoading, setDataLoading] = useState(true)
-    const [isCartPreviewVisible, setIsCartPreviewVisible] = useState(false)
 
     const  calculatePageNumbers = (data) =>{
         const numbers = [];
@@ -27,7 +28,7 @@ function PlatformPage({deviceName}){
 
 
     return(
-        <div className={"main-div"}>
+        <div key={deviceName} className={"main-div"}>
             <Menu/>
             <div className={"category-name-container"}>
                 <h1>{deviceName} KEYS</h1><br/>

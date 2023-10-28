@@ -11,6 +11,7 @@ import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import CartPreview from "../components/CartPreview";
+import NotificationBar from "../components/NotificationBar";
 
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
@@ -20,7 +21,6 @@ function Home() {
     const [pagination, setPagination] = useState([]);
     const [dataLoading, setDataLoading] = useState(true)
     const [productName, setProductName] = useState(null)
-    const [isCartPreviewVisible, setIsCartPreviewVisible] = useState(false)
 
 
 

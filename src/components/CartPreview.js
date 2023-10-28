@@ -1,10 +1,14 @@
 import trash from "../images/trash.jpg"
 import {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
+import {useNavigate} from "react-router-dom";
 
 function CartPreview() {
-    const { isCartVisible, index, setIsCartVisible, onQuantityChange, removeProductFromCart} = useCart();
-
+    const {
+        isCartVisible, index, setIndex, clearCart,
+        setIsCartVisible, onQuantityChange, removeProductFromCart
+    } = useCart();
+    const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([])
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
     const [cartTotalElements, setCartTotalElements] = useState(0)
@@ -20,24 +24,25 @@ function CartPreview() {
 
     useEffect(() => {
         function calculateTotalPrice() {
-                let totalPrice = 0;
-                let cartItemsPricesParagraphs = document.getElementsByClassName("item-price");
-                for (const cartItemsPricesParagraph of cartItemsPricesParagraphs) {
-                    let pricePln = cartItemsPricesParagraph.innerText;
-                    let price = parseFloat(pricePln.substring(0, pricePln.length - 4));
-                    totalPrice += price
-                }
-                sessionStorage.setItem("cartTotalPrice", JSON.stringify(totalPrice))
-            setCartTotalPrice(totalPrice)
+            let totalPrice = 0;
+            let cartItemsPricesParagraphs = document.getElementsByClassName("item-price");
+            for (const cartItemsPricesParagraph of cartItemsPricesParagraphs) {
+                let pricePln = cartItemsPricesParagraph.innerText;
+                let price = parseFloat(pricePln.substring(0, pricePln.length - 4));
+                totalPrice += price
             }
+            sessionStorage.setItem("cartTotalPrice", JSON.stringify(totalPrice))
+            setCartTotalPrice(totalPrice)
+        }
 
-            calculateTotalPrice();
+        calculateTotalPrice();
     }, [index, cartItems]);
 
 
     function refreshCart() {
-
+        setIndex(index + 1)
     }
+
 
     return (
         isCartVisible && (
@@ -50,7 +55,7 @@ function CartPreview() {
                     <p className={"close-cart"} onClick={closeCartPreview}>x</p>
                 </div>
                 <div className={"cart-items"}>
-                    {cartItems?.length === 0 &&(
+                    {cartItems?.length === 0 && (
                         <p>Cart is empty.</p>
                     )}
                     {cartItems?.map((item, index) => (
@@ -58,7 +63,8 @@ function CartPreview() {
                             <img src={item?.coverImage} alt={item?.name} className={"cart-product-image"}/>
                             <div className={"cart-product-info"}>
                                 <div className={"title-container"}>
-                                    <p className={"cart-product-title"}>{item?.name?.substring(0, 30)}</p>
+                                    <p onClick={() => navigate("/product/" + item.id)}
+                                       className={"cart-product-title"}>{item?.name?.substring(0, 30)}</p>
                                 </div>
                                 <div className={"quantity-container"}>
                                     <span>QTY:  </span>
@@ -72,7 +78,8 @@ function CartPreview() {
 
                             </div>
                             <div className={"cart-prize-container"}>
-                                <img onClick={() => removeProductFromCart(item)} className={"trash-image"} alt={"trash"} src={trash}/>
+                                <img onClick={() => removeProductFromCart(item)} className={"trash-image"} alt={"trash"}
+                                     src={trash}/>
                                 <p className={"item-price"}>{((item?.price) * (item?.cartQuantity))?.toFixed(2)} PLN</p>
                             </div>
                         </div>
@@ -84,6 +91,7 @@ function CartPreview() {
                 </div>
                 <div className={"summary-container"}>
                     <p onClick={refreshCart}>REFRESH CART</p>
+                    <p onClick={clearCart}>CLEAR CART</p>
                     <p>VIEW CART</p>
                     <p>CHECKOUT</p>
                 </div>

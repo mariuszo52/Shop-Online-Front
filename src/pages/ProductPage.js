@@ -6,6 +6,8 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import ProductListElement from "../components/ProductListElement";
+import {useCart} from "../context/CartContext";
+import {useNotification} from "../context/NotificationContext";
 
 function ProductPage() {
     const {id} = useParams();
@@ -14,18 +16,16 @@ function ProductPage() {
     const [languages, setLanguages] = useState([]);
     const [similarProducts, setSimilarProducts] = useState([]);
     const [productActivation, setProductActivation] = useState([]);
-    const [isCartPreviewVisible, setIsCartPreviewVisible] = useState(false)
+    const {addToCart} = useCart();
 
     useEffect(() => {
-        console.log(product)
-
         function activationInfo() {
             let activationParagraphs = product?.activationDetails.split("\n");
             setProductActivation(activationParagraphs)
         }
 
         activationInfo()
-    }, [product]);
+    }, [product, id]);
 
     useEffect(() => {
         async function getProduct() {
@@ -37,7 +37,7 @@ function ProductPage() {
                 .catch(err => console.log("Cannot fetch product info." + err))
         }
         getProduct()
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         async function getSimilarProducts() {
@@ -49,7 +49,7 @@ function ProductPage() {
                 .catch(err => console.log("Cannot fetch product info." + err))
         }
         getSimilarProducts()
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         async function getLanguages() {
@@ -61,7 +61,7 @@ function ProductPage() {
                 .catch(err => console.log("Cannot fetch languages." + err))
         }
         getLanguages()
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         function changeMenuStyle() {
@@ -70,7 +70,7 @@ function ProductPage() {
                 if (window.scrollY > 120) {
                     menu.item(0).style.position = "fixed";
                 } else {
-                    menu.item(0).style.position = "";
+                    menu.item(0).style.position = "static";
                 }
             })
         }
@@ -97,7 +97,7 @@ function ProductPage() {
     return (
 
         <div className={"main-div"}>
-            <Menu/>
+            <Menu menuId={"static-menu"}/>
             <div className={"product-info-container"}>
                 <div className={"navigation-bar"}>
                     <p onClick={() => navigate("/")}
@@ -117,7 +117,7 @@ function ProductPage() {
                         <p className={"product-description"}>{product?.description}</p>
                         <p className={"products-price"}></p>
                         <span className={"price"}>{product?.price} PLN</span>
-                        <button className={"add-product-to-cart"}>TO CART</button>
+                        <button onClick={() => addToCart(product)} className={"add-product-to-cart"}>TO CART</button>
                         <ul>
                             <li>CAN ACTIVATE IN POLAND</li>
                             <li>CURRENTLY IN STOCK</li>
