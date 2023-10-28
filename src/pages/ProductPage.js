@@ -28,30 +28,39 @@ function ProductPage() {
     }, [product]);
 
     useEffect(() => {
-        const params = {
-            id: id
+        async function getProduct() {
+            const params = {
+                id: id
+            }
+            await axios.get("http://localhost:8080/product", {params})
+                .then(r => setProduct(r.data))
+                .catch(err => console.log("Cannot fetch product info." + err))
         }
-        axios.get("http://localhost:8080/product", {params})
-            .then(r => setProduct(r.data))
-            .catch(err => console.log("Cannot fetch product info." + err))
+        getProduct()
     }, []);
 
     useEffect(() => {
-        const params = {
-            id: id
+        async function getSimilarProducts() {
+            const params = {
+                id: id
+            }
+            await axios.get("http://localhost:8080/similar-products", {params})
+                .then(r => setSimilarProducts(r.data))
+                .catch(err => console.log("Cannot fetch product info." + err))
         }
-        axios.get("http://localhost:8080/similar-products", {params})
-            .then(r => setSimilarProducts(r.data))
-            .catch(err => console.log("Cannot fetch product info." + err))
+        getSimilarProducts()
     }, []);
 
     useEffect(() => {
-        const params = {
-            id: id
+        async function getLanguages() {
+            const params = {
+                id: id
+            }
+            await axios.get("http://localhost:8080/language/", {params})
+                .then(r => setLanguages(r.data))
+                .catch(err => console.log("Cannot fetch languages." + err))
         }
-        axios.get("http://localhost:8080/language/", {params})
-            .then(r => setLanguages(r.data))
-            .catch(err => console.log("Cannot fetch languages." + err))
+        getLanguages()
     }, []);
 
     useEffect(() => {

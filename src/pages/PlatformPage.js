@@ -16,7 +16,7 @@ function PlatformPage({deviceName}){
     const [dataLoading, setDataLoading] = useState(true)
     const [isCartPreviewVisible, setIsCartPreviewVisible] = useState(false)
 
-    function calculatePageNumbers(data) {
+    const  calculatePageNumbers = (data) =>{
         const numbers = [];
         for (let i = 0; i < data.totalPages; i++) {
             numbers.push(i);

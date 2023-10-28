@@ -62,6 +62,7 @@
     flex-direction: row;
     justify-content: space-between;
     z-index: 20;
+    position: fixed;
 }
 
 .user-panel {
@@ -575,6 +576,9 @@
 }
 .trash-image{
     width: 50%;
+}
+.trash-image:hover{
+    cursor: pointer;
 }
 .title-container{
     display: flex;

@@ -26,7 +26,7 @@ function Home() {
 
     function calculatePageNumbers(data) {
         const numbers = [];
-        for (let i = 0; i < data.totalPages; i++) {
+        for (let i = 0; i < data?.totalPages; i++) {
             numbers.push(i);
         }
         setPagination(numbers);

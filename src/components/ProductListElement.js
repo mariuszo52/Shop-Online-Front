@@ -67,7 +67,7 @@ function ProductListElement({products}) {
                     </div>
                 </div>
             ))}
-            </>
+        </>
     );
 
 
