@@ -8,6 +8,7 @@ import {CartProvider} from "./context/CartContext";
 import CartPreview from "./components/CartPreview";
 import {NotificationProvider} from "./context/NotificationContext";
 import NotificationBar from "./components/NotificationBar";
+import CartPage from "./pages/CartPage";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
           <Route path={"/"} element={<Home/>}></Route>
             <Route path={"/:deviceName"} element={<PlatformPage />}></Route>
             <Route path={"/product/:id"} element={<ProductPage/>}></Route>
+            <Route path={"/cart"} element={<CartPage/>}></Route>
         </Routes>
             </CartProvider>
       </BrowserRouter>

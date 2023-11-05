@@ -44,6 +44,11 @@ function CartPreview() {
     }
 
 
+    function onViewCartClick() {
+        setIsCartVisible(false)
+        navigate("/cart")
+    }
+
     return (
         isCartVisible && (
             <div className="cart-preview-container">
@@ -70,7 +75,7 @@ function CartPreview() {
                                     <span>QTY:  </span>
                                     <input type={"number"}
                                            min={1}
-                                           max={99}
+                                           max={5}
                                            onChange={event => onQuantityChange(event, item)}
                                            defaultValue={item?.cartQuantity}
                                            className={"cart-input"}/>
@@ -92,7 +97,7 @@ function CartPreview() {
                 <div className={"summary-container"}>
                     <p onClick={refreshCart}>REFRESH CART</p>
                     <p onClick={clearCart}>CLEAR CART</p>
-                    <p>VIEW CART</p>
+                    <p onClick={onViewCartClick}>VIEW CART</p>
                     <p>CHECKOUT</p>
                 </div>
             </div>
