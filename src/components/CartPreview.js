@@ -90,6 +90,7 @@ function CartPreview() {
                         </div>
                     ))}
                 </div>
+
                 <div className={"total-prize-container"}>
                     <p>SUBTOTAL</p>
                     <p>{cartTotalPrice?.toFixed(2)} PLN</p>
