@@ -12,11 +12,28 @@ function CartPage() {
     const {index, onQuantityChange, removeProductFromCart} = useCart();
     const [cartItems, setCartItems] = useState()
     const [cartTotalElements, setCartTotalElements] = useState()
+    const [cartTotalPrice, setCartTotalPrice] = useState(0);
 
     useEffect(() => {
         setCartItems(JSON.parse(sessionStorage.getItem("cart")) || [])
         setCartTotalElements(JSON.parse(sessionStorage.getItem("cartTotalElements")) || 0)
     }, [index]);
+
+    useEffect(() => {
+        function calculateTotalPrice() {
+            let totalPrice = 0;
+            let cartItemsPricesParagraphs = document.getElementsByClassName("product-price");
+            for (const cartItemsPricesParagraph of cartItemsPricesParagraphs) {
+                let pricePln = cartItemsPricesParagraph.innerText;
+                let price = parseFloat(pricePln.substring(0, pricePln.length - 4));
+                totalPrice += price
+            }
+            sessionStorage.setItem("cartTotalPrice", JSON.stringify(totalPrice))
+            setCartTotalPrice(totalPrice)
+        }
+
+        calculateTotalPrice();
+    }, [index, cartItems]);
 
     return (
         <div className={"main-div"}>
@@ -61,7 +78,7 @@ function CartPage() {
                                        className={"cart-input"}/>
                             </div>
                             <div className={"subtotal-column"}>
-                                <p>{((item?.price) * (item?.cartQuantity))?.toFixed(2)} PLN</p>
+                                <p className={"product-price"}>{((item?.price) * (item?.cartQuantity))?.toFixed(2)} PLN</p>
                             </div>
                             <div className={"remove-column"}>
                                 <img onClick={() => removeProductFromCart(item)} className={"trash-image"} alt={"trash"}
@@ -79,6 +96,17 @@ function CartPage() {
                 </div>
 
             )}
+            <div className={"submit-cart-container"}>
+                <div className={"checkout-container"}>
+                <div className={"total-prize-div"}>
+                    <p className={"total-prize-p"}>ORDER TOTAL</p>
+                    <p className={"total-prize-p"}>{cartTotalPrice?.toFixed(2)} PLN</p>
+                </div>
+                </div>
+                <div className={"checkout-button-container"}>
+                    <p className={"checkout-button"}>CHECKOUT</p>
+                </div>
+            </div>
             <SocialMedia/>
             <Footer/>
         </div>

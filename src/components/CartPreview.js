@@ -6,12 +6,12 @@ import {useNavigate} from "react-router-dom";
 function CartPreview() {
     const {
         isCartVisible, index, setIndex, clearCart,
-        setIsCartVisible, onQuantityChange, removeProductFromCart
+        setIsCartVisible, onQuantityChange, removeProductFromCart,
     } = useCart();
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([])
-    const [cartTotalPrice, setCartTotalPrice] = useState(0);
     const [cartTotalElements, setCartTotalElements] = useState(0)
+    const [cartTotalPrice, setCartTotalPrice] = useState(0)
 
     useEffect(() => {
         setCartItems(JSON.parse(sessionStorage.getItem("cart")) || [])
@@ -34,7 +34,6 @@ function CartPreview() {
             sessionStorage.setItem("cartTotalPrice", JSON.stringify(totalPrice))
             setCartTotalPrice(totalPrice)
         }
-
         calculateTotalPrice();
     }, [index, cartItems]);
 
