@@ -9,8 +9,13 @@ function Menu({menuId}) {
     const navigate = useNavigate();
     const {setIsCartVisible} = useCart();
 
-    function cartIconClick() {
+    function onCartIconClick() {
         setIsCartVisible(true)
+    }
+
+    function onUserIconClick() {
+        /*later add if user logged show user panel, now show login page */
+        navigate("/account/login")
     }
     return (
         <>
@@ -27,9 +32,9 @@ function Menu({menuId}) {
                     <img onClick={() => navigate("/")} alt="logo" className={"logo"} src={logo}/>
                 </div>
                 <div className={"user-panel"}>
-                    <FontAwesomeIcon className={"user-panel-icon"} icon={faUser}/>
+                    <FontAwesomeIcon onClick={onUserIconClick} className={"user-panel-icon"} icon={faUser}/>
                     <FontAwesomeIcon className={"user-panel-icon"} icon={faHeart}/>
-                    <FontAwesomeIcon onClick={cartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
+                    <FontAwesomeIcon onClick={onCartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
                 </div>
             </div>
         </>

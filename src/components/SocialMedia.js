@@ -5,7 +5,9 @@ import cardLogo from "../images/social-media/card.png";
 import React from "react";
 function SocialMedia() {
     return (
-<div className={"info-div"}>
+        <>
+        <hr className={"footer-hr"} />
+    <div className={"info-div"}>
     <div className={"social-media-div"}>
         <p>SOCIAL MEDIA</p>
         <img alt={"facebook"} src={facebookLogo} />
@@ -18,6 +20,7 @@ function SocialMedia() {
 
     </div>
 </div>
+            </>
     )}
 
 export default SocialMedia;

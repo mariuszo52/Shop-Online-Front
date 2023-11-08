@@ -9,6 +9,8 @@ import CartPreview from "./components/CartPreview";
 import {NotificationProvider} from "./context/NotificationContext";
 import NotificationBar from "./components/NotificationBar";
 import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
     return (
@@ -22,6 +24,8 @@ function App() {
             <Route path={"/:deviceName"} element={<PlatformPage />}></Route>
             <Route path={"/product/:id"} element={<ProductPage/>}></Route>
             <Route path={"/cart"} element={<CartPage/>}></Route>
+            <Route path={"/account/login"} element={<LoginPage/>}></Route>
+            <Route path={"/account/register"} element={<RegisterPage />}></Route>
         </Routes>
             </CartProvider>
       </BrowserRouter>
