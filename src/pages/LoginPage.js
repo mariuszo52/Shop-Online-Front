@@ -7,9 +7,33 @@ import discount from "../images/discount.svg"
 import Footer from "../components/Footer";
 import SocialMedia from "../components/SocialMedia";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import axios from "axios";
+import {useNotification} from "../context/NotificationContext";
 
 function LoginPage() {
     const navigate = useNavigate();
+    let {setNotificationText, setNotificationVisible} = useNotification();
+    const [usernameLogin, setUsernameLogin] = useState("")
+    const [emailPass, setEmailPass] = useState("")
+    let loginCredentials = {
+        "username": usernameLogin,
+        "password": emailPass
+    }
+
+    function onLoginButtonClick() {
+        axios.post("http://localhost:8080/login", loginCredentials)
+            .then(response => {
+                sessionStorage.setItem("jwt", "Bearer " + response.data)
+                navigate("/")
+            } )
+            .catch(err => {
+                setNotificationText(err.response.data)
+                setNotificationVisible()
+                console.log(err)
+            })
+    }
+
     return (
         <div className={"main-div"}>
             <Menu />
@@ -19,19 +43,19 @@ function LoginPage() {
                     <p>Already Registered? Please Login From Here.</p>
                     <form className={"login-form"}>
                         <div className={"login-input"}>
-                        <label>EMAIL ADDRESS*</label>
-                        <input type={"text"} name={"email"}/>
+                        <label>USERNAME*</label>
+                        <input onChange={event => setUsernameLogin(event.target.value)} type={"text"} name={"username"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                         <div className={"login-input"}>
                             <label>PASSWORD*</label>
-                            <input type={"text"} name={"email"}/>
+                            <input onChange={event =>  setEmailPass(event.target.value)} type={"text"} name={"password"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                     </form>
                     <div className={"forgot-password-container"}>
                     <a href={"#"}>FORGOT YOUR PASSWORD?</a>
-                        <p className={"login-button"}>LOGIN</p>
+                        <p onClick={onLoginButtonClick} className={"login-button"}>LOGIN</p>
                     </div>
                     <hr/><h1 className={"login-header"}>OR</h1>
                     <div className={"oauth-login-container"}>
