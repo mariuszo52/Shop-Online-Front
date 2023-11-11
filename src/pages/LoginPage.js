@@ -37,6 +37,7 @@ function LoginPage() {
     return (
         <div className={"main-div"}>
             <Menu />
+            <h1 className={"login-header"}>LOGIN</h1>
             <div className={"login-page-container"}>
                 <div className={"login-form-container"}>
                     <h1 className={"login-header"}>LOGIN</h1>
@@ -44,12 +45,12 @@ function LoginPage() {
                     <form className={"login-form"}>
                         <div className={"login-input"}>
                         <label>USERNAME*</label>
-                        <input onChange={event => setUsernameLogin(event.target.value)} type={"text"} name={"username"}/>
+                        <input required={true} onChange={event => setUsernameLogin(event.target.value)} type={"text"} name={"username"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                         <div className={"login-input"}>
                             <label>PASSWORD*</label>
-                            <input onChange={event =>  setEmailPass(event.target.value)} type={"text"} name={"password"}/>
+                            <input required={true} onChange={event =>  setEmailPass(event.target.value)} type={"text"} name={"password"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                     </form>
