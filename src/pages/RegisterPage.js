@@ -25,11 +25,20 @@ function RegisterPage(){
         "password": password,
         "confirmPassword": confirmPassword
     }
+    const handleKeypress = event => {
+        if (event.keyCode === 13) {
+            registerUser()
+        }
+    };
 
     function registerUser() {
         console.log(userRegister)
         axios.post("http://localhost:8080/register", userRegister)
-            .then(() => navigate("/account/login"))
+            .then(() =>{
+                setNotificationText("Account has created.")
+                setNotificationVisible()
+                navigate("/account/login")
+            })
             .catch(err => {
                 setNotificationText(err.response.data)
                 setNotificationVisible()
@@ -38,7 +47,7 @@ function RegisterPage(){
     }
 
     return(
-        <div id={"register-container"} className={"main-div"}>
+        <div onKeyDown={handleKeypress} id={"register-container"} className={"main-div"}>
             <Menu />
             <h1 className={"register-page-h1"}>CREATE NEW CUSTOMER ACCOUNT</h1><br/>
             <div className={"register-personal-info"}>

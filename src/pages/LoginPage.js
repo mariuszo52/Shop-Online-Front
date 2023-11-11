@@ -7,9 +7,10 @@ import discount from "../images/discount.svg"
 import Footer from "../components/Footer";
 import SocialMedia from "../components/SocialMedia";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
+import {keyboard} from "@testing-library/user-event/dist/keyboard";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -20,6 +21,13 @@ function LoginPage() {
         "username": usernameLogin,
         "password": emailPass
     }
+
+    const handleKeypress = event => {
+        if (event.keyCode === 13) {
+            onLoginButtonClick()
+        }
+    };
+
 
     function onLoginButtonClick() {
         axios.post("http://localhost:8080/login", loginCredentials)
@@ -37,9 +45,8 @@ function LoginPage() {
     return (
         <div className={"main-div"}>
             <Menu />
-            <h1 className={"login-header"}>LOGIN</h1>
             <div className={"login-page-container"}>
-                <div className={"login-form-container"}>
+                <div onKeyDown={handleKeypress} className={"login-form-container"}>
                     <h1 className={"login-header"}>LOGIN</h1>
                     <p>Already Registered? Please Login From Here.</p>
                     <form className={"login-form"}>
