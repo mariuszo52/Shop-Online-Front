@@ -448,6 +448,7 @@
 .product-name-p{
     height: 200px;
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 .product-details > ul {

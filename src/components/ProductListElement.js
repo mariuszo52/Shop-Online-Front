@@ -40,8 +40,21 @@ function ProductListElement({products}) {
 
     function onMouseEnterProductName(productId) {
         let productNameParagraph = document.getElementById("product-name-" + productId);
-        productNameParagraph.scrollTop = productNameParagraph.clientHeight;
-    }
+        let intervalId;
+            productNameParagraph.addEventListener('mouseenter', function () {
+                intervalId = setInterval(function () {
+                    productNameParagraph.scrollTop += 1
+                }, 50); //
+            });
+            productNameParagraph.addEventListener('mouseleave', function () {
+                productNameParagraph.scrollTop = 0;
+                clearInterval(intervalId);
+            });
+        }
+
+
+
+
 
     return (
         <>

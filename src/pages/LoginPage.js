@@ -57,7 +57,7 @@ function LoginPage() {
                         </div>
                         <div className={"login-input"}>
                             <label>PASSWORD*</label>
-                            <input required={true} onChange={event =>  setEmailPass(event.target.value)} type={"text"} name={"password"}/>
+                            <input required={true} onChange={event =>  setEmailPass(event.target.value)} type={"password"} name={"password"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                     </form>

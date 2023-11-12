@@ -11,8 +11,11 @@ import NotificationBar from "./components/NotificationBar";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import axios from "axios";
 
 function App() {
+    axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
+
     return (
         <NotificationProvider>
             <NotificationBar/>
