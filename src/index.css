@@ -170,6 +170,7 @@
     align-items: center;
     background-color: #160e2a;
 
+
 }
 
 .products-list-el:hover {
@@ -293,8 +294,8 @@
     width: 50%;
     color: black;
     height: 30px;
-    font-family: "Arial Black", serif;
     font-size: 20px;
+    padding-left: 5px;
 }
 
 .submit-search-icon {
@@ -444,6 +445,10 @@
     text-align: center;
     font-size: 40px;
 }
+.product-name-p{
+    height: 200px;
+    overflow-y: auto;
+}
 
 .product-details > ul {
     list-style: none;
@@ -582,6 +587,9 @@
     width: 500px;
     overflow-y: scroll;
     align-items: center;
+}
+.product-name-p::-webkit-scrollbar {
+    display: none;
 }
 
 .cart-preview-container::-webkit-scrollbar {
@@ -1008,15 +1016,15 @@
     border: solid grey;
     color: white;
 }
-.login-input > input:-webkit-autofill{
-    border-radius: 25px;
-    padding: 5px 15px;
-    height: 30px;
-    font-size: 18px;
-    background-color: #160e2a;
-    border: solid grey;
-    color: white;
+.login-input > input:-webkit-autofill,
+.login-input > input:-webkit-autofill:hover,
+.login-input > input:-webkit-autofill:focus,
+.login-input > input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #160e2a inset !important;
+    -webkit-text-fill-color: white !important;
+    font-size: 18px !important
 }
+
 .login-input > label{
     font-size: smaller;
 }

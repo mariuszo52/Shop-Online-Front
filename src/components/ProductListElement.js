@@ -38,6 +38,11 @@ function ProductListElement({products}) {
     }
 
 
+    function onMouseEnterProductName(productId) {
+        let productNameParagraph = document.getElementById("product-name-" + productId);
+        productNameParagraph.scrollTop = productNameParagraph.clientHeight;
+    }
+
     return (
         <>
             {products.map((product, index) => (
@@ -62,7 +67,8 @@ function ProductListElement({products}) {
                         alt={product?.name}
                     />
                     <div className={"product-main-info"}>
-                        <p id={"product-name"}>{product.name}</p>
+                        <p className={"product-name-p"} onMouseEnter={() => onMouseEnterProductName(product.id)}
+                           id={"product-name-" + product.id}>{product.name}</p>
                         <p id={"product-price"}>{product.price} PLN</p>
                     </div>
                 </div>
