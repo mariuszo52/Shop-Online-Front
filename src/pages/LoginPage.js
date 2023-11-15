@@ -22,6 +22,30 @@ function LoginPage() {
         "password": emailPass
     }
 
+    function handleCallbackResponse(response){
+        sessionStorage.setItem("jwt", "Bearer " + response.credential)
+        setNotificationText("Login success")
+        setNotificationVisible(true)
+        navigate("/")
+    }
+
+    useEffect(() => {
+        const google = window.google;
+        google?.accounts.id.initialize({
+            client_id: "985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com",
+            callback: handleCallbackResponse
+        });
+        const googleLoginButton = document.getElementById("google-login");
+        googleLoginButton?.addEventListener('click', () => {
+            google?.accounts.id.prompt((notification) => {
+                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                    document.cookie =  `g_state=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+                    google?.accounts.id.prompt()
+                }
+            });
+        });
+    }, []);
+
     const handleKeypress = event => {
         if (event.keyCode === 13) {
             onLoginButtonClick()
@@ -33,6 +57,8 @@ function LoginPage() {
         axios.post("http://localhost:8080/login", loginCredentials)
             .then(response => {
                 sessionStorage.setItem("jwt", "Bearer " + response.data)
+                setNotificationText("Login success")
+                setNotificationVisible(true)
                 navigate("/")
             } )
             .catch(err => {
@@ -69,7 +95,7 @@ function LoginPage() {
                     <div className={"oauth-login-container"}>
                         <p className={"facebook-button"}>
                             <img className={"login-button-icon"} alt={"fb"} src={fbIcon}/>FACEBOOK</p>
-                        <p className={"google-button"}>
+                        <p id={"google-login"} className={"google-button"}>
                             <img className={"login-button-icon"} alt={"google"} src={googleIcon}/> GOOGLE</p>
                     </div>
                 </div>

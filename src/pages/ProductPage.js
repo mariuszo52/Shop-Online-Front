@@ -44,7 +44,7 @@ function ProductPage() {
             const params = {
                 id: id
             }
-            await axios.get("http://localhost:8080/similar-products", {params})
+            await axios.get("http://localhost:8080/product/similar-products", {params})
                 .then(r => setSimilarProducts(r.data))
                 .catch(err => console.log("Cannot fetch product info." + err))
         }

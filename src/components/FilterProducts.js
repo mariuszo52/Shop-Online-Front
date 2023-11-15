@@ -87,7 +87,7 @@ function FilterProducts({
             maxPrice: maxPrice,
             sort: sort
         };
-        await axios.get("http://localhost:8080/products", {params})
+        await axios.get("http://localhost:8080/product/products", {params})
             .then(response => {
                 setProductsPageable(response.data)
                 calculatePageNumbers(response.data)
@@ -116,7 +116,7 @@ function FilterProducts({
             <label><p>Platform</p>
                 <select onChange={event => setPlatform(event.target.value)}
                         className={"filter"}>
-                    <option className={"filter-option"}>All platforms</option>
+                    <option className={"filter-option"} value={""}>All platforms</option>
                     {platforms?.map((platform, index) => (
                         <option value={platform} key={index}
                                 className={"filter-option"}>{platform}</option>
@@ -125,8 +125,8 @@ function FilterProducts({
             </label>
             <label><p>Region</p>
                 <select onChange={event => setRegion(event.target.value)} className={"filter"}>
-                    <option className={"filter-option"}>All regions</option>
-                    <option className={"filter-option"}>Poland</option>
+                    <option className={"filter-option"} value={""}>All regions</option>
+                    <option className={"filter-option"} value={"Poland"}>Poland</option>
                 </select>
             </label>
             <label>
@@ -139,7 +139,7 @@ function FilterProducts({
             </label>
             <label><p>Genre</p>
                 <select onChange={event => setGenre(event.target.value)} className={"filter"}>
-                    <option className={"filter-option"}>All genres</option>
+                    <option className={"filter-option"} value={""}>All genres</option>
                     {genres?.map((genre, index) => (
                         <option key={index} className={"filter-option"}>{genre}</option>
                     ))}
@@ -147,7 +147,7 @@ function FilterProducts({
             </label>
             <label><p>Language</p>
                 <select onChange={event => setLanguage(event.target.value)} className={"filter"}>
-                    <option className={"filter-option"}>All languages</option>
+                    <option className={"filter-option"} value={""}>All languages</option>
                     {languages?.map((language, index) => (
                         <option key={index} className={"filter-option"}>{language}</option>
                     ))}

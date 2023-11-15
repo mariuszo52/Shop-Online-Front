@@ -42,7 +42,7 @@ function Home() {
         if (productName !== null) {
             params.name = productName;
         }
-        await axios.get("http://localhost:8080/products", {params})
+        await axios.get("http://localhost:8080/product/products", {params})
             .then(response => {
                 setProductsPageable(response.data)
                 calculatePageNumbers(response.data)

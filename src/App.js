@@ -16,6 +16,7 @@ import axios from "axios";
 function App() {
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
 
+
     return (
         <NotificationProvider>
             <NotificationBar/>
