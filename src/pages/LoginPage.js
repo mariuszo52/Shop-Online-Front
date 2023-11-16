@@ -10,20 +10,22 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
-import {keyboard} from "@testing-library/user-event/dist/keyboard";
 
 function LoginPage() {
     const navigate = useNavigate();
     let {setNotificationText, setNotificationVisible} = useNotification();
-    const [usernameLogin, setUsernameLogin] = useState("")
+    const [emailLogin, setEmailLogin] = useState("")
     const [emailPass, setEmailPass] = useState("")
     let loginCredentials = {
-        "username": usernameLogin,
+        "email": emailLogin,
         "password": emailPass
     }
 
     function handleCallbackResponse(response){
         sessionStorage.setItem("jwt", "Bearer " + response.credential)
+        axios.post("http://localhost:8080/login/google")
+            .then(response => console.log(response.data))
+            .catch(err => console.log(err))
         setNotificationText("Login success")
         setNotificationVisible(true)
         navigate("/")
@@ -77,8 +79,8 @@ function LoginPage() {
                     <p>Already Registered? Please Login From Here.</p>
                     <form className={"login-form"}>
                         <div className={"login-input"}>
-                        <label>USERNAME*</label>
-                        <input required={true} onChange={event => setUsernameLogin(event.target.value)} type={"text"} name={"username"}/>
+                        <label>EMAIL*</label>
+                        <input required={true} onChange={event => setEmailLogin(event.target.value)} type={"email"} name={"email"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                         <div className={"login-input"}>
