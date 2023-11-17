@@ -22,13 +22,19 @@ function LoginPage() {
     }
 
     function handleCallbackResponse(response){
-        sessionStorage.setItem("jwt", "Bearer " + response.credential)
+        sessionStorage.setItem("jwt", "Oauth " + response.credential)
         axios.post("http://localhost:8080/login/google")
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
-        setNotificationText("Login success")
-        setNotificationVisible(true)
-        navigate("/")
+        if(response.credential !== null) {
+            setNotificationText("Login success")
+            setNotificationVisible(true)
+            navigate("/")
+        }else {
+            setNotificationText("Login failed.")
+            setNotificationVisible(true)
+
+        }
     }
 
     useEffect(() => {

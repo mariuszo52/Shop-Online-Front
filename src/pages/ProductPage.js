@@ -56,7 +56,7 @@ function ProductPage() {
             const params = {
                 id: id
             }
-            await axios.get("http://localhost:8080/language/", {params})
+            await axios.get("http://localhost:8080/language", {params})
                 .then(r => setLanguages(r.data))
                 .catch(err => console.log("Cannot fetch languages." + err))
         }
@@ -137,7 +137,7 @@ function ProductPage() {
                     <div className={"info-el"}>
                         <p>Languages</p>
                         <div className={"language-icons-container"}>
-                            {languages.map((language, index) => (
+                            {languages?.map((language, index) => (
                                 <img className={"language-icon"} alt={language.name} key={index}
                                      src={language.iconUrl}/>
                             ))
