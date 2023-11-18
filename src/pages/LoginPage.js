@@ -10,6 +10,9 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
+import {GoogleLogin} from "react-google-login"
+import {LoginSocialFacebook} from 'reactjs-social-login';
+import {gapi} from "gapi-script";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -20,39 +23,37 @@ function LoginPage() {
         "email": emailLogin,
         "password": emailPass
     }
+    useEffect(() => {
+        function start(){
+            gapi.client.init({
+                clientId: "985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com",
+                scope: ""
+            })
+        }
+        gapi.load("client:auth2", start)
+    }, []);
 
-    function handleCallbackResponse(response){
-        sessionStorage.setItem("jwt", "Oauth " + response.credential)
-        axios.post("http://localhost:8080/login/google")
+    function googleLoginSuccess(response){
+        sessionStorage.setItem("jwt", "Oauth " + response.tokenId)
+        const authHeader = {
+            headers: {
+                'Authorization': `Oauth ${response.tokenId}`
+            }
+        }
+        axios.post("http://localhost:8080/login/google", null, authHeader)
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
-        if(response.credential !== null) {
+        if(response.tokenId !== null) {
             setNotificationText("Login success")
             setNotificationVisible(true)
             navigate("/")
         }else {
-            setNotificationText("Login failed.")
+            setNotificationText("Server error during user login.")
             setNotificationVisible(true)
 
         }
     }
 
-    useEffect(() => {
-        const google = window.google;
-        google?.accounts.id.initialize({
-            client_id: "985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com",
-            callback: handleCallbackResponse
-        });
-        const googleLoginButton = document.getElementById("google-login");
-        googleLoginButton?.addEventListener('click', () => {
-            google?.accounts.id.prompt((notification) => {
-                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                    document.cookie =  `g_state=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-                    google?.accounts.id.prompt()
-                }
-            });
-        });
-    }, []);
 
     const handleKeypress = event => {
         if (event.keyCode === 13) {
@@ -65,7 +66,7 @@ function LoginPage() {
         axios.post("http://localhost:8080/login", loginCredentials)
             .then(response => {
                 sessionStorage.setItem("jwt", "Bearer " + response.data)
-                setNotificationText("Login success")
+                setNotificationText("Login success.")
                 setNotificationVisible(true)
                 navigate("/")
             } )
@@ -74,6 +75,32 @@ function LoginPage() {
                 setNotificationVisible()
                 console.log(err)
             })
+    }
+
+
+    function googleLoginFailure() {
+        setNotificationText("Login failed.")
+        setNotificationVisible(true)
+    }
+
+    function facebookLoginSuccess(response) {
+        console.log(response)
+        sessionStorage.setItem("jwt", "Oauth " + response.data.accessToken)
+        const authHeader = {
+            headers: {
+                'Authorization': `Oauth ${response.data.accessToken}`,
+                'Signed_request': response.data.signedRequest
+            }
+        }
+        axios.post("http://localhost:8080/login/facebook", null, authHeader)
+            .then(response => console.log(response.data))
+            .catch(err => console.log(err))
+
+    }
+
+    function facebookLoginReject(response) {
+        console.log("błąd")
+
     }
 
     return (
@@ -101,10 +128,29 @@ function LoginPage() {
                     </div>
                     <hr/><h1 className={"login-header"}>OR</h1>
                     <div className={"oauth-login-container"}>
-                        <p className={"facebook-button"}>
-                            <img className={"login-button-icon"} alt={"fb"} src={fbIcon}/>FACEBOOK</p>
-                        <p id={"google-login"} className={"google-button"}>
-                            <img className={"login-button-icon"} alt={"google"} src={googleIcon}/> GOOGLE</p>
+                        <LoginSocialFacebook
+                            className={"facebook-button"}
+                            onResolve={facebookLoginSuccess}
+                            onReject={facebookLoginReject}
+                            appId={"1062927578170362"}
+                            scope={"public_profile, email"}
+                            isOnlyGetToken={true}
+                            children={<p className={"facebook-login-button"}>
+                                <img className={"login-button-icon"} alt={"fb"} src={fbIcon}/>FACEBOOK</p>}
+                            />
+
+                        <GoogleLogin
+                            render={props => (
+                                <p onClick={props.onClick} id={"google-login"} className={"google-button"}>
+                                    <img className={"login-button-icon"} alt={"google"} src={googleIcon}/> GOOGLE</p>
+                            )}
+                            clientId={"985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com"}
+                            onSuccess={googleLoginSuccess}
+                            onFailure={googleLoginFailure}
+                            scope={""}
+                            buttonText={null}
+                            icon={false}
+                        />
                     </div>
                 </div>
                 <div className={"register-form-container"}>
