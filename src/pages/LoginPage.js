@@ -23,21 +23,13 @@ function LoginPage() {
         "email": emailLogin,
         "password": emailPass
     }
-    useEffect(() => {
-        function start(){
-            gapi.client.init({
-                clientId: "985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com",
-                scope: ""
-            })
-        }
-        gapi.load("client:auth2", start)
-    }, []);
 
     function googleLoginSuccess(response){
-        sessionStorage.setItem("jwt", "Oauth " + response.tokenId)
+        console.log(response)
+        sessionStorage.setItem("jwt", "GOOGLE " + response.tokenId)
         const authHeader = {
             headers: {
-                'Authorization': `Oauth ${response.tokenId}`
+                'Authorization': `GOOGLE ${response.tokenId}`
             }
         }
         axios.post("http://localhost:8080/login/google", null, authHeader)
@@ -84,15 +76,19 @@ function LoginPage() {
     }
 
     function facebookLoginSuccess(response) {
-        console.log(response)
-        sessionStorage.setItem("jwt", "Oauth " + response.data.accessToken)
+        sessionStorage.setItem("jwt", "FB " + response.data.accessToken)
+        const data = {
+            "email": response.data.email,
+            "firstName": response.data.first_name,
+            "lastName": response.data.last_name,
+            "userId": response.data.userID
+        }
         const authHeader = {
             headers: {
-                'Authorization': `Oauth ${response.data.accessToken}`,
-                'Signed_request': response.data.signedRequest
+                'Authorization': `FB ${response.data.accessToken}`,
             }
         }
-        axios.post("http://localhost:8080/login/facebook", null, authHeader)
+        axios.post("http://localhost:8080/login/facebook", data, authHeader)
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
 
@@ -134,7 +130,7 @@ function LoginPage() {
                             onReject={facebookLoginReject}
                             appId={"1062927578170362"}
                             scope={"public_profile, email"}
-                            isOnlyGetToken={true}
+                            isOnlyGetToken={false}
                             children={<p className={"facebook-login-button"}>
                                 <img className={"login-button-icon"} alt={"fb"} src={fbIcon}/>FACEBOOK</p>}
                             />
