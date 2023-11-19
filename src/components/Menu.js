@@ -2,7 +2,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
 import logo from "../images/logo.png"
 import {useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React from "react";
 import {useCart} from "../context/CartContext";
 
 function Menu({menuId}) {
@@ -14,8 +14,11 @@ function Menu({menuId}) {
     }
 
     function onUserIconClick() {
-        /*later add if user logged show user panel, now show login page */
-        navigate("/account/login")
+        if (sessionStorage.getItem("jwt")) {
+            navigate("/account/my-account")
+        } else {
+            navigate("/account/login")
+        }
     }
     return (
         <>

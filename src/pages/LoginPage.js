@@ -91,6 +91,15 @@ function LoginPage() {
         axios.post("http://localhost:8080/login/facebook", data, authHeader)
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
+        if(response.data.accessToken !== null) {
+            setNotificationText("Login success")
+            setNotificationVisible(true)
+            navigate("/")
+        }else {
+            setNotificationText("Server error during user login.")
+            setNotificationVisible(true)
+
+        }
 
     }
 

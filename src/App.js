@@ -1,8 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./pages/Home"
 import PlatformPage from "./pages/PlatformPage";
-import {useLocation} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import ProductPage from "./pages/ProductPage";
 import {CartProvider} from "./context/CartContext";
 import CartPreview from "./components/CartPreview";
@@ -12,7 +11,7 @@ import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import axios from "axios";
-import { gapi } from "gapi-script"
+import {LoggedRoute} from "./routes/LoggedRoute";
 
 function App() {
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
@@ -28,8 +27,8 @@ function App() {
             <Route path={"/:deviceName"} element={<PlatformPage />}></Route>
             <Route path={"/product/:id"} element={<ProductPage/>}></Route>
             <Route path={"/cart"} element={<CartPage/>}></Route>
-            <Route path={"/account/login"} element={<LoginPage/>}></Route>
-            <Route path={"/account/register"} element={<RegisterPage />}></Route>
+            <Route path={"/account/login"} element={<LoggedRoute><LoginPage/></LoggedRoute>}></Route>
+            <Route path={"/account/register"} element={<LoggedRoute><RegisterPage /></LoggedRoute>}></Route>
         </Routes>
             </CartProvider>
       </BrowserRouter>
