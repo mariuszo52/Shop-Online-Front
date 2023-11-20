@@ -12,6 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import axios from "axios";
 import {LoggedRoute} from "./routes/LoggedRoute";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
@@ -24,6 +25,7 @@ function App() {
                 <CartPreview/>
         <Routes>
           <Route path={"/"} element={<Home/>}></Route>
+            <Route path={"/error"} element={<ErrorPage/>}></Route>
             <Route path={"/:deviceName"} element={<PlatformPage />}></Route>
             <Route path={"/product/:id"} element={<ProductPage/>}></Route>
             <Route path={"/cart"} element={<CartPage/>}></Route>
