@@ -25,7 +25,6 @@ function LoginPage() {
     }
 
     function googleLoginSuccess(response){
-        console.log(response)
         sessionStorage.setItem("jwt", "GOOGLE " + response.tokenId)
         const authHeader = {
             headers: {
@@ -36,9 +35,7 @@ function LoginPage() {
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
         if(response.tokenId !== null) {
-            setNotificationText("Login success")
-            setNotificationVisible(true)
-            navigate("/")
+            window.location.href = "http://localhost:3000";
         }else {
             setNotificationText("Server error during user login.")
             setNotificationVisible(true)
@@ -92,9 +89,7 @@ function LoginPage() {
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
         if(response.data.accessToken !== null) {
-            setNotificationText("Login success")
-            setNotificationVisible(true)
-            navigate("/")
+            window.location.href = "http://localhost:3000";
         }else {
             setNotificationText("Server error during user login.")
             setNotificationVisible(true)

@@ -31,8 +31,22 @@ function RegisterPage(){
         }
     };
 
+    function handleSuggestStrongPassButton(){
+        axios.get("http://localhost:8080/register/suggest-pass")
+            .then(response =>{
+                let passwordInput = document.getElementById("password-input");
+                let confirmPasswordInput = document.getElementById("confirm-password-input");
+                passwordInput.value = response.data;
+                confirmPasswordInput.value = response.data;
+                setPassword(response.data);
+                setConfirmPassword(response.data);
+                passwordInput.type = "text";
+                confirmPasswordInput.type = "text";
+            })
+            .catch(err => console.log(err))
+    }
+
     function registerUser() {
-        console.log(userRegister)
         axios.post("http://localhost:8080/register", userRegister)
             .then(() =>{
                 setNotificationText("Account has created.")
@@ -108,6 +122,7 @@ function RegisterPage(){
                     <div className={"login-input"}>
                         <label>PASSWORD*</label>
                         <input
+                            id={"password-input"}
                             onChange={event => setPassword(event.target.value)}
                             required={true}
                             type={"password"}
@@ -117,6 +132,7 @@ function RegisterPage(){
                     <div className={"login-input"}>
                         <label>CONFIRM PASSWORD*</label>
                         <input
+                            id={"confirm-password-input"}
                             onChange={event => setConfirmPassword(event.target.value)}
                             required={true}
                             type={"password"}
@@ -125,7 +141,7 @@ function RegisterPage(){
                     </div>
                 </div>
                 <div className={"password-generate-container"}>
-                    <p className={"password-generate-button"}>SUGGEST STRONG PASSWORD</p>
+                    <p onClick={handleSuggestStrongPassButton} className={"password-generate-button"}>SUGGEST STRONG PASSWORD</p>
                     <span>Your password needs to be at least 8 characters long and use 4 different types of character
                         (Lower Case, Upper Case, Digits, Special Characters).</span>
                 </div>

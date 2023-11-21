@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./pages/Home"
 import PlatformPage from "./pages/PlatformPage";
-import React from "react";
+import React, {useEffect} from "react";
 import ProductPage from "./pages/ProductPage";
 import {CartProvider} from "./context/CartContext";
 import CartPreview from "./components/CartPreview";
@@ -16,7 +16,6 @@ import ErrorPage from "./pages/ErrorPage";
 
 function App() {
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
-
     return (
         <NotificationProvider>
             <NotificationBar/>
