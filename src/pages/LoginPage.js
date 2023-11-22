@@ -13,6 +13,7 @@ import {useNotification} from "../context/NotificationContext";
 import {GoogleLogin} from "react-google-login"
 import {LoginSocialFacebook} from 'reactjs-social-login';
 import {gapi} from "gapi-script";
+import ForgetPasswordForm from "../components/ForgetPasswordForm";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -103,9 +104,15 @@ function LoginPage() {
 
     }
 
+    function handleForgotPasswordButton() {
+        let forgetPasswordForm = document.getElementById("fp-main-container");
+        forgetPasswordForm.style.display = "flex";
+    }
+
     return (
         <div className={"main-div"}>
             <Menu />
+            <ForgetPasswordForm />
             <div className={"login-page-container"}>
                 <div onKeyDown={handleKeypress} className={"login-form-container"}>
                     <h1 className={"login-header"}>LOGIN</h1>
@@ -123,7 +130,7 @@ function LoginPage() {
                         </div>
                     </form>
                     <div className={"forgot-password-container"}>
-                    <a href={"#"}>FORGOT YOUR PASSWORD?</a>
+                    <a onClick={handleForgotPasswordButton}>FORGOT YOUR PASSWORD?</a>
                         <p onClick={onLoginButtonClick} className={"login-button"}>LOGIN</p>
                     </div>
                     <hr/><h1 className={"login-header"}>OR</h1>

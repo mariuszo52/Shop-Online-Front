@@ -1043,8 +1043,15 @@
 }
 .forgot-password-container > a{
     margin-left: 20px;
+    text-decoration: underline;
+    color: blue;
+}
+.forgot-password-container > a:hover{
+    color: darkblue;
+    cursor: pointer;
 }
 .login-button{
+    color: white;
     margin-right: 20px;
     width: max-content;
     border-radius: 25px;
@@ -1247,4 +1254,40 @@
     align-items: center;
     justify-content: center;
     padding: 5px;
+}
+.fp-input{
+    width: 50%;
+    border-radius: 25px;
+    padding: 5px 15px;
+    height: 30px;
+    font-size: 18px;
+    background-color: #160e2a;
+    border: solid grey;
+    color: white;
+}
+.fp-main-container{
+    background-color: #20143c;
+    top: 50%;
+    position: absolute;
+    display: none;
+    height: 200px;
+    width: 30%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.close-fp-main-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.close-fp-button{
+    right: 5px;
+    top: 2px;
+    position: absolute;
+}
+.close-fp-button:hover{
+    cursor: pointer;
+    scale: 101%;
 }
