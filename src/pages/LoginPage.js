@@ -12,8 +12,8 @@ import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
 import {GoogleLogin} from "react-google-login"
 import {LoginSocialFacebook} from 'reactjs-social-login';
-import {gapi} from "gapi-script";
 import ForgetPasswordForm from "../components/ForgetPasswordForm";
+import NewPassword from "../components/NewPassword";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -68,7 +68,8 @@ function LoginPage() {
     }
 
 
-    function googleLoginFailure() {
+    function googleLoginFailure(response) {
+        console.log(response)
         setNotificationText("Login failed.")
         setNotificationVisible(true)
     }
@@ -100,7 +101,7 @@ function LoginPage() {
     }
 
     function facebookLoginReject(response) {
-        console.log("błąd")
+        console.log(response)
 
     }
 
@@ -113,6 +114,7 @@ function LoginPage() {
         <div className={"main-div"}>
             <Menu />
             <ForgetPasswordForm />
+            <NewPassword />
             <div className={"login-page-container"}>
                 <div onKeyDown={handleKeypress} className={"login-form-container"}>
                     <h1 className={"login-header"}>LOGIN</h1>

@@ -1,5 +1,5 @@
 import Menu from "../components/Menu";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import {useNavigate} from "react-router-dom";
@@ -49,7 +49,7 @@ function RegisterPage(){
     function registerUser() {
         axios.post("http://localhost:8080/register", userRegister)
             .then(() =>{
-                setNotificationText("Account has created.")
+                setNotificationText("Confirmation email has sent at " + userRegister.email)
                 setNotificationVisible()
                 navigate("/account/login")
             })
