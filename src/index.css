@@ -958,7 +958,7 @@
     display: flex;
     flex-direction: row;
     width: 80%;
-    height: 500px;
+    height: 550px;
     justify-content: space-between;
 }
 .login-form-container{
@@ -1072,7 +1072,7 @@
 }
 .oauth-login-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     margin-top: 50px;
     justify-content: space-between;
@@ -1082,20 +1082,20 @@
     border-radius: 20px;
     background-color: #293772;
     text-align: center;
-    margin-left: 25px;
     width: 45%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: 30px;
 }
 .google-button{
+    margin-top: 20px;
     border-radius: 20px;
     padding: 5px 0;
     background-color: #cc4133;
     text-align: center;
     width: 45%;
-    margin-right: 25px;
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -7,10 +7,10 @@ import discount from "../images/discount.svg"
 import Footer from "../components/Footer";
 import SocialMedia from "../components/SocialMedia";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
-import {GoogleLogin} from "react-google-login"
+import {GoogleLogin} from '@react-oauth/google';
 import {LoginSocialFacebook} from 'reactjs-social-login';
 import ForgetPasswordForm from "../components/ForgetPasswordForm";
 import NewPassword from "../components/NewPassword";
@@ -25,19 +25,19 @@ function LoginPage() {
         "password": emailPass
     }
 
-    function googleLoginSuccess(response){
-        sessionStorage.setItem("jwt", "GOOGLE " + response.tokenId)
+    const googleLoginSuccess = response => {
+        sessionStorage.setItem("jwt", "GOOGLE " + response.credential)
         const authHeader = {
             headers: {
-                'Authorization': `GOOGLE ${response.tokenId}`
+                'Authorization': `GOOGLE ${response.credential}`
             }
         }
-        axios.post("http://localhost:8080/login/google", null, authHeader)
+        axios.get("http://localhost:8080/login/google", authHeader)
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
-        if(response.tokenId !== null) {
+        if (response.tokenId !== null) {
             window.location.href = "http://localhost:3000";
-        }else {
+        } else {
             setNotificationText("Server error during user login.")
             setNotificationVisible(true)
 
@@ -59,7 +59,7 @@ function LoginPage() {
                 setNotificationText("Login success.")
                 setNotificationVisible(true)
                 navigate("/")
-            } )
+            })
             .catch(err => {
                 setNotificationText(err.response.data)
                 setNotificationVisible()
@@ -68,11 +68,11 @@ function LoginPage() {
     }
 
 
-    function googleLoginFailure(response) {
-        console.log(response)
+    const googleLoginFailure = ()=>{
         setNotificationText("Login failed.")
         setNotificationVisible(true)
     }
+
 
     function facebookLoginSuccess(response) {
         sessionStorage.setItem("jwt", "FB " + response.data.accessToken)
@@ -90,9 +90,9 @@ function LoginPage() {
         axios.post("http://localhost:8080/login/facebook", data, authHeader)
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
-        if(response.data.accessToken !== null) {
+        if (response.data.accessToken !== null) {
             window.location.href = "http://localhost:3000";
-        }else {
+        } else {
             setNotificationText("Server error during user login.")
             setNotificationVisible(true)
 
@@ -112,30 +112,33 @@ function LoginPage() {
 
     return (
         <div className={"main-div"}>
-            <Menu />
-            <ForgetPasswordForm />
-            <NewPassword />
+            <Menu/>
+            <ForgetPasswordForm/>
+            <NewPassword/>
             <div className={"login-page-container"}>
                 <div onKeyDown={handleKeypress} className={"login-form-container"}>
                     <h1 className={"login-header"}>LOGIN</h1>
                     <p>Already Registered? Please Login From Here.</p>
                     <form className={"login-form"}>
                         <div className={"login-input"}>
-                        <label>EMAIL*</label>
-                        <input required={true} onChange={event => setEmailLogin(event.target.value)} type={"email"} name={"email"}/>
+                            <label>EMAIL*</label>
+                            <input required={true} onChange={event => setEmailLogin(event.target.value)} type={"email"}
+                                   name={"email"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                         <div className={"login-input"}>
                             <label>PASSWORD*</label>
-                            <input required={true} onChange={event =>  setEmailPass(event.target.value)} type={"password"} name={"password"}/>
+                            <input required={true} onChange={event => setEmailPass(event.target.value)}
+                                   type={"password"} name={"password"}/>
                             <span>THIS IS A REQUIRED FIELD.</span>
                         </div>
                     </form>
                     <div className={"forgot-password-container"}>
-                    <a onClick={handleForgotPasswordButton}>FORGOT YOUR PASSWORD?</a>
+                        <a onClick={handleForgotPasswordButton}>FORGOT YOUR PASSWORD?</a>
                         <p onClick={onLoginButtonClick} className={"login-button"}>LOGIN</p>
                     </div>
-                    <hr/><h1 className={"login-header"}>OR</h1>
+                    <hr/>
+                    <h1 className={"login-header"}>OR</h1>
                     <div className={"oauth-login-container"}>
                         <LoginSocialFacebook
                             className={"facebook-button"}
@@ -146,25 +149,26 @@ function LoginPage() {
                             isOnlyGetToken={false}
                             children={<p className={"facebook-login-button"}>
                                 <img className={"login-button-icon"} alt={"fb"} src={fbIcon}/>FACEBOOK</p>}
-                            />
-
-                        <GoogleLogin
-                            render={props => (
-                                <p onClick={props.onClick} id={"google-login"} className={"google-button"}>
-                                    <img className={"login-button-icon"} alt={"google"} src={googleIcon}/> GOOGLE</p>
-                            )}
-                            clientId={"985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com"}
-                            onSuccess={googleLoginSuccess}
-                            onFailure={googleLoginFailure}
-                            scope={""}
-                            buttonText={null}
-                            icon={false}
                         />
+                        <div className={"google-button"}>
+                        <GoogleLogin
+                            onSuccess={response => googleLoginSuccess(response)}
+                            onError={() => googleLoginFailure()}
+                            type={"standard"}
+                            locale={"EN"}
+                            size={"small"}
+                            width={"50"}
+                            shape={"circle"}/>
+
+                        </div>
+
+
                     </div>
                 </div>
                 <div className={"register-form-container"}>
                     <h1 className={"register-header"}>REGISTER</h1>
-                    <p className={"form-description-paragraph"}>SIMPLY CLICK THE REGISTER BUTTON AND FILL OUT THE FORM TO BECOME PART OF A HUGE ONLINE COMMUNITY.</p>
+                    <p className={"form-description-paragraph"}>SIMPLY CLICK THE REGISTER BUTTON AND FILL OUT THE FORM
+                        TO BECOME PART OF A HUGE ONLINE COMMUNITY.</p>
                     <h2><img className={"register-icon"} alt={"earn"} src={earn}/>EARN UP TO 30 BADGES
                     </h2>
                     <h2><img className={"register-icon"} alt={"discount"} src={discount}/>RECEIVE DISCOUNTS & BENEFITS
@@ -174,9 +178,10 @@ function LoginPage() {
                     <p onClick={() => navigate("/account/register")} className={"register-button"}>REGISTER</p>
                 </div>
             </div>
-            <SocialMedia />
-            <Footer />
+            <SocialMedia/>
+            <Footer/>
         </div>
     )
 }
+
 export default LoginPage;

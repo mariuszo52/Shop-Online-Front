@@ -13,10 +13,13 @@ import RegisterPage from "./pages/RegisterPage";
 import axios from "axios";
 import {LoggedRoute} from "./routes/LoggedRoute";
 import ErrorPage from "./pages/ErrorPage";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 
 function App() {
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
     return (
+        <GoogleOAuthProvider
+            clientId="985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com">
         <NotificationProvider>
             <NotificationBar/>
         <BrowserRouter>
@@ -34,6 +37,7 @@ function App() {
             </CartProvider>
       </BrowserRouter>
         </NotificationProvider>
+        </GoogleOAuthProvider>
   );
 
 }
