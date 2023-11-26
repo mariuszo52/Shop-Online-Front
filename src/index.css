@@ -1289,3 +1289,21 @@
     cursor: pointer;
     scale: 101%;
 }
+.account-panel-container{
+    width: 100%;
+    height: 1000px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+}
+.account-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    width: 300px;
+    height: 80%;
+    background-color: #160e2a;
+    margin-top: 20px;
+}
