@@ -1,5 +1,4 @@
 import Menu from "../components/Menu";
-import googleIcon from "../images/social-media/google.png"
 import fbIcon from "../images/social-media/facebook.png"
 import earn from "../images/earnup.svg";
 import community from "../images/community.svg"
@@ -157,8 +156,8 @@ function LoginPage() {
                             type={"standard"}
                             locale={"EN"}
                             size={"small"}
-                            width={"50"}
-                            shape={"circle"}/>
+                            width={"250"}
+                            shape={"rectangular"}/>
 
                         </div>
 

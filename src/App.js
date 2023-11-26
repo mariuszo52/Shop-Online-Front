@@ -17,6 +17,12 @@ import {GoogleOAuthProvider} from "@react-oauth/google";
 
 function App() {
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
+    useEffect(() => {
+        if(sessionStorage.getItem("jwt")){
+            sessionStorage.removeItem("cartTotalElements")
+            sessionStorage.removeItem("cart")
+        }
+    }, []);
     return (
         <GoogleOAuthProvider
             clientId="985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com">

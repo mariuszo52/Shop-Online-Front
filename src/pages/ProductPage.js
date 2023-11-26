@@ -63,20 +63,6 @@ function ProductPage() {
         getLanguages()
     }, [id]);
 
-    useEffect(() => {
-        function changeMenuStyle() {
-            window.addEventListener("scroll", () => {
-                let menu = document.getElementsByClassName("menu-div");
-                if (window.scrollY > 120) {
-                    menu.item(0).style.position = "fixed";
-                } else {
-                    menu.item(0).style.position = "static";
-                }
-            })
-        }
-
-        changeMenuStyle();
-    }, []);
     const handleClickInfoMenuButton = (event) => {
         let moreInfoContentName = event.target.textContent.toLowerCase();
         let moreInfoMenuElements = document.getElementsByClassName("more-info-el");
@@ -97,7 +83,7 @@ function ProductPage() {
     return (
 
         <div className={"main-div"}>
-            <Menu menuId={"static-menu"}/>
+            <Menu />
             <div className={"product-info-container"}>
                 <div className={"navigation-bar"}>
                     <p onClick={() => navigate("/")}

@@ -5,7 +5,6 @@ import ProductList from "../components/ProductList";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import Pagination from "../components/Pagination";
 import FilterProducts from "../components/FilterProducts";
 import {useParams} from "react-router-dom";

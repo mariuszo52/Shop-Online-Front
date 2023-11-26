@@ -33,7 +33,7 @@ function FilterProducts({
         async function getPlatforms() {
             await axios.get("http://localhost:8080/platform/device-platforms", {params})
                 .then(r => setPlatforms(r.data))
-                .then(err => console.log(err))
+                .catch(err => console.log(err))
         }
         getPlatforms()
     }, [productsPageable]);
@@ -46,7 +46,7 @@ function FilterProducts({
        async function getGenres() {
            await axios.get("http://localhost:8080/genre/device-genres", {params})
                 .then(r => setGenres(r.data))
-               .then(err => console.log(err))
+               .catch(err => console.log(err))
         }
         getGenres()
     }, [productsPageable]);
@@ -55,7 +55,7 @@ function FilterProducts({
         async function getLanguages() {
             await axios.get("http://localhost:8080/language/all")
                 .then(r => setLanguages(r.data))
-                .then(err => console.log(err))
+                .catch(err => console.log(err))
         }
         getLanguages()
 

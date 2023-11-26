@@ -9,14 +9,12 @@ import SocialMedia from "../components/SocialMedia";
 
 function CartPage() {
     const navigate = useNavigate();
-    const {index, onQuantityChange, removeProductFromCart} = useCart();
-    const [cartItems, setCartItems] = useState()
-    const [cartTotalElements, setCartTotalElements] = useState()
+    const {index, onQuantityChange, removeProductFromCart, fetchCart,
+    cartTotalElements, cartItems} = useCart();
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
 
     useEffect(() => {
-        setCartItems(JSON.parse(sessionStorage.getItem("cart")) || [])
-        setCartTotalElements(JSON.parse(sessionStorage.getItem("cartTotalElements")) || 0)
+        fetchCart();
     }, [index]);
 
     useEffect(() => {
@@ -63,7 +61,7 @@ function CartPage() {
                             <div className={"product-column"}>
                                 <img className={"product-cover"} alt={"product"} src={item?.coverImage}/>
                                 <div className={"product-info"}>
-                                    <p className={"title"}>{item?.name}</p>
+                                    <p onClick={() => navigate("/product/" + item.id)} className={"title"}>{item?.name}</p>
                                     <p className={"product-more-details"}>{item?.platformDto.name}</p>
                                     <p className={"product-more-details"}>{item?.platformDto.device}</p>
                                 </div>

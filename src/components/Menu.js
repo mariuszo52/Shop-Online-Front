@@ -1,15 +1,16 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
-import logo from "../images/logo.png"
+import logo from "../images/logo.jpg"
 import {useNavigate} from "react-router-dom";
 import React from "react";
 import {useCart} from "../context/CartContext";
 
-function Menu({menuId}) {
+function Menu() {
     const navigate = useNavigate();
     const {setIsCartVisible} = useCart();
 
     function onCartIconClick() {
+        if(window.location.href !== "http://localhost:3000/cart")
         setIsCartVisible(true)
     }
 
@@ -22,17 +23,17 @@ function Menu({menuId}) {
     }
     return (
         <>
-            <div id ={menuId} className={"menu-div"}>
+            <div className={"menu-div"}>
                 <div className={"menu-panel"}>
                     <p onClick={() => navigate("/PC")}>PC</p>
                     <p onClick={() => navigate("/PSN")}>PSN</p>
                     <p onClick={() => navigate("/XBOX")}>XBOX</p>
                     <p onClick={() => navigate("/NINTENDO")}>NINTENDO</p>
-                    <p onClick={() => navigate("/ROCKSTAR-GAMES")}>ROCKSTAR GAMES</p>
                     <p onClick={() => navigate("/OTHERS")}>OTHER</p>
+                    <p onClick={() => navigate("/ROCKSTAR-GAMES")}>ROCKSTAR</p>
                 </div>
                 <div className={"logo-div"}>
-                    <img onClick={() => navigate("/")} alt="logo" className={"logo"} src={logo}/>
+                    <img onClick={() => window.location.href = "http://localhost:3000"} alt="logo" className={"logo"} src={logo}/>
                 </div>
                 <div className={"user-panel"}>
                     <FontAwesomeIcon onClick={onUserIconClick} className={"user-panel-icon"} icon={faUser}/>

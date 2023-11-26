@@ -2,20 +2,18 @@ import trash from "../images/trash.jpg"
 import {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function CartPreview() {
     const {
         isCartVisible, index, setIndex, clearCart,
         setIsCartVisible, onQuantityChange, removeProductFromCart,
+        cartItems, cartTotalElements, fetchCart
     } = useCart();
     const navigate = useNavigate();
-    const [cartItems, setCartItems] = useState([])
-    const [cartTotalElements, setCartTotalElements] = useState(0)
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
-
     useEffect(() => {
-        setCartItems(JSON.parse(sessionStorage.getItem("cart")) || [])
-        setCartTotalElements(JSON.parse(sessionStorage.getItem("cartTotalElements")) || 0)
+       fetchCart();
     }, [index]);
 
     function closeCartPreview() {
