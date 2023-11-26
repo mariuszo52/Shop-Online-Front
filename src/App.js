@@ -12,8 +12,10 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import axios from "axios";
 import {LoggedRoute} from "./routes/LoggedRoute";
+import {UserRoute} from "./routes/UserRoute";
 import ErrorPage from "./pages/ErrorPage";
 import {GoogleOAuthProvider} from "@react-oauth/google";
+import UserPanelPage from "./pages/UserPanelPage";
 
 function App() {
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
@@ -39,6 +41,7 @@ function App() {
             <Route path={"/cart"} element={<CartPage/>}></Route>
             <Route path={"/account/login"} element={<LoggedRoute><LoginPage/></LoggedRoute>}></Route>
             <Route path={"/account/register"} element={<LoggedRoute><RegisterPage /></LoggedRoute>}></Route>
+            <Route path={"/account/my-account"} element={<UserRoute><UserPanelPage /></UserRoute>}></Route>
         </Routes>
             </CartProvider>
       </BrowserRouter>

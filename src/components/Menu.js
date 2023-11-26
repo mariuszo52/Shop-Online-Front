@@ -10,17 +10,15 @@ function Menu() {
     const {setIsCartVisible} = useCart();
 
     function onCartIconClick() {
-        if(window.location.href !== "http://localhost:3000/cart")
-        setIsCartVisible(true)
+        if (window.location.href !== "http://localhost:3000/cart")
+            setIsCartVisible(true)
     }
 
     function onUserIconClick() {
-        if (sessionStorage.getItem("jwt")) {
-            navigate("/account/my-account")
-        } else {
-            navigate("/account/login")
-        }
+        navigate("/account/my-account")
+
     }
+
     return (
         <>
             <div className={"menu-div"}>
@@ -33,7 +31,8 @@ function Menu() {
                     <p onClick={() => navigate("/ROCKSTAR-GAMES")}>ROCKSTAR</p>
                 </div>
                 <div className={"logo-div"}>
-                    <img onClick={() => window.location.href = "http://localhost:3000"} alt="logo" className={"logo"} src={logo}/>
+                    <img onClick={() => window.location.href = "http://localhost:3000"} alt="logo" className={"logo"}
+                         src={logo}/>
                 </div>
                 <div className={"user-panel"}>
                     <FontAwesomeIcon onClick={onUserIconClick} className={"user-panel-icon"} icon={faUser}/>
