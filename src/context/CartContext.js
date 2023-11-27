@@ -69,10 +69,14 @@ export function CartProvider({children}) {
     const onQuantityChange = (event, product) => {
         if(sessionStorage.getItem("jwt")){
             product.cartQuantity = event.target.value;
-            document.getElementById("full-cart-quantity-input").disabled = true;
+            for (const cartInput of document.getElementsByClassName("cart-input")) {
+                cartInput.disabled = false
+            }
             axios.patch("http://localhost:8080/cart/quantity", product)
                 .then(response =>{
-                    document.getElementById("full-cart-quantity-input").disabled = false;
+                    for (const cartInput of document.getElementsByClassName("cart-input")) {
+                        cartInput.disabled = false
+                    }
                     console.log(response.data)
                     setIndex((prevState) => prevState + 1);
                 })

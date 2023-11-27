@@ -68,7 +68,7 @@ function CartPage() {
 
                             </div>
                             <div className={"quantity-column"}>
-                                <input id={"full-cart-quantity-input"} type={"number"}
+                                <input type={"number"}
                                        min={1}
                                        max={5}
                                        onChange={event => onQuantityChange(event, item)}

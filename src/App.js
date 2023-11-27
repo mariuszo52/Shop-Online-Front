@@ -18,7 +18,21 @@ import {GoogleOAuthProvider} from "@react-oauth/google";
 import UserPanelPage from "./pages/UserPanelPage";
 
 function App() {
+
     axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
+    axios.interceptors.response.use(
+        response => {
+            return response;
+        },
+        error => {
+            if (error.response && error.response.status === 403) {
+                sessionStorage.removeItem("jwt");
+                window.location.href = '/account/login';
+            }
+            return Promise.reject(error);
+        }
+    );
+
     useEffect(() => {
         if(sessionStorage.getItem("jwt")){
             sessionStorage.removeItem("cartTotalElements")

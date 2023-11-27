@@ -57,7 +57,7 @@ function LoginPage() {
                 sessionStorage.setItem("jwt", "Bearer " + response.data)
                 setNotificationText("Login success.")
                 setNotificationVisible(true)
-                navigate("/")
+                window.location.href = "http://localhost:3000";
             })
             .catch(err => {
                 setNotificationText(err.response.data)
