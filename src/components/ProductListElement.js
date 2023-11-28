@@ -58,7 +58,7 @@ function ProductListElement({products}) {
 
     return (
         <>
-            {products.map((product, index) => (
+            {products?.map((product, index) => (
                 <div
                     key={index}
                     onMouseOver={() => handleMouseOver(index)}

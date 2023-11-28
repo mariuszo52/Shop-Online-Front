@@ -54,9 +54,9 @@ function Home() {
     }
 
     useEffect(() => {
-        fetchProducts().then(() => {
-            console.log("Products fetched")
-        })
+        fetchProducts()
+            .then(() => console.log("Products fetched"))
+            .catch(reason => console.log(reason))
     }, [currentPage]);
 
 

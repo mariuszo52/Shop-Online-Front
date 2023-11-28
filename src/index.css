@@ -1329,15 +1329,58 @@
 
 }
 .my-account-header{
+    height: 50px;
+    justify-content: space-between;
     margin-bottom: 30px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 90%;
-    align-items: start;
+    align-items: center;
 }
 .account-information-div{
+    justify-content: space-between;
     flex-direction: column;
     display: flex;
     width: 90%;
     height: 300px;
-    background-color: #160e2a;}
+    background-color: #160e2a;
+}
+.account-information-div h4{
+    width: 30%;
+    margin: 30px 20px;
+}
+.account-info-paragraph{
+    color: grey;
+    width: 30%;
+    margin: 0 0 5px 20px;
+}
+.account-info-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 30%;
+    margin: 0 0 20px 20px;
+    padding: 5px 10px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+.account-info-button:hover{
+    scale: 101%;
+    cursor: pointer;
+}
+.account-info-header-button{
+    text-align: center;
+    width: 30%;
+    padding: 5px 10px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+.account-info-header-button:hover{
+    scale: 101%;
+    cursor: pointer;
+}
+#delete-account-button{
+    border: 1px solid red;
+    margin-top: 50px;
+}
