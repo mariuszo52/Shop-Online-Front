@@ -1,15 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 function MyAccount(){
+    const [userAccountInfo, setUserAccountInfo] = useState(null)
+
+    useEffect(() => {
+        function fetchUserAccountInfo(){
+            axios.get("http://localhost:8080/user")
+                .then(response => setUserAccountInfo(response.data))
+                .catch(reason => console.log(reason))
+        }
+        fetchUserAccountInfo()
+    }, []);
+
     return(
         <>
-        <div className={"account-menu"}>
-            <p className={"account-menu-el"}>MY ACCOUNT</p>
-            <p className={"account-menu-el"}>MY ORDERS</p>
-            <p className={"account-menu-el"}>WISHLIST</p>
-            <p className={"account-menu-el"}>MESSAGES</p>
-            <p className={"account-menu-el"}>LOGOUT</p>
-        </div>
     <div className={"menu-my-account"}>
         <h1>MY ACCOUNT</h1>
         <div className={"my-account-header"}>
@@ -17,8 +22,14 @@ function MyAccount(){
         </div>
         <div className={"account-information-div"}>
             <h4>ACCOUNT INFORMATION</h4>
-            <p className={"account-info-paragraph"}>NAME LASTNAME</p>
-            <p className={"account-info-paragraph"}>USER@EXAMPLE.COM</p>
+            {userAccountInfo?.name ?(<p className={"account-info-paragraph"}>{userAccountInfo?.name} {userAccountInfo?.lastName}</p>
+            ):(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+            )}
+            {userAccountInfo?.email ?(<p className={"account-info-paragraph"}>{userAccountInfo?.email}</p>
+            ):(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+            )}
             <p className={"account-info-button"}>EDIT INFORMATION</p>
             <p className={"account-info-button"}>CHANGE PASSWORD</p>
         </div>
@@ -28,11 +39,30 @@ function MyAccount(){
         </div>
         <div className={"account-information-div"}>
             <h4>DEFAULT SHIPPING ADDRESS</h4>
-            <p className={"account-info-paragraph"}>NAME LASTNAME</p>
-            <p className={"account-info-paragraph"}>RYNEK 1 NOWY SACZ</p>
-            <p className={"account-info-paragraph"}>NOWY SACZ POLAND 33-300</p>
-            <p className={"account-info-paragraph"}>POLAND</p>
-            <p className={"account-info-paragraph"}>T: 123456789</p>
+            {userAccountInfo?.name ?(<p className={"account-info-paragraph"}>{userAccountInfo?.name} {userAccountInfo?.lastName}</p>
+                ):(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                )}
+            {userAccountInfo?.address ?(<p className={"account-info-paragraph"}>{userAccountInfo?.address}</p>
+                ) :(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                )}
+            {userAccountInfo?.city ?(<p className={"account-info-paragraph"}>{userAccountInfo?.city}</p>
+            ) :(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+            )}
+            {userAccountInfo?.country ?(<p className={"account-info-paragraph"}>{userAccountInfo?.country}</p>
+            ) :(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+            )}
+            {userAccountInfo?.postalCode ?(<p className={"account-info-paragraph"}>{userAccountInfo?.postalCode }</p>
+            ) :(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+            )}
+            {userAccountInfo?.phoneNumber ?(<p className={"account-info-paragraph"}>{userAccountInfo?.phoneNumber }</p>
+            ) :(
+                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+            )}
         </div>
         <p id={"delete-account-button"} className={"account-info-button"}>DELETE ACCOUNT</p>
     </div>
