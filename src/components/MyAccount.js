@@ -13,6 +13,11 @@ function MyAccount(){
         fetchUserAccountInfo()
     }, []);
 
+    function handleChangePasswordButton() {
+        let forgetPasswordForm = document.getElementById("password-change-container");
+        forgetPasswordForm.style.display = "flex";
+    }
+
     return(
         <>
     <div className={"menu-my-account"}>
@@ -31,7 +36,7 @@ function MyAccount(){
                 <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
             )}
             <p className={"account-info-button"}>EDIT INFORMATION</p>
-            <p className={"account-info-button"}>CHANGE PASSWORD</p>
+            <p className={"account-info-button"} onClick={handleChangePasswordButton}>CHANGE PASSWORD</p>
         </div>
         <div className={"my-account-header"}>
             <h3>ADDRESS BOOK</h3>
