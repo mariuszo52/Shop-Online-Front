@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {useNotification} from "../context/NotificationContext";
+import {useNotification} from "../../context/NotificationContext";
 
 function ChangePassword(){
     const [oldPassword, setOldPassword] = useState("")
@@ -14,9 +14,10 @@ function ChangePassword(){
             "newPassword": newPassword,
             "confirmNewPassword": confirmNewPassword
         }
-            axios.post("http://localhost:8080/user/password", data)
+            axios.patch("http://localhost:8080/user/password", data)
                 .then(response => {
-                    console.log(response)
+                    setNotificationText("Password has changed.")
+                    setNotificationVisible(true)
                     handleCloseButtonClick()
                 })
                 .catch(reason =>{
@@ -38,18 +39,21 @@ function handleCloseButtonClick() {
 }
 
 return(
-        <form onKeyDown={event => handleEnterDown(event)} id={"password-change-container"}
+        <form onSubmit={event => changePassword(event)}
+            onKeyDown={event => handleEnterDown(event)} id={"password-change-container"}
               className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
             <label>Change password</label><br/>
+            <label>Old password</label>
             <input onChange={event => setOldPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
+            <label>New password</label>
             <input onChange={event => setNewPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
+            <label>Confirm new password</label>
             <input onChange={event => setConfirmNewPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
-            <button onClick={event => changePassword(event)}
-                    className={"login-button"} type={"submit"}>CHANGE PASSWORD</button>
+            <button type={"submit"} className={"login-button"} >CHANGE PASSWORD</button>
         </form>
     )
 }

@@ -36,13 +36,13 @@ function ForgetPasswordForm(){
     }
 
     return(
-        <form onKeyDown={handleEnterDown} id={"fp-main-container"} className={"fp-main-container"}>
+        <form onSubmit={event => handleSendButtonClick(event)}
+            onKeyDown={handleEnterDown} id={"fp-main-container"} className={"fp-main-container"}>
                 <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
             <p>ENTER YOUR EMAIL ADDRESS</p><br/>
             <input className={"fp-input"}  required={true} type={"email"}
                    onChange={event => setEmail(event.target.value)}/><br/>
-            <button type={"submit"} onClick={event => handleSendButtonClick(event)}
-                    className={"login-button"}>SEND</button>
+            <button type={"submit"} className={"login-button"}>SEND</button>
         </form>
     )
 }

@@ -2,7 +2,7 @@ import Menu from "../components/Menu";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import React from "react";
-import MyAccount from "../components/MyAccount";
+import MyAccount from "../components/UserPanelPage components/MyAccount";
 
 function UserPanelPage() {
 

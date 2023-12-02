@@ -46,13 +46,14 @@ function NewPassword(){
     }
 
     return(
-        <form onKeyDown={event => handleEnterDown(event)} id={"password-reset-container"} className={"fp-main-container"}>
+        <form onSubmit={event => changePassword(event)}
+            onKeyDown={event => handleEnterDown(event)} id={"password-reset-container"}
+              className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
             <label>Enter new password</label><br/>
             <input onChange={event => setNewPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
-            <button onClick={event => changePassword(event)}
-                    className={"login-button"} type={"submit"}>CHANGE PASSWORD</button>
+            <button className={"login-button"} type={"submit"}>CHANGE PASSWORD</button>
         </form>
     )
 }

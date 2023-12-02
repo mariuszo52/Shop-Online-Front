@@ -1,8 +1,14 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import ChangePassword from "./ChangePassword";
+import {useNotification} from "../../context/NotificationContext";
+import ChangeUserInfo from "./ChangeUserInfo";
+import ChangeAddress from "./ChangeAddress";
+import DeleteAccount from "./DeleteAccount";
 
 function MyAccount(){
     const [userAccountInfo, setUserAccountInfo] = useState(null)
+    const {setNotificationVisible, setNotificationText} = useNotification();
 
     useEffect(() => {
         function fetchUserAccountInfo(){
@@ -14,13 +20,41 @@ function MyAccount(){
     }, []);
 
     function handleChangePasswordButton() {
+        if(sessionStorage.getItem("jwt").startsWith("FB")){
+            setNotificationText("Unfortunately, you cannot change your password as you are using Facebook authentication.")
+            setNotificationVisible(true);
+        }
+        else if(sessionStorage.getItem("jwt").startsWith("GOOGLE")){
+            setNotificationText("Unfortunately, you cannot change your password as you are using Google authentication.")
+            setNotificationVisible(true);
+        }else {
         let forgetPasswordForm = document.getElementById("password-change-container");
         forgetPasswordForm.style.display = "flex";
+            }
+    }
+
+    function handleChangeInfoButton() {
+        let forgetPasswordForm = document.getElementById("user-info-change-container");
+        forgetPasswordForm.style.display = "flex";
+    }
+
+    function handleChangeAddressButton() {
+        let forgetPasswordForm = document.getElementById("address-change-container");
+        forgetPasswordForm.style.display = "flex";
+    }
+    function handleAccountDeleteButton() {
+        let forgetPasswordForm = document.getElementById("account-delete-container");
+        forgetPasswordForm.style.display = "flex";
+        window.scrollTo({top: 0})
     }
 
     return(
         <>
     <div className={"menu-my-account"}>
+        <ChangePassword />
+        <ChangeUserInfo />
+        <ChangeAddress />
+        <DeleteAccount />
         <h1>MY ACCOUNT</h1>
         <div className={"my-account-header"}>
             <h3>ACCOUNT INFORMATION</h3>
@@ -35,12 +69,12 @@ function MyAccount(){
             ):(
                 <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
             )}
-            <p className={"account-info-button"}>EDIT INFORMATION</p>
+            <p className={"account-info-button"} onClick={handleChangeInfoButton}>EDIT INFORMATION</p>
             <p className={"account-info-button"} onClick={handleChangePasswordButton}>CHANGE PASSWORD</p>
         </div>
         <div className={"my-account-header"}>
             <h3>ADDRESS BOOK</h3>
-            <p className={"account-info-header-button"}>MANAGE ADDRESSES</p>
+            <p onClick={handleChangeAddressButton} className={"account-info-header-button"}>EDIT ADDRESS</p>
         </div>
         <div className={"account-information-div"}>
             <h4>DEFAULT SHIPPING ADDRESS</h4>
@@ -69,7 +103,7 @@ function MyAccount(){
                 <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
             )}
         </div>
-        <p id={"delete-account-button"} className={"account-info-button"}>DELETE ACCOUNT</p>
+        <p onClick={handleAccountDeleteButton} id={"delete-account-button"} className={"account-info-button"}>DELETE ACCOUNT</p>
     </div>
         </>
     )

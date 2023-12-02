@@ -1266,15 +1266,16 @@
     color: white;
 }
 .fp-main-container{
+    height: min-content;
     background-color: #20143c;
-    top: 50%;
+    top: 20%;
     position: absolute;
     display: none;
-    height: 200px;
     width: 30%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border: white solid 1px;
 }
 .close-fp-main-container{
     width: 100%;
