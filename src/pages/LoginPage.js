@@ -57,7 +57,8 @@ function LoginPage() {
         submit.preventDefault();
         axios.post("http://localhost:8080/login", loginCredentials)
             .then(response => {
-                sessionStorage.setItem("jwt", "Bearer " + response.data)
+                sessionStorage.setItem("jwt", "Bearer " + response?.data.accessToken)
+                localStorage.setItem("refreshToken", "Bearer " + response?.data.refreshToken)
                 setNotificationText("Login success.")
                 setNotificationVisible(true)
                 window.location.href = "http://localhost:3000";

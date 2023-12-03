@@ -19,22 +19,8 @@ import UserPanelPage from "./pages/UserPanelPage";
 
 function App() {
 
-    axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("jwt");
-    axios.interceptors.response.use(
-        response => {
-            return response;
-        },
-        error => {
-            if (error.response && error.response.status === 403) {
-                sessionStorage.removeItem("jwt");
-                window.location.href = '/account/login';
-            }
-            return Promise.reject(error);
-        }
-    );
-
     useEffect(() => {
-        if(sessionStorage.getItem("jwt")){
+        if (sessionStorage.getItem("jwt")) {
             sessionStorage.removeItem("cartTotalElements")
             sessionStorage.removeItem("cart")
         }
@@ -42,26 +28,28 @@ function App() {
     return (
         <GoogleOAuthProvider
             clientId="985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com">
-        <NotificationProvider>
-            <NotificationBar/>
-        <BrowserRouter>
-            <CartProvider>
-                <CartPreview/>
-        <Routes>
-          <Route path={"/"} element={<Home/>}></Route>
-            <Route path={"/error"} element={<ErrorPage/>}></Route>
-            <Route path={"/:deviceName"} element={<PlatformPage />}></Route>
-            <Route path={"/product/:id"} element={<ProductPage/>}></Route>
-            <Route path={"/cart"} element={<CartPage/>}></Route>
-            <Route path={"/account/login"} element={<LoggedRoute><LoginPage/></LoggedRoute>}></Route>
-            <Route path={"/account/register"} element={<LoggedRoute><RegisterPage /></LoggedRoute>}></Route>
-            <Route path={"/account/my-account"} element={<UserRoute><UserPanelPage /></UserRoute>}></Route>
-        </Routes>
-            </CartProvider>
-      </BrowserRouter>
-        </NotificationProvider>
+            <NotificationProvider>
+                <NotificationBar/>
+                <BrowserRouter>
+                    <CartProvider>
+                        <CartPreview/>
+                        <Routes>
+                            <Route path={"/"} element={<Home/>}></Route>
+                            <Route path={"/error"} element={<ErrorPage/>}></Route>
+                            <Route path={"/:deviceName"} element={<PlatformPage/>}></Route>
+                            <Route path={"/product/:id"} element={<ProductPage/>}></Route>
+                            <Route path={"/cart"} element={<CartPage/>}></Route>
+                            <Route path={"/account/login"} element={<LoggedRoute><LoginPage/></LoggedRoute>}></Route>
+                            <Route path={"/account/register"}
+                                   element={<LoggedRoute><RegisterPage/></LoggedRoute>}></Route>
+                            <Route path={"/account/my-account"}
+                                   element={<UserRoute><UserPanelPage/></UserRoute>}></Route>
+                        </Routes>
+                    </CartProvider>
+                </BrowserRouter>
+            </NotificationProvider>
         </GoogleOAuthProvider>
-  );
+    );
 
 }
 
