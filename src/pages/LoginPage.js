@@ -46,12 +46,15 @@ function LoginPage() {
 
     const handleKeypress = event => {
         if (event.keyCode === 13) {
-            onLoginButtonClick()
+            document.getElementById("login-form").addEventListener("submit", event => {
+                onLoginButtonClick(event);
+            });
         }
     };
 
 
-    function onLoginButtonClick() {
+    function onLoginButtonClick(submit) {
+        submit.preventDefault();
         axios.post("http://localhost:8080/login", loginCredentials)
             .then(response => {
                 sessionStorage.setItem("jwt", "Bearer " + response.data)
@@ -67,7 +70,7 @@ function LoginPage() {
     }
 
 
-    const googleLoginFailure = ()=>{
+    const googleLoginFailure = () => {
         setNotificationText("Login failed.")
         setNotificationVisible(true)
     }
@@ -115,27 +118,32 @@ function LoginPage() {
             <ForgetPasswordForm/>
             <NewPassword/>
             <div className={"login-page-container"}>
-                <div onKeyDown={handleKeypress} className={"login-form-container"}>
+                <div className={"login-form-container"}>
                     <h1 className={"login-header"}>LOGIN</h1>
                     <p>Already Registered? Please Login From Here.</p>
-                    <form className={"login-form"}>
-                        <div className={"login-input"}>
-                            <label>EMAIL*</label>
-                            <input required={true} onChange={event => setEmailLogin(event.target.value)} type={"email"}
-                                   name={"email"}/>
-                            <span>THIS IS A REQUIRED FIELD.</span>
+                    <form id={"login-form"} onKeyDown={event => handleKeypress(event)}
+                        onSubmit={event => onLoginButtonClick(event)}
+                        className={"login-form"}>
+                        <div className={"login-inputs"}>
+                            <div className={"login-input"}>
+                                <label>EMAIL*</label>
+                                <input required={true} onChange={event => setEmailLogin(event.target.value)}
+                                       type={"email"}
+                                       name={"email"}/>
+                                <span>THIS IS A REQUIRED FIELD.</span>
+                            </div>
+                            <div className={"login-input"}>
+                                <label>PASSWORD*</label>
+                                <input required={true} onChange={event => setEmailPass(event.target.value)}
+                                       type={"password"} name={"password"}/>
+                                <span>THIS IS A REQUIRED FIELD.</span>
+                            </div>
                         </div>
-                        <div className={"login-input"}>
-                            <label>PASSWORD*</label>
-                            <input required={true} onChange={event => setEmailPass(event.target.value)}
-                                   type={"password"} name={"password"}/>
-                            <span>THIS IS A REQUIRED FIELD.</span>
+                        <div className={"forgot-password-container"}>
+                            <a onClick={handleForgotPasswordButton}>FORGOT YOUR PASSWORD?</a>
+                            <button type={"submit"} className={"login-button"}>LOGIN</button>
                         </div>
                     </form>
-                    <div className={"forgot-password-container"}>
-                        <a onClick={handleForgotPasswordButton}>FORGOT YOUR PASSWORD?</a>
-                        <p onClick={onLoginButtonClick} className={"login-button"}>LOGIN</p>
-                    </div>
                     <hr/>
                     <h1 className={"login-header"}>OR</h1>
                     <div className={"oauth-login-container"}>
@@ -150,21 +158,21 @@ function LoginPage() {
                                 <img className={"login-button-icon"} alt={"fb"} src={fbIcon}/>FACEBOOK</p>}
                         />
                         <div className={"google-button"}>
-                        <GoogleLogin
-                            onSuccess={response => googleLoginSuccess(response)}
-                            onError={() => googleLoginFailure()}
-                            type={"standard"}
-                            locale={"EN"}
-                            size={"small"}
-                            width={"250"}
-                            shape={"rectangular"}/>
+                            <GoogleLogin
+                                onSuccess={response => googleLoginSuccess(response)}
+                                onError={() => googleLoginFailure()}
+                                type={"standard"}
+                                locale={"EN"}
+                                size={"small"}
+                                width={"250"}
+                                shape={"rectangular"}/>
 
                         </div>
 
 
                     </div>
                 </div>
-                <div className={"register-form-container"}>
+                <form className={"register-form-container"}>
                     <h1 className={"register-header"}>REGISTER</h1>
                     <p className={"form-description-paragraph"}>SIMPLY CLICK THE REGISTER BUTTON AND FILL OUT THE FORM
                         TO BECOME PART OF A HUGE ONLINE COMMUNITY.</p>
@@ -175,7 +183,7 @@ function LoginPage() {
                     <h2><img className={"register-icon"} alt={"community"} src={community}/>BE PART OF A COMMUNITY
                     </h2>
                     <p onClick={() => navigate("/account/register")} className={"register-button"}>REGISTER</p>
-                </div>
+                </form>
             </div>
             <SocialMedia/>
             <Footer/>

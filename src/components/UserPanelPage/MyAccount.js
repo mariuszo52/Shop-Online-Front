@@ -5,6 +5,7 @@ import {useNotification} from "../../context/NotificationContext";
 import ChangeUserInfo from "./ChangeUserInfo";
 import ChangeAddress from "./ChangeAddress";
 import DeleteAccount from "./DeleteAccount";
+import DeleteAccountConfirm from "./DeleteAccountConfirm";
 
 function MyAccount(){
     const [userAccountInfo, setUserAccountInfo] = useState(null)
@@ -43,8 +44,14 @@ function MyAccount(){
         forgetPasswordForm.style.display = "flex";
     }
     function handleAccountDeleteButton() {
-        let forgetPasswordForm = document.getElementById("account-delete-container");
-        forgetPasswordForm.style.display = "flex";
+        let token = sessionStorage.getItem("jwt");
+        if(token.startsWith("FB") ||token.startsWith("GOOGLE")){
+            let form = document.getElementById("account-delete-confirm-container");
+            form.style.display = "flex";
+        }else {
+            let form = document.getElementById("account-delete-container");
+            form.style.display = "flex";
+        }
         window.scrollTo({top: 0})
     }
 
@@ -55,6 +62,7 @@ function MyAccount(){
         <ChangeUserInfo />
         <ChangeAddress />
         <DeleteAccount />
+        <DeleteAccountConfirm />
         <h1>MY ACCOUNT</h1>
         <div className={"my-account-header"}>
             <h3>ACCOUNT INFORMATION</h3>

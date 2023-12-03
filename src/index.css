@@ -994,7 +994,7 @@
     opacity: 80%;
     border-radius: 5px;
 }
-.login-form{
+.login-inputs{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -1342,6 +1342,7 @@
     justify-content: space-between;
     flex-direction: column;
     display: flex;
+    margin-bottom: 50px;
     width: 90%;
     height: 300px;
     background-color: #160e2a;
@@ -1383,5 +1384,5 @@
 }
 #delete-account-button{
     border: 1px solid red;
-    margin-top: 50px;
+    background-color: #cc4133;
 }

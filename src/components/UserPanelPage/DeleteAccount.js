@@ -12,12 +12,12 @@ function DeleteAccount(){
                 "password": password
             }
         }
-            axios.delete("http://localhost:8080/user", config)
+            axios.delete("http://localhost:8080/user/standard", config)
                 .then(response => {
                     sessionStorage.removeItem("jwt")
                     setNotificationText("Account deleted.")
                     setNotificationVisible(true)
-                    window.location.href = "http://localhost:3000/accont-login"
+                    window.location.href = "http://localhost:3000/account/login"
 
                 })
                 .catch(reason =>{
@@ -47,7 +47,7 @@ return(
             <label>Password</label>
             <input onChange={event => setPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
-            <button className={"login-button"} type={"submit"}>DELETE</button>
+            <button id={"delete-account-button"} className={"login-button"} type={"submit"}>DELETE</button>
         </form>
     )
 }
