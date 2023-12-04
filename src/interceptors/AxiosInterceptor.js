@@ -29,6 +29,12 @@ function AxiosInterceptor(){
                     axios.get("http://localhost:8080/login/access-token", config)
                         .then(response => {
                             sessionStorage.setItem("jwt", "Bearer " + response.data)
+                            if(error.config.method.toLowerCase() === "get"){
+                                window.location.reload();
+                            }else {
+                                    error.config._retry = true;
+                                    axios(error.config)
+                            }
                         }).catch(reason => {
                         sessionStorage.removeItem("jwt")
                         window.location.href = '/account/login';
