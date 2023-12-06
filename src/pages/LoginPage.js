@@ -24,7 +24,7 @@ function LoginPage() {
         "password": emailPass
     }
     useEffect(() => {
-        function fetchFacebookAppId(){
+        function fetchFacebookAppId() {
             axios.get("http://localhost:8080/login/facebook/app-id")
                 .then(response => setFacebookAppId(response.data))
                 .catch(reason => console.log(reason))
@@ -120,7 +120,27 @@ function LoginPage() {
         let forgetPasswordForm = document.getElementById("fp-main-container");
         forgetPasswordForm.style.display = "flex";
     }
-
+    const renderFacebookLogin = () => {
+        if (facebookAppId) {
+            return (
+                <LoginSocialFacebook
+                    className={'facebook-button'}
+                    onResolve={facebookLoginSuccess}
+                    onReject={facebookLoginReject}
+                    appId={facebookAppId}
+                    scope={'public_profile, email'}
+                    isOnlyGetToken={false}
+                    children={
+                        <p className={'facebook-login-button'}>
+                            <img className={'login-button-icon'} alt={'fb'} src={fbIcon} />
+                            FACEBOOK
+                        </p>
+                    }
+                />
+            );
+        }
+        return null;
+    };
     return (
         <div className={"main-div"}>
             <Menu/>
@@ -156,16 +176,7 @@ function LoginPage() {
                     <hr/>
                     <h1 className={"login-header"}>OR</h1>
                     <div className={"oauth-login-container"}>
-                        <LoginSocialFacebook
-                            className={"facebook-button"}
-                            onResolve={facebookLoginSuccess}
-                            onReject={facebookLoginReject}
-                            appId={facebookAppId}
-                            scope={"public_profile, email"}
-                            isOnlyGetToken={false}
-                            children={<p className={"facebook-login-button"}>
-                                <img className={"login-button-icon"} alt={"fb"} src={fbIcon}/>FACEBOOK</p>}
-                        />
+                        {renderFacebookLogin()}
                         <div className={"google-button"}>
                             <GoogleLogin
                                 onSuccess={response => googleLoginSuccess(response)}
