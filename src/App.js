@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from "./pages/Home"
 import PlatformPage from "./pages/PlatformPage";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ProductPage from "./pages/ProductPage";
 import {CartProvider} from "./context/CartContext";
 import CartPreview from "./components/CartPreview";
@@ -18,6 +18,15 @@ import {GoogleOAuthProvider} from "@react-oauth/google";
 import UserPanelPage from "./pages/UserPanelPage";
 
 function App() {
+    const [googleClientId, setGoogleClientId] = useState("")
+    useEffect(() => {
+        function fetchGoogleClientId(){
+            axios.get("http://localhost:8080/login/google/client-id")
+                .then(response => setGoogleClientId(response.data))
+                .catch(reason => console.log(reason))
+        }
+        fetchGoogleClientId();
+    }, []);
 
     useEffect(() => {
         if (sessionStorage.getItem("jwt")) {
@@ -27,7 +36,7 @@ function App() {
     }, []);
     return (
         <GoogleOAuthProvider
-            clientId="985874330130-mjutgkgsi961lgafhbkghnc4id8coa0r.apps.googleusercontent.com">
+            clientId= {googleClientId}>
             <NotificationProvider>
                 <NotificationBar/>
                 <BrowserRouter>

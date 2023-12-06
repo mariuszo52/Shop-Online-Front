@@ -6,23 +6,31 @@ import discount from "../images/discount.svg"
 import Footer from "../components/Footer";
 import SocialMedia from "../components/SocialMedia";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
 import {GoogleLogin} from '@react-oauth/google';
 import {LoginSocialFacebook} from 'reactjs-social-login';
 import ForgetPasswordForm from "../components/ForgetPasswordForm";
 import NewPassword from "../components/NewPassword";
-
 function LoginPage() {
     const navigate = useNavigate();
     let {setNotificationText, setNotificationVisible} = useNotification();
     const [emailLogin, setEmailLogin] = useState("")
     const [emailPass, setEmailPass] = useState("")
+    const [facebookAppId, setFacebookAppId] = useState("")
     let loginCredentials = {
         "email": emailLogin,
         "password": emailPass
     }
+    useEffect(() => {
+        function fetchFacebookAppId(){
+            axios.get("http://localhost:8080/login/facebook/app-id")
+                .then(response => setFacebookAppId(response.data))
+                .catch(reason => console.log(reason))
+        }
+        fetchFacebookAppId()
+    }, []);
 
     const googleLoginSuccess = response => {
         sessionStorage.setItem("jwt", "GOOGLE " + response.credential)
@@ -152,7 +160,7 @@ function LoginPage() {
                             className={"facebook-button"}
                             onResolve={facebookLoginSuccess}
                             onReject={facebookLoginReject}
-                            appId={"1062927578170362"}
+                            appId={facebookAppId}
                             scope={"public_profile, email"}
                             isOnlyGetToken={false}
                             children={<p className={"facebook-login-button"}>
