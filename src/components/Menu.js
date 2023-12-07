@@ -15,7 +15,7 @@ function Menu() {
     }
 
     function onUserIconClick() {
-        navigate("/account/my-account")
+        navigate("/account/user-panel")
 
     }
 

@@ -1329,7 +1329,7 @@
     margin-top: 50px;
 
 }
-.my-account-header{
+.user-panel-header{
     height: 50px;
     justify-content: space-between;
     margin-bottom: 30px;
@@ -1386,3 +1386,63 @@
     border: 1px solid red;
     background-color: #cc4133;
 }
+.menu-my-orders{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+    margin-top: 50px;
+}
+.purchased-games-el{
+    background-color: #96959a;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    height: 300px;
+    margin-bottom: 20px;
+}
+.order-cover-container{
+    display: flex;
+    width: 25%;
+    background-color: white;
+}
+.order-info-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 50%;
+    color: black;
+}
+.order-actions-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    background-color: #817f79;
+}
+.order-cover{
+    width: 100%;
+}
+.order-title, .order-price{
+    font-weight: bold;
+}
+.show-order-code-button{
+    border: solid 1px black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 50px;
+}
+.show-order-code-button:hover {
+    cursor: pointer;
+    scale: 101%;
+}
+

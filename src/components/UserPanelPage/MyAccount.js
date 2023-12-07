@@ -64,7 +64,7 @@ function MyAccount(){
         <DeleteAccount />
         <DeleteAccountConfirm />
         <h1>MY ACCOUNT</h1>
-        <div className={"my-account-header"}>
+        <div className={"user-panel-header"}>
             <h3>ACCOUNT INFORMATION</h3>
         </div>
         <div className={"account-information-div"}>
@@ -80,7 +80,7 @@ function MyAccount(){
             <p className={"account-info-button"} onClick={handleChangeInfoButton}>EDIT INFORMATION</p>
             <p className={"account-info-button"} onClick={handleChangePasswordButton}>CHANGE PASSWORD</p>
         </div>
-        <div className={"my-account-header"}>
+        <div className={"user-panel-header"}>
             <h3>ADDRESS BOOK</h3>
             <p onClick={handleChangeAddressButton} className={"account-info-header-button"}>EDIT ADDRESS</p>
         </div>

@@ -51,7 +51,7 @@ function App() {
                             <Route path={"/account/login"} element={<LoggedRoute><LoginPage/></LoggedRoute>}></Route>
                             <Route path={"/account/register"}
                                    element={<LoggedRoute><RegisterPage/></LoggedRoute>}></Route>
-                            <Route path={"/account/my-account"}
+                            <Route path={"/account/user-panel"}
                                    element={<UserRoute><UserPanelPage/></UserRoute>}></Route>
                         </Routes>
                     </CartProvider>
