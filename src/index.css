@@ -1310,6 +1310,7 @@
     margin-top: 50px;
 }
 .account-menu-el{
+    justify-content: center;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -1444,5 +1445,8 @@
 .show-order-code-button:hover {
     cursor: pointer;
     scale: 101%;
+}
+#my-account{
+    color: #0d7edc;
 }
 

@@ -18,6 +18,7 @@ function MyOrders() {
                 <div className={"order-info-container"}>
                     <p className={"order-title"}>FIFA 20 PSN </p>
                     <p>DATE ORDERED 24-10-2019 20:00</p>
+                    <p>ORDER STATUS: DONE</p>
                     <p>PAYMENT METHOD: BLIK</p>
                     <p>ORDER NUMBER:  #0150324546 (THIS IS NOT YOUR CODE)</p>
                     <p>PLATFORM: PS4</p>

@@ -8,6 +8,12 @@ import MyOrders from "../components/MyOrders";
 function UserPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("MY ACCOUNT")
     function chooseActiveTab(event){
+        let menuElements = document.getElementsByClassName("account-menu-el");
+        for (let menuElement of menuElements) {
+            menuElement.style.color = "white";
+        }
+        let selectedMenuElement = document.getElementById(event.target.id);
+        selectedMenuElement.style.color = "#0d7edc";
         setActiveMenuTab(event.target.innerText)
         }
 
@@ -16,12 +22,12 @@ function UserPanelPage() {
             <Menu/>
             <div className={"account-panel-container"}>
                 <div className={"account-menu"}>
-                    <p onClick={event => chooseActiveTab(event)}
+                    <p id={"my-account"} onClick={event => chooseActiveTab(event)}
                        className={"account-menu-el"}>MY ACCOUNT</p>
-                    <p onClick={event => chooseActiveTab(event)}
+                    <p id={"my-orders"} onClick={event => chooseActiveTab(event)}
                        className={"account-menu-el"}>MY ORDERS</p>
-                    <p className={"account-menu-el"}>WISHLIST</p>
-                    <p className={"account-menu-el"}>MESSAGES</p>
+                    <p id={"wishlist"} className={"account-menu-el"}>WISHLIST</p>
+                    <p id={"messages"} className={"account-menu-el"}>MESSAGES</p>
                     <p className={"account-menu-el"}>LOGOUT</p>
                 </div>
                 {activeMenuTab === "MY ACCOUNT" && (<MyAccount/>)}
