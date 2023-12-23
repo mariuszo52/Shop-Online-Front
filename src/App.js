@@ -16,6 +16,7 @@ import {UserRoute} from "./routes/UserRoute";
 import ErrorPage from "./pages/ErrorPage";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import UserPanelPage from "./pages/UserPanelPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
     const [googleClientId, setGoogleClientId] = useState("")
@@ -28,10 +29,17 @@ function App() {
         fetchGoogleClientId();
     }, []);
 
+    function saveCartToDatabase() {
+        const data = JSON.parse(sessionStorage.getItem("cart"));
+        axios.put("http://localhost:8080/cart", data)
+            .then(response => console.log(response.data))
+            .catch(reason => console.log(reason))
+    }
+
     useEffect(() => {
-        if (sessionStorage.getItem("jwt")) {
-            sessionStorage.removeItem("cartTotalElements")
-            sessionStorage.removeItem("cart")
+        let cart = JSON.parse(sessionStorage.getItem("cart"));
+        if (sessionStorage.getItem("jwt") && cart) {
+            saveCartToDatabase();
         }
     }, []);
     return (
@@ -53,6 +61,7 @@ function App() {
                                    element={<LoggedRoute><RegisterPage/></LoggedRoute>}></Route>
                             <Route path={"/account/user-panel"}
                                    element={<UserRoute><UserPanelPage/></UserRoute>}></Route>
+                            <Route path={"/checkout"} element={<UserRoute><CheckoutPage /></UserRoute>}></Route>
                         </Routes>
                     </CartProvider>
                 </BrowserRouter>

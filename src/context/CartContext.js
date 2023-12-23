@@ -36,6 +36,7 @@ export function CartProvider({children}) {
         }
         sessionStorage.setItem("cartTotalElements", totalElements.toString());
         sessionStorage.setItem("cart", JSON.stringify(cart));
+        console.log(sessionStorage.getItem("cart"))
     };
 
     const addToCart = (product) => {
@@ -125,13 +126,19 @@ export function CartProvider({children}) {
             let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
             updateCartAndTotalElements(cart)
         }
-
-
+    }
+    function onCheckoutClick(){
+        if(sessionStorage.getItem("jwt")){
+            window.location.href = "http://localhost:3000/checkout"
+        }else {
+            window.location.href = "http://localhost:3000/account/login"
+        }
     }
 
     return (
         <CartContext.Provider
             value={{
+                onCheckoutClick,
                 fetchCart,
                 cartItems,
                 cartTotalElements,

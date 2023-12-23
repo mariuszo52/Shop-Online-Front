@@ -1449,4 +1449,80 @@
 #my-account{
     color: #0d7edc;
 }
-
+.checkout-h1{
+    margin-top: 110px;
+}
+.billing-address-form, .payment-method-form{
+    margin-top: 50px;
+    background-color: #160e2a;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    align-items: center;
+    height: 600px;
+}
+.payment-method-form{
+    height: max-content;
+}
+.billing-address-form > label{
+    font-size: smaller;
+}
+.billing-address-form > input{
+    margin-bottom: 5px;
+    width: 50%;
+    border-radius: 25px;
+    padding: 5px 15px;
+    height: 30px;
+    font-size: 18px;
+    background-color: #160e2a;
+    border: solid grey;
+    color: white;
+}
+.billing-address-form > input:-webkit-autofill,
+.billing-address-form > input:-webkit-autofill:hover,
+.billing-address-form > input:-webkit-autofill:focus,
+.billing-address-form > input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #160e2a inset !important;
+    -webkit-text-fill-color: white !important;
+    font-size: 18px !important
+}
+.form-h2{
+    z-index: 10;
+    width: max-content;
+    position: relative;
+    top: -25px;
+    background-color: #4545da;
+    padding: 5px 10px;
+    opacity: 80%;
+    border-radius: 5px;
+}
+.submit-button{
+    color: white;
+    margin-right: 20px;
+    width: max-content;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    text-align: center;
+    background-color: #67c067;
+    padding: 5px 50px;
+}
+.submit-button:hover{
+    opacity: 80%;
+    cursor: pointer;
+}
+.payment-method-form > label{
+    text-align: center;
+}
+.order-summary-h2{
+    top: 15px;
+    z-index: 10;
+    width: max-content;
+    position: relative;
+    background-color: #4545da;
+    padding: 5px 10px;
+    opacity: 80%;
+    border-radius: 5px;
+}

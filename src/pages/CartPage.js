@@ -9,8 +9,10 @@ import SocialMedia from "../components/SocialMedia";
 
 function CartPage() {
     const navigate = useNavigate();
-    const {index, onQuantityChange, removeProductFromCart, fetchCart,
-    cartTotalElements, cartItems} = useCart();
+    const {
+        index, onQuantityChange, removeProductFromCart, fetchCart,
+        cartTotalElements, cartItems, onCheckoutClick
+    } = useCart();
     const [cartTotalPrice, setCartTotalPrice] = useState(0);
 
     useEffect(() => {
@@ -61,7 +63,8 @@ function CartPage() {
                             <div className={"product-column"}>
                                 <img className={"product-cover"} alt={"product"} src={item?.coverImage}/>
                                 <div className={"product-info"}>
-                                    <p onClick={() => navigate("/product/" + item.id)} className={"title"}>{item?.name}</p>
+                                    <p onClick={() => navigate("/product/" + item.id)}
+                                       className={"title"}>{item?.name}</p>
                                     <p className={"product-more-details"}>{item?.platformDto.name}</p>
                                     <p className={"product-more-details"}>{item?.platformDto.device}</p>
                                 </div>
@@ -96,13 +99,13 @@ function CartPage() {
             )}
             <div className={"submit-cart-container"}>
                 <div className={"checkout-container"}>
-                <div className={"total-prize-div"}>
-                    <p className={"total-prize-p"}>ORDER TOTAL</p>
-                    <p className={"total-prize-p"}>{cartTotalPrice?.toFixed(2)} PLN</p>
-                </div>
+                    <div className={"total-prize-div"}>
+                        <p className={"total-prize-p"}>ORDER TOTAL</p>
+                        <p className={"total-prize-p"}>{cartTotalPrice?.toFixed(2)} PLN</p>
+                    </div>
                 </div>
                 <div className={"checkout-button-container"}>
-                    <p className={"checkout-button"}>CHECKOUT</p>
+                    <p onClick={onCheckoutClick} className={"checkout-button"}>CHECKOUT</p>
                 </div>
             </div>
             <SocialMedia/>

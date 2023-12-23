@@ -8,7 +8,7 @@ function CartPreview() {
     const {
         isCartVisible, index, setIndex, clearCart,
         setIsCartVisible, onQuantityChange, removeProductFromCart,
-        cartItems, cartTotalElements, fetchCart
+        cartItems, cartTotalElements, fetchCart, onCheckoutClick
     } = useCart();
     const navigate = useNavigate();
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
@@ -96,7 +96,7 @@ function CartPreview() {
                     <p onClick={refreshCart}>REFRESH CART</p>
                     <p onClick={clearCart}>CLEAR CART</p>
                     <p onClick={onViewCartClick}>VIEW CART</p>
-                    <p>CHECKOUT</p>
+                    <p onClick={onCheckoutClick}>CHECKOUT</p>
                 </div>
             </div>
         )
