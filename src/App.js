@@ -17,6 +17,8 @@ import ErrorPage from "./pages/ErrorPage";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import UserPanelPage from "./pages/UserPanelPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+import TermsAndConditions from "./pages/PrivacyPolicy/TermsAndConditions";
 
 function App() {
     const [googleClientId, setGoogleClientId] = useState("")
@@ -29,19 +31,6 @@ function App() {
         fetchGoogleClientId();
     }, []);
 
-    function saveCartToDatabase() {
-        const data = JSON.parse(sessionStorage.getItem("cart"));
-        axios.put("http://localhost:8080/cart", data)
-            .then(response => console.log(response.data))
-            .catch(reason => console.log(reason))
-    }
-
-    useEffect(() => {
-        let cart = JSON.parse(sessionStorage.getItem("cart"));
-        if (sessionStorage.getItem("jwt") && cart) {
-            saveCartToDatabase();
-        }
-    }, []);
     return (
         <GoogleOAuthProvider
             clientId= {googleClientId}>
@@ -62,6 +51,8 @@ function App() {
                             <Route path={"/account/user-panel"}
                                    element={<UserRoute><UserPanelPage/></UserRoute>}></Route>
                             <Route path={"/checkout"} element={<UserRoute><CheckoutPage /></UserRoute>}></Route>
+                            <Route path={"/privacy-policy"} element={<PrivacyPolicy />}></Route>
+                            <Route path={"/terms-and-conditions"} element={<TermsAndConditions />}></Route>
                         </Routes>
                     </CartProvider>
                 </BrowserRouter>

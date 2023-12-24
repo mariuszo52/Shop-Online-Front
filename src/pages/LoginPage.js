@@ -13,12 +13,14 @@ import {GoogleLogin} from '@react-oauth/google';
 import {LoginSocialFacebook} from 'reactjs-social-login';
 import ForgetPasswordForm from "../components/ForgetPasswordForm";
 import NewPassword from "../components/NewPassword";
+import {useCart} from "../context/CartContext";
 function LoginPage() {
     const navigate = useNavigate();
     let {setNotificationText, setNotificationVisible} = useNotification();
     const [emailLogin, setEmailLogin] = useState("")
     const [emailPass, setEmailPass] = useState("")
     const [facebookAppId, setFacebookAppId] = useState("")
+    const {saveCartToDatabase} = useCart();
     let loginCredentials = {
         "email": emailLogin,
         "password": emailPass
@@ -43,6 +45,7 @@ function LoginPage() {
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
         if (response.tokenId !== null) {
+            saveCartToDatabase()
             window.location.href = "http://localhost:3000";
         } else {
             setNotificationText("Server error during user login.")
@@ -69,6 +72,7 @@ function LoginPage() {
                 localStorage.setItem("refreshToken", "Bearer " + response?.data.refreshToken)
                 setNotificationText("Login success.")
                 setNotificationVisible(true)
+                saveCartToDatabase()
                 window.location.href = "http://localhost:3000";
             })
             .catch(err => {
@@ -102,6 +106,7 @@ function LoginPage() {
             .then(response => console.log(response.data))
             .catch(err => console.log(err))
         if (response.data.accessToken !== null) {
+            saveCartToDatabase()
             window.location.href = "http://localhost:3000";
         } else {
             setNotificationText("Server error during user login.")

@@ -1463,6 +1463,10 @@
 }
 .payment-method-form{
     height: max-content;
+    opacity: 0.5;
+}
+.payment-method-form *{
+    pointer-events: none;
 }
 .billing-address-form > label{
     font-size: smaller;

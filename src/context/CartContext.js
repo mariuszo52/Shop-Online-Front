@@ -9,6 +9,15 @@ export function CartProvider({children}) {
     const {setNotificationVisible, setNotificationText} = useNotification();
     const [cartItems, setCartItems] = useState()
     const [cartTotalElements, setCartTotalElements] = useState()
+    function saveCartToDatabase() {
+        let cart = JSON.parse(sessionStorage.getItem("cart"));
+        if (sessionStorage.getItem("jwt") && cart) {
+            axios.put("http://localhost:8080/cart", cart)
+                .then(response => console.log(response.data))
+                .catch(reason => console.log(reason))
+        }
+    }
+
     function fetchCart() {
         if (sessionStorage.getItem("jwt")) {
             axios.get("http://localhost:8080/cart")
@@ -150,6 +159,7 @@ export function CartProvider({children}) {
                 onQuantityChange,
                 clearCart,
                 removeProductFromCart,
+                saveCartToDatabase
             }}
         >
             {children}
