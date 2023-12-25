@@ -137,7 +137,12 @@ export function CartProvider({children}) {
         }
     }
     function onCheckoutClick(){
-        if(sessionStorage.getItem("jwt")){
+        let cart = sessionStorage.getItem("cart");
+        if(!cart || JSON.parse(cart)?.length === 0){
+            setNotificationText("Cart is empty.")
+            setNotificationVisible()
+        }
+        else if(sessionStorage.getItem("jwt")){
             window.location.href = "http://localhost:3000/checkout"
         }else {
             window.location.href = "http://localhost:3000/account/login"
