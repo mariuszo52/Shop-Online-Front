@@ -153,7 +153,9 @@ function FilterProducts({
                     ))}
                 </select>
             </label>
-            <button onClick={handleFilterClick}>Filter</button>
+            <div className={"filter-button-div"}>
+            <button className={"filter-button"} onClick={handleFilterClick}>Filter</button>
+            </div>
         </div>
     )
 }
