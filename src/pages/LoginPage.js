@@ -69,7 +69,7 @@ function LoginPage() {
         axios.post("http://localhost:8080/login", loginCredentials)
             .then(response => {
                 sessionStorage.setItem("jwt", "Bearer " + response?.data.accessToken)
-                localStorage.setItem("refreshToken", "Bearer " + response?.data.refreshToken)
+                sessionStorage.setItem("refreshToken", "Bearer " + response?.data.refreshToken)
                 setNotificationText("Login success.")
                 setNotificationVisible(true)
                 saveCartToDatabase()

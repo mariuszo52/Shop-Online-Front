@@ -138,7 +138,11 @@ export function CartProvider({children}) {
     }
     function onCheckoutClick(){
         let cart = sessionStorage.getItem("cart");
-        if(!cart || JSON.parse(cart)?.length === 0){
+        if(sessionStorage.getItem("jwt") && (!cartItems || cartItems?.length === 0)){
+            setNotificationText("Cart is empty.")
+            setNotificationVisible()
+        }
+        if(!sessionStorage.getItem("jwt") && (!cart && JSON.parse(cart)?.length === 0 )){
             setNotificationText("Cart is empty.")
             setNotificationVisible()
         }

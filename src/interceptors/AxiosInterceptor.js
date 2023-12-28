@@ -22,7 +22,7 @@ function AxiosInterceptor(){
             if (error.response && error.response.status === 403) {
                 const config = {
                     headers: {
-                        "refresh-token": localStorage.getItem("refreshToken")
+                        "refresh-token": sessionStorage.getItem("refreshToken")
                     }
                 }
                 if (localStorage.getItem("refreshToken")) {

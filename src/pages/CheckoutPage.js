@@ -119,7 +119,7 @@ function CheckoutPage() {
                         name={"payment"}
                         checked={payment === 'TRANSFER'}
                     />
-                    PRZELEW
+                    TRANSFER
                 </label>
 
                 <div className={"order-summary-h2"}>
@@ -138,7 +138,7 @@ function CheckoutPage() {
 
                         </div>
                         <div className={"quantity-column"}>
-                            <p>{item.quantity}</p>
+                            <p>{item.cartQuantity}</p>
                         </div>
                         <div className={"subtotal-column"}>
                             <p className={"product-price"}>{((item?.price) * (item?.cartQuantity))?.toFixed(2)} PLN</p>
