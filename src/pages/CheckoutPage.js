@@ -27,13 +27,22 @@ function CheckoutPage() {
         postalCode: postalCode,
         city: city
     }
-        function setPaymentFormEnabled(){
-            let paymentForm = document.getElementsByClassName("payment-method-form").item(0);
-            paymentForm.style.opacity = 1;
-            for (const paymentFormElement of paymentForm.querySelectorAll('*')) {
-                paymentFormElement.style.pointerEvents = "auto";
-            }
+
+    function setBillingAddressFormDisabled(){
+        let billingForm = document.getElementsByClassName("billing-address-form").item(0);
+        billingForm.style.opacity = 0.5
+        billingForm.querySelectorAll("*").forEach(element =>{
+            element.style.pointerEvents = "none";
+        })
+    }
+
+    function setPaymentFormEnabled() {
+        let paymentForm = document.getElementsByClassName("payment-method-form").item(0);
+        paymentForm.style.opacity = 1;
+        for (const paymentFormElement of paymentForm.querySelectorAll('*')) {
+            paymentFormElement.style.pointerEvents = "auto";
         }
+    }
 
     useEffect(() => {
         function fetchUserAccountInfo() {
@@ -55,12 +64,28 @@ function CheckoutPage() {
 
     function onsubmitBillingAddress(event) {
         event.preventDefault();
+        setBillingAddressFormDisabled()
         setPaymentFormEnabled()
     }
 
     function onSubmitPaymentMethod(event) {
         event.preventDefault()
-        alert(payment)
+        const data = {
+            shippingAddress: shippingAddress,
+            paymentMethod: payment,
+            productList: cartItems
+        }
+        axios.post("http://localhost:8080/order/checkout", data)
+            .then(response => console.log(response.data))
+            .catch(reason => console.log(reason))
+    }
+
+    function onTermsClick() {
+        window.open("http://localhost:3000/terms-and-conditions", "_blank")
+    }
+
+    function onPrivacyPolicyClick() {
+        window.open("http://localhost:3000/privacy-policy", "_blank")
     }
 
     return (
@@ -89,6 +114,8 @@ function CheckoutPage() {
                        onChange={event => setCity(event.target.value)} required={true}/>
                 <label>POSTAL CODE*</label>
                 <input defaultValue={shippingAddress?.postalCode}
+                       minLength={5}
+                       maxLength={5}
                        onChange={event => setPostalCode(event.target.value)} type={"text"} required={true}/>
                 <label>PHONE NUMBER*</label>
                 <input defaultValue={shippingAddress?.phoneNumber}
@@ -144,8 +171,11 @@ function CheckoutPage() {
                             <p className={"product-price"}>{((item?.price) * (item?.cartQuantity))?.toFixed(2)} PLN</p>
                         </div>
                     </div>))}
+
                 <label><input required={true} type={"checkbox"}/> I agree to
-                    the <span>Terms & Conditions</span> and <span>Privacy Policy</span></label>
+                    the
+                    <span className={"span-link"} onClick={onTermsClick}> Terms & Conditions</span> and
+                    <span className={"span-link"} onClick={onPrivacyPolicyClick}> Privacy Policy</span></label>
                 <button type={"submit"} className={"submit-button"}>ORDER</button>
             </form>
 

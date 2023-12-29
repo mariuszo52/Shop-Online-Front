@@ -1546,3 +1546,9 @@
     color: white;
 
 }
+.span-link{
+    font-weight: bold;
+}
+.span-link:hover{
+    cursor: pointer;
+}
