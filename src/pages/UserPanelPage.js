@@ -21,6 +21,7 @@ function UserPanelPage() {
 
     function onLogoutClick() {
         sessionStorage.removeItem("jwt")
+        sessionStorage.removeItem("refreshToken")
         window.location.href = "http://localhost:3000/account/login"
     }
 

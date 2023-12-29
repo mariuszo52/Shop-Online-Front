@@ -7,6 +7,7 @@ function DeleteAccountConfirm(){
         axios.delete("http://localhost:8080/user/sm")
             .then(response => {
                 sessionStorage.removeItem("jwt")
+                sessionStorage.removeItem("refreshToken")
                 setNotificationText("Account deleted.")
                 setNotificationVisible(true)
                 window.location.href = "http://localhost:3000/account/login"

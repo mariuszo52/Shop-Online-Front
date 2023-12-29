@@ -146,9 +146,9 @@ export function CartProvider({children}) {
             setNotificationText("Cart is empty.")
             setNotificationVisible()
         }
-        else if(sessionStorage.getItem("jwt")){
+        else if(sessionStorage.getItem("jwt") && cartItems?.length !== 0){
             window.location.href = "http://localhost:3000/checkout"
-        }else {
+        }else if (!sessionStorage.getItem("jwt")) {
             window.location.href = "http://localhost:3000/account/login"
         }
     }

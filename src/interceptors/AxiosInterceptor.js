@@ -1,6 +1,7 @@
 import axios from "axios";
 
 function AxiosInterceptor(){
+    const loginPage = "http://localhost:3000/account/login"
     axios.interceptors.request.use(
         (config) => {
             const jwtToken = sessionStorage.getItem("jwt");
@@ -29,7 +30,8 @@ function AxiosInterceptor(){
                     axios.get("http://localhost:8080/login/access-token", config)
                         .then(response => {
                             sessionStorage.setItem("jwt", "Bearer " + response.data)
-                            if(error.config.method.toLowerCase() === "get"){
+                            if(error.config.method.toLowerCase() === "get"
+                                && window.location.href !== loginPage){
                                 window.location.reload();
                             }else {
                                     error.config._retry = true;
@@ -37,11 +39,15 @@ function AxiosInterceptor(){
                             }
                         }).catch(reason => {
                         sessionStorage.removeItem("jwt")
-                        window.location.href = '/account/login';
-                        console.log(reason.response.data)
+                        if(window.location.href !== loginPage) {
+                            window.location.href = '/account/login';
+                            console.log(reason.response.data)
+                        }
+
                     });
                 } else {
-                   window.location.href = '/account/login';
+                    if(window.location.href !== loginPage)
+                        window.location.href = '/account/login';
                 }
             }
             return Promise.reject(error);
