@@ -16,6 +16,7 @@ function CheckoutPage() {
     const [postalCode, setPostalCode] = useState("")
     const [city, setCity] = useState("")
     const [payment, setPayment] = useState("BLIK")
+    const [totalPrice, setTotalPrice] = useState(0.0)
 
 
     let shippingAddress = {
@@ -27,6 +28,16 @@ function CheckoutPage() {
         postalCode: postalCode,
         city: city
     }
+    useEffect(() => {
+        function calculateTotalPrice(){
+            let totalPrice = 0;
+            cartItems.forEach(cartItem => {
+                totalPrice += cartItem?.price * cartItem?.cartQuantity
+            })
+            setTotalPrice(totalPrice)
+        }
+        calculateTotalPrice()
+    }, [cartItems]);
 
     function setBillingAddressFormDisabled(){
         let billingForm = document.getElementsByClassName("billing-address-form").item(0);
@@ -171,6 +182,7 @@ function CheckoutPage() {
                             <p className={"product-price"}>{((item?.price) * (item?.cartQuantity))?.toFixed(2)} PLN</p>
                         </div>
                     </div>))}
+                <h2>TOTAL: {totalPrice?.toFixed(2)} PLN</h2>
 
                 <label><input required={true} type={"checkbox"}/> I agree to
                     the
