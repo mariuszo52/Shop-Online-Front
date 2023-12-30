@@ -38,14 +38,28 @@ function ProductListElement({products}) {
 
     function handleFavIconClick(product) {
         if (sessionStorage.getItem("jwt")) {
-            axios.post("http://localhost:8080/favorite-product", product)
-                .then(() => fetchFavoriteProducts())
-                .catch(reason => console.log(reason))
+            if (isProductInFavorites(product)){
+                deleteProductFromFavorite(product)
+            }else{
+                addProductToFavorite(product)
+            }
         }else {
             navigate("/account/login")
         }
     }
-
+    function addProductToFavorite(product){
+        axios.post("http://localhost:8080/favorite-product", product)
+            .then(() => fetchFavoriteProducts())
+            .catch(reason => console.log(reason))
+    }
+    function deleteProductFromFavorite(product){
+        const params = {
+            productId: product?.id
+        }
+        axios.delete("http://localhost:8080/favorite-product", {params})
+            .then(() => fetchFavoriteProducts())
+            .catch(reason => console.log(reason))
+    }
 
     function onMouseEnterProductName(productId) {
         let productNameParagraph = document.getElementById("product-name-" + productId);
