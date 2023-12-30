@@ -1,23 +1,39 @@
 import Menu from "../components/Menu";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import MyAccount from "../components/UserPanelPage/MyAccount";
 import MyOrders from "../components/MyOrders";
 import {useNavigate} from "react-router-dom";
+import WishList from "../components/WishList";
 
 function UserPanelPage() {
-    const [activeMenuTab, setActiveMenuTab] = useState("MY ACCOUNT")
+    const [activeMenuTab, setActiveMenuTab] = useState("my account")
     let navigate = useNavigate();
-    function chooseActiveTab(event){
-        let menuElements = document.getElementsByClassName("account-menu-el");
-        for (let menuElement of menuElements) {
-            menuElement.style.color = "white";
+
+    function chooseActiveTab(event) {
+        let tabName = event.target.innerText?.replace(" ", "-").toLowerCase();
+        window.location.href = "/account/user-panel?tab=" + tabName;
+    }
+
+
+    useEffect(() => {
+        function checkActiveTab(){
+            let queryString = window.location.search;
+            let urlSearchParams = new URLSearchParams(queryString);
+            let tab = urlSearchParams.get("tab");
+            setActiveMenuTab(tab)
+            let menuElements = document.getElementsByClassName("account-menu-el");
+            for (let menuElement of menuElements) {
+                menuElement.style.color = "white";
+            }
+            let selectedMenuElement = document.getElementById(tab);
+            if(selectedMenuElement !== null)
+            selectedMenuElement.style.color = "#0d7edc";
+
         }
-        let selectedMenuElement = document.getElementById(event.target.id);
-        selectedMenuElement.style.color = "#0d7edc";
-        setActiveMenuTab(event.target.innerText)
-        }
+        checkActiveTab()
+    }, []);
 
     function onLogoutClick() {
         sessionStorage.removeItem("jwt")
@@ -34,12 +50,14 @@ function UserPanelPage() {
                        className={"account-menu-el"}>MY ACCOUNT</p>
                     <p id={"my-orders"} onClick={event => chooseActiveTab(event)}
                        className={"account-menu-el"}>MY ORDERS</p>
-                    <p id={"wishlist"} className={"account-menu-el"}>WISHLIST</p>
+                    <p id={"wishlist"} onClick={event => chooseActiveTab(event)}
+                       className={"account-menu-el"}>WISHLIST</p>
                     <p id={"messages"} className={"account-menu-el"}>MESSAGES</p>
                     <p className={"account-menu-el"} onClick={onLogoutClick}>LOGOUT</p>
                 </div>
-                {activeMenuTab === "MY ACCOUNT" && (<MyAccount/>)}
-                {activeMenuTab === "MY ORDERS" && (<MyOrders/>)}
+                {activeMenuTab === "my-account" && (<MyAccount/>)}
+                {activeMenuTab === "my-orders" && (<MyOrders/>)}
+                {activeMenuTab === "wishlist" && (<WishList/>)}
             </div>
             <SocialMedia/>
             <Footer/>

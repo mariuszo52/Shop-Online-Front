@@ -15,8 +15,11 @@ function Menu() {
     }
 
     function onUserIconClick() {
-        navigate("/account/user-panel")
+        window.location.href = "/account/user-panel?tab=" + "my-account";
+    }
 
+    function onFavIconClick() {
+        window.location.href = "/account/user-panel?tab=" + "wishlist";
     }
 
     return (
@@ -36,7 +39,7 @@ function Menu() {
                 </div>
                 <div className={"user-panel"}>
                     <FontAwesomeIcon onClick={onUserIconClick} className={"user-panel-icon"} icon={faUser}/>
-                    <FontAwesomeIcon className={"user-panel-icon"} icon={faHeart}/>
+                    <FontAwesomeIcon onClick={onFavIconClick} className={"user-panel-icon"} icon={faHeart}/>
                     <FontAwesomeIcon onClick={onCartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
                 </div>
             </div>
