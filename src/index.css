@@ -314,7 +314,7 @@
     margin-bottom: 5px;
 }
 
-.add-to-fav {
+.no-fav-heart {
     display: none;
     scale: 3;
     color: green;
@@ -322,6 +322,15 @@
     top: 20%;
     left: 50%;
 }
+.fav-heart{
+    display: none;
+    scale: 3;
+    color: #800000;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+}
+
 
 .category-name-container {
     height: 300px;

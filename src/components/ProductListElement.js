@@ -1,39 +1,48 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faHeart} from '@fortawesome/free-solid-svg-icons'
+import {faHeart} from '@fortawesome/free-solid-svg-icons'
 import {useNavigate, useParams} from "react-router-dom";
-import { useCookies } from "react-cookie";
 import React, {useEffect, useState} from "react";
-import CartPreview from "./CartPreview";
-import { useCart } from "../context/CartContext";
+import {useCart} from "../context/CartContext";
+import axios from "axios";
 
 function ProductListElement({products}) {
-    const { addToCart } = useCart();
-
+    const {addToCart} = useCart();
+    const [favoriteProducts, setFavoriteProducts] = useState([])
     let navigate = useNavigate();
-    function handleMouseOut(index) {
-        let span = document.getElementsByClassName("add-to-cart");
-        let favButton = document.getElementsByClassName("add-to-fav");
-        favButton[index].style.display = "none";
-        span[index].style.display = "none";
+
+    function fetchFavoriteProducts() {
+        if (sessionStorage.getItem("jwt")) {
+            axios.get("http://localhost:8080/favorite-product")
+                .then(response => setFavoriteProducts(response.data))
+                .catch(reason => console.log(reason))
+        }
     }
 
-    function handleMouseOver(index) {
-        let span = document.getElementsByClassName("add-to-cart");
-        let favButton = document.getElementsByClassName("add-to-fav");
-        favButton[index].style.display = "flex";
-        span[index].style.display = "flex";
+    useEffect(() => {
+        fetchFavoriteProducts()
+    }, []);
+
+    function handleMouseOut(productId) {
+        let span = document.getElementById("add-to-cart-" + productId);
+        let favButton = document.getElementById("fav-heart-" + productId)
+        favButton.style.display = "none";
+        span.style.display = "none";
     }
 
-    function handleFavIconClick(index) {
-        let favIcon = document.getElementsByClassName("add-to-fav")[index];
-        let computedStyle = window.getComputedStyle(favIcon);
-        let color = computedStyle.getPropertyValue("color");
-        if (color === "rgb(0, 128, 0)") {
-            favIcon.style.scale = "3.5";
-            favIcon.style.color = "red";
-        } else {
-            favIcon.style.scale = "3.0";
-            favIcon.style.color = "green";
+    function handleMouseOver(productId) {
+        let span = document.getElementById("add-to-cart-" + productId);
+        let favButton = document.getElementById("fav-heart-" + productId)
+        favButton.style.display = "flex";
+        span.style.display = "flex";
+    }
+
+    function handleFavIconClick(product) {
+        if (sessionStorage.getItem("jwt")) {
+            axios.post("http://localhost:8080/favorite-product", product)
+                .then(() => fetchFavoriteProducts())
+                .catch(reason => console.log(reason))
+        }else {
+            navigate("/account/login")
         }
     }
 
@@ -41,40 +50,47 @@ function ProductListElement({products}) {
     function onMouseEnterProductName(productId) {
         let productNameParagraph = document.getElementById("product-name-" + productId);
         let intervalId;
-            productNameParagraph.addEventListener('mouseenter', function () {
-                intervalId = setInterval(function () {
-                    productNameParagraph.scrollTop += 1
-                }, 50); //
-            });
-            productNameParagraph.addEventListener('mouseleave', function () {
-                productNameParagraph.scrollTop = 0;
-                clearInterval(intervalId);
-            });
-        }
+        productNameParagraph.addEventListener('mouseenter', function () {
+            intervalId = setInterval(function () {
+                productNameParagraph.scrollTop += 1
+            }, 50); //
+        });
+        productNameParagraph.addEventListener('mouseleave', function () {
+            productNameParagraph.scrollTop = 0;
+            clearInterval(intervalId);
+        });
+    }
 
 
-
-
+    function isProductInFavorites(product) {
+        let containProduct = false;
+        favoriteProducts.forEach(fProduct => {
+            if (fProduct?.id === product?.id) {
+                containProduct = true;
+            }
+        })
+        return containProduct;
+    }
 
     return (
         <>
-            {products?.map((product, index) => (
+            {products?.map((product) => (
                 <div
-                    key={index}
-                    onMouseOver={() => handleMouseOver(index)}
-                    onMouseOut={() => handleMouseOut(index)}
+                    key={product?.id}
+                    onMouseOver={() => handleMouseOver(product?.id)}
+                    onMouseOut={() => handleMouseOut(product?.id)}
                     className={"products-list-el"}
                 >
-        <span onClick={() => addToCart(product)} className={"add-to-cart"}>
+        <span onClick={() => addToCart(product)} className={"add-to-cart"} id={"add-to-cart-" + product?.id}>
           TO CART
         </span>
                     <FontAwesomeIcon
-                        onClick={() => handleFavIconClick(index)}
-                        className={"add-to-fav"}
-                        icon={faHeart}
-                    />
+                        onClick={() => handleFavIconClick(product)}
+                        className={isProductInFavorites(product) ? "fav-heart" : "no-fav-heart"}
+                        id={"fav-heart-" + product.id}
+                        icon={faHeart}/>
                     <img
-                        key={index}
+                        key={product?.id}
                         onClick={() => navigate("/product/" + product.id)}
                         src={product?.coverImage}
                         alt={product?.name}
@@ -88,7 +104,6 @@ function ProductListElement({products}) {
             ))}
         </>
     );
-
 
 
 }

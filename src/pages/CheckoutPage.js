@@ -31,7 +31,7 @@ function CheckoutPage() {
     useEffect(() => {
         function calculateTotalPrice(){
             let totalPrice = 0;
-            cartItems.forEach(cartItem => {
+            cartItems?.forEach(cartItem => {
                 totalPrice += cartItem?.price * cartItem?.cartQuantity
             })
             setTotalPrice(totalPrice)
