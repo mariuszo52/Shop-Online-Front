@@ -1,6 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
 import cover from "../images/fifa20.jpg"
+import axios from "axios";
 function MyOrders() {
+    useEffect(() => {
+        function fetchUserOrders(){
+            axios.get("http://localhost:8080/orders")
+                .then(response => console.log(response.data))
+                .catch(reason => console.log(reason))
+        }
+        fetchUserOrders()
+    }, []);
+
     function showOrderCode() {
         //TODO
     }
