@@ -14,6 +14,7 @@ import {LoginSocialFacebook} from 'reactjs-social-login';
 import ForgetPasswordForm from "../components/ForgetPasswordForm";
 import NewPassword from "../components/NewPassword";
 import {useCart} from "../context/CartContext";
+
 function LoginPage() {
     const navigate = useNavigate();
     let {setNotificationText, setNotificationVisible} = useNotification();
@@ -31,6 +32,7 @@ function LoginPage() {
                 .then(response => setFacebookAppId(response.data))
                 .catch(reason => console.log(reason))
         }
+
         fetchFacebookAppId()
     }, []);
 
@@ -42,18 +44,19 @@ function LoginPage() {
             }
         }
         axios.get("http://localhost:8080/login/google", authHeader)
-            .then(response => console.log(response.data))
-            .catch(err => console.log(err))
-        if (response.tokenId !== null) {
-            saveCartToDatabase()
-            window.location.href = "http://localhost:3000";
-        } else {
-            setNotificationText("Server error during user login.")
-            setNotificationVisible(true)
-
-        }
+            .then(response => {
+                console.log(response.data)
+                if (response.tokenId !== null) {
+                    saveCartToDatabase()
+                    window.location.href = "http://localhost:3000";
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                setNotificationText(err.response?.data)
+                setNotificationVisible(true)
+            })
     }
-
 
     const handleKeypress = event => {
         if (event.keyCode === 13) {
@@ -103,17 +106,15 @@ function LoginPage() {
             }
         }
         axios.post("http://localhost:8080/login/facebook", data, authHeader)
-            .then(response => console.log(response.data))
-            .catch(err => console.log(err))
-        if (response.data.accessToken !== null) {
-            saveCartToDatabase()
-            window.location.href = "http://localhost:3000";
-        } else {
-            setNotificationText("Server error during user login.")
-            setNotificationVisible(true)
-
-        }
-
+            .then(response => {
+                if (response.data.accessToken !== null) {
+                    saveCartToDatabase()
+                    window.location.href = "http://localhost:3000";
+                    console.log(response.data)
+                }}).catch(err => {
+                    setNotificationText(err.response.data)
+                    setNotificationVisible(true)
+                })
     }
 
     function facebookLoginReject(response) {
@@ -125,6 +126,7 @@ function LoginPage() {
         let forgetPasswordForm = document.getElementById("fp-main-container");
         forgetPasswordForm.style.display = "flex";
     }
+
     const renderFacebookLogin = () => {
         if (facebookAppId) {
             return (
@@ -137,7 +139,7 @@ function LoginPage() {
                     isOnlyGetToken={false}
                     children={
                         <p className={'facebook-login-button'}>
-                            <img className={'login-button-icon'} alt={'fb'} src={fbIcon} />
+                            <img className={'login-button-icon'} alt={'fb'} src={fbIcon}/>
                             FACEBOOK
                         </p>
                     }
@@ -156,8 +158,8 @@ function LoginPage() {
                     <h1 className={"login-header"}>LOGIN</h1>
                     <p>Already Registered? Please Login From Here.</p>
                     <form id={"login-form"} onKeyDown={event => handleKeypress(event)}
-                        onSubmit={event => onLoginButtonClick(event)}
-                        className={"login-form"}>
+                          onSubmit={event => onLoginButtonClick(event)}
+                          className={"login-form"}>
                         <div className={"login-inputs"}>
                             <div className={"login-input"}>
                                 <label>EMAIL*</label>
