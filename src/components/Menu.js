@@ -10,8 +10,12 @@ function Menu() {
     const {setIsCartVisible} = useCart();
 
     function onCartIconClick() {
-        if (window.location.href !== "http://localhost:3000/cart")
+        if (window.location.href === "http://localhost:3000/checkout"){
+            navigate("/cart")
+        }
+        else if (window.location.href !== "http://localhost:3000/cart")
             setIsCartVisible(true)
+
     }
 
     function onUserIconClick() {
