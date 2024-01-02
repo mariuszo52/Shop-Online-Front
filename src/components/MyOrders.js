@@ -54,7 +54,7 @@ function MyOrders() {
                                 <p>DATE ORDERED: {formatOrderDate(orderProduct?.order)}</p>
                                 <p>ORDER STATUS: {orderProduct?.order.orderStatus}</p>
                                 <p>PAYMENT METHOD: {orderProduct?.order.paymentMethod}</p>
-                                <p>ORDER NUMBER: #{orderProduct?.id} (THIS IS NOT YOUR CODE)</p>
+                                <p>ORDER NUMBER: #{orderProduct?.order.id} (THIS IS NOT YOUR CODE)</p>
                                 <p>PLATFORM: {orderProduct?.product.platformDto.name}</p>
                                 <p>AGE RATING: {orderProduct?.product.ageRating}</p>
                                 <p>QUANTITY: {orderProduct?.quantity}</p>
