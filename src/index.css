@@ -162,8 +162,6 @@
     flex-direction: column;
     align-items: center;
     background-color: #160e2a;
-
-
 }
 
 .products-list-el:hover {
@@ -1562,9 +1560,19 @@
 .span-link:hover{
     cursor: pointer;
 }
-.purchased-games-list{
+.purchased-games-list, .wishlist{
     display: flex;
     flex-direction: column;
     width: 90%;
     height: max-content;
+}
+.wishlist{
+    flex-direction: row;
+}
+.wishlist-options{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: center;
+    margin-top: 50px;
 }

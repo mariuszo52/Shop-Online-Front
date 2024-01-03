@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import MyAccount from "../components/UserPanelPage/MyAccount";
 import MyOrders from "../components/MyOrders";
 import {useNavigate} from "react-router-dom";
-import WishList from "../components/WishList";
+import Wishlist from "../components/UserPanelPage/Wishlist";
 
 function UserPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("my account")
@@ -57,7 +57,7 @@ function UserPanelPage() {
                 </div>
                 {activeMenuTab === "my-account" && (<MyAccount/>)}
                 {activeMenuTab === "my-orders" && (<MyOrders/>)}
-                {activeMenuTab === "wishlist" && (<WishList/>)}
+                {activeMenuTab === "wishlist" && (<Wishlist/>)}
             </div>
             <SocialMedia/>
             <Footer/>
