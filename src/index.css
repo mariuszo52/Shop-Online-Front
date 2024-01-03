@@ -1576,3 +1576,45 @@
     justify-content: center;
     margin-top: 50px;
 }
+.cookies-bar{
+    opacity: 80%;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: black;
+    height: 50px;
+    width: 100%;
+}
+.cookies-bar span{
+    font-weight: bold;
+    text-decoration-line: underline;
+}
+.cookies-bar span:hover{
+    cursor: pointer;
+}
+
+.cookies-accept-button{
+    margin-right: 20px;
+    width: max-content;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    text-align: center;
+    background-color: #67c067;
+    padding: 10px 5px;
+}
+.cookies-bar-text{
+    margin-left: 50px;
+}
+.cookies-accept-button:hover{
+    cursor: pointer;
+}

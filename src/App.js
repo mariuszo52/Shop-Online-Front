@@ -19,6 +19,9 @@ import UserPanelPage from "./pages/UserPanelPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import TermsAndConditions from "./pages/PrivacyPolicy/TermsAndConditions";
+import {CookiesProvider} from "react-cookie";
+import {CookiesPolicyProvider} from "./context/CookiesPolicyContext";
+import CookiesPolicyBar from "./components/CookiesPolicyBar";
 
 function App() {
     const [googleClientId, setGoogleClientId] = useState("")
@@ -34,6 +37,8 @@ function App() {
     return (
         <GoogleOAuthProvider
             clientId= {googleClientId}>
+            <CookiesPolicyProvider>
+                <CookiesPolicyBar/>
             <NotificationProvider>
                 <NotificationBar/>
                 <BrowserRouter>
@@ -57,6 +62,7 @@ function App() {
                     </CartProvider>
                 </BrowserRouter>
             </NotificationProvider>
+            </CookiesPolicyProvider>
         </GoogleOAuthProvider>
     );
 
