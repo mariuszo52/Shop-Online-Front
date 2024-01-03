@@ -826,7 +826,7 @@
     width: 80%;
     border-radius: 5px;
     border: solid 1px grey;
-    min-height: 500px;
+    min-height: max-content;
 }
 
 .cart-product {

@@ -40,8 +40,8 @@ function MyOrders() {
                 <h3>GAMES PURCHASED</h3>
             </div>
             {orderProducts?.map((orderProduct, index) => (
-                <div className={"purchased-games-list"}>
-                        <div className={"purchased-games-el"} key={index}>
+                <div className={"purchased-games-list"} key={index}>
+                        <div className={"purchased-games-el"}>
                             <div key={index} className={"order-cover-container"}>
                                 <img
                                     alt={"cover"}
