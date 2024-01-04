@@ -1,19 +1,16 @@
 import Menu from "../components/Menu";
+import MenageUsers from "../components/adminPanelPage/MenageUsers";
+import MenageProducts from "../components/adminPanelPage/MenageProducts";
+import MenageOrders from "../components/adminPanelPage/MenageOrders";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
-import React, {useEffect, useState} from "react";
-import MyAccount from "../components/userPanelPage/MyAccount";
-import MyOrders from "../components/MyOrders";
-import {useNavigate} from "react-router-dom";
-import Wishlist from "../components/userPanelPage/Wishlist";
-
-function UserPanelPage() {
-    const [activeMenuTab, setActiveMenuTab] = useState("my account")
-    let navigate = useNavigate();
+import {useEffect, useState} from "react";
+function AdminPanelPage() {
+    const [activeMenuTab, setActiveMenuTab] = useState("users")
 
     function chooseActiveTab(event) {
         let tabName = event.target.innerText?.replace(" ", "-").toLowerCase();
-        window.location.href = "/account/user-panel?tab=" + tabName;
+        window.location.href = "/account/admin-panel?tab=" + tabName;
     }
 
 
@@ -46,18 +43,17 @@ function UserPanelPage() {
             <Menu/>
             <div className={"account-panel-container"}>
                 <div className={"account-menu"}>
-                    <p id={"my-account"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>MY ACCOUNT</p>
-                    <p id={"my-orders"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>MY ORDERS</p>
-                    <p id={"wishlist"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>WISHLIST</p>
-                    <p id={"messages"} className={"account-menu-el"}>MESSAGES</p>
+                    <p id={"users"} onClick={event => chooseActiveTab(event)}
+                       className={"account-menu-el"}>USERS</p>
+                    <p id={"products"} onClick={event => chooseActiveTab(event)}
+                       className={"account-menu-el"}>PRODUCTS</p>
+                    <p id={"orders"} onClick={event => chooseActiveTab(event)}
+                       className={"account-menu-el"}>ORDERS</p>
                     <p className={"account-menu-el"} onClick={onLogoutClick}>LOGOUT</p>
                 </div>
-                {activeMenuTab === "my-account" && (<MyAccount/>)}
-                {activeMenuTab === "my-orders" && (<MyOrders/>)}
-                {activeMenuTab === "wishlist" && (<Wishlist/>)}
+                {activeMenuTab === "users" && (<MenageUsers/>)}
+                {activeMenuTab === "products" && (<MenageProducts/>)}
+                {activeMenuTab === "orders" && (<MenageOrders/>)}
             </div>
             <SocialMedia/>
             <Footer/>
@@ -65,4 +61,4 @@ function UserPanelPage() {
     )
 }
 
-export default UserPanelPage;
+export default AdminPanelPage;

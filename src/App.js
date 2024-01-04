@@ -22,6 +22,7 @@ import TermsAndConditions from "./pages/PrivacyPolicy/TermsAndConditions";
 import {CookiesProvider} from "react-cookie";
 import {CookiesPolicyProvider} from "./context/CookiesPolicyContext";
 import CookiesPolicyBar from "./components/CookiesPolicyBar";
+import AdminPanelPage from "./pages/AdminPanelPage";
 
 function App() {
     const [googleClientId, setGoogleClientId] = useState("")
@@ -58,6 +59,7 @@ function App() {
                             <Route path={"/checkout"} element={<UserRoute><CheckoutPage /></UserRoute>}></Route>
                             <Route path={"/privacy-policy"} element={<PrivacyPolicy />}></Route>
                             <Route path={"/terms-and-conditions"} element={<TermsAndConditions />}></Route>
+                            <Route path={"/account/admin-panel"} element={<AdminPanelPage />}></Route>
                         </Routes>
                     </CartProvider>
                 </BrowserRouter>
