@@ -18,7 +18,7 @@ function Wishlist() {
     }, []);
 
     function handleRemoveAllItems() {
-        axios.delete("http://localhost:8080/favorite-products-all")
+        axios.delete("http://localhost:8080/favorite-product/all")
             .then(() => setWishlist([]))
             .catch(reason => console.log(reason))
     }

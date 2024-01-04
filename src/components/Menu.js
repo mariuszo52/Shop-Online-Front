@@ -4,22 +4,32 @@ import logo from "../images/logo.jpg"
 import {useNavigate} from "react-router-dom";
 import React from "react";
 import {useCart} from "../context/CartContext";
+import {jwtDecode} from "jwt-decode";
 
 function Menu() {
     const navigate = useNavigate();
     const {setIsCartVisible} = useCart();
 
     function onCartIconClick() {
-        if (window.location.href === "http://localhost:3000/checkout"){
+        if (window.location.href === "http://localhost:3000/checkout") {
             navigate("/cart")
-        }
-        else if (window.location.href !== "http://localhost:3000/cart")
+        } else if (window.location.href !== "http://localhost:3000/cart")
             setIsCartVisible(true)
 
     }
 
     function onUserIconClick() {
-        window.location.href = "/account/user-panel?tab=" + "my-account";
+        if (!sessionStorage.getItem("jwt")) {
+            window.location.href = "/account/login";
+        } else if (sessionStorage.getItem("jwt")?.startsWith("Bearer")) {
+            if(jwtDecode(sessionStorage.getItem("jwt"))?.role === "ADMIN") {
+                window.location.href = "/account/admin-panel?tab=" + "users";
+            }else {
+                window.location.href = "/account/user-panel?tab=" + "my-account";
+            }
+        } else {
+            window.location.href = "/account/user-panel?tab=" + "my-account";
+        }
     }
 
     function onFavIconClick() {

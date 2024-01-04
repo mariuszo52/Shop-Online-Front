@@ -1286,6 +1286,7 @@
     align-items: center;
     justify-content: center;
     border: white solid 1px;
+    z-index: 100;
 }
 .close-fp-main-container{
     width: 100%;
@@ -1620,4 +1621,19 @@
 }
 .cookies-accept-button:hover{
     cursor: pointer;
+}
+.manage-users-table{
+    width: 90%;
+    height: max-content;
+    border: 1px white solid;
+    overflow: auto;
+    border-collapse: collapse;
+}
+.manage-users-table td, .manage-users-table th {
+    border: 1px white solid;
+    text-align: center;
+}
+.manage-users-table td:hover {
+    cursor: pointer;
+    scale: 101%;
 }
