@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
 import axios from "axios";
 
-function ProductListElement({products}) {
+function ProductListElement({products, classname}) {
     const {addToCart} = useCart();
     const [favoriteProducts, setFavoriteProducts] = useState([])
     let navigate = useNavigate();
@@ -93,7 +93,7 @@ function ProductListElement({products}) {
                     key={product?.id}
                     onMouseOver={() => handleMouseOver(product?.id)}
                     onMouseOut={() => handleMouseOut(product?.id)}
-                    className={"products-list-el"}
+                    className={classname? classname : "products-list-el"}
                 >
         <span onClick={() => addToCart(product)} className={"add-to-cart"} id={"add-to-cart-" + product?.id}>
           TO CART

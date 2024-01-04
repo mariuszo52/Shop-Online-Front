@@ -151,7 +151,7 @@
     width: 100%;
 }
 
-.products-list-el {
+.products-list-el, .wishlist-el{
     position: relative;
     border-radius: 10px 10px 10px 10px;
     width: 15%;
@@ -163,19 +163,22 @@
     align-items: center;
     background-color: #160e2a;
 }
+.wishlist-el{
+    width: 20%;
+}
 
-.products-list-el:hover {
+.products-list-el:hover, .wishlist-el:hover{
     scale: 101%;
     cursor: pointer;
 }
 
-.products-list-el img {
+.products-list-el img, .wishlist-el img {
     border-radius: 10px 10px 10px 10px;
     height: 60%;
     width: 100%;
 }
 
-.products-list-el p {
+.products-list-el p, .wishlist-el p {
     margin-top: 5px;
     font-size: x-large;
     text-align: center;

@@ -37,6 +37,7 @@ function Wishlist() {
             </div>
             <ul className={"wishlist"}>
                 <ProductListElement
+                    classname={"wishlist-el"}
                     products={wishlist}/>
             </ul>
             {wishlist?.length !== 0 ? (<div className={"wishlist-options"}>
