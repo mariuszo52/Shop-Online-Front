@@ -23,47 +23,52 @@ import {CookiesProvider} from "react-cookie";
 import {CookiesPolicyProvider} from "./context/CookiesPolicyContext";
 import CookiesPolicyBar from "./components/CookiesPolicyBar";
 import AdminPanelPage from "./pages/AdminPanelPage";
+import {AdminRoute} from "./routes/AdminRoute";
 
 function App() {
     const [googleClientId, setGoogleClientId] = useState("")
+
     useEffect(() => {
-        function fetchGoogleClientId(){
+        function fetchGoogleClientId() {
             axios.get("http://localhost:8080/login/google/client-id")
                 .then(response => setGoogleClientId(response.data))
                 .catch(reason => console.log(reason))
         }
+
         fetchGoogleClientId();
     }, []);
 
     return (
         <GoogleOAuthProvider
-            clientId= {googleClientId}>
+            clientId={googleClientId}>
             <CookiesPolicyProvider>
                 <CookiesPolicyBar/>
-            <NotificationProvider>
-                <NotificationBar/>
-                <BrowserRouter>
-                    <CartProvider>
-                        <CartPreview/>
-                        <Routes>
-                            <Route path={"/"} element={<Home/>}></Route>
-                            <Route path={"/error"} element={<ErrorPage/>}></Route>
-                            <Route path={"/:deviceName"} element={<PlatformPage/>}></Route>
-                            <Route path={"/product/:id"} element={<ProductPage/>}></Route>
-                            <Route path={"/cart"} element={<CartPage/>}></Route>
-                            <Route path={"/account/login"} element={<LoggedRoute><LoginPage/></LoggedRoute>}></Route>
-                            <Route path={"/account/register"}
-                                   element={<LoggedRoute><RegisterPage/></LoggedRoute>}></Route>
-                            <Route path={"/account/user-panel"}
-                                   element={<UserRoute><UserPanelPage/></UserRoute>}></Route>
-                            <Route path={"/checkout"} element={<UserRoute><CheckoutPage /></UserRoute>}></Route>
-                            <Route path={"/privacy-policy"} element={<PrivacyPolicy />}></Route>
-                            <Route path={"/terms-and-conditions"} element={<TermsAndConditions />}></Route>
-                            <Route path={"/account/admin-panel"} element={<AdminPanelPage />}></Route>
-                        </Routes>
-                    </CartProvider>
-                </BrowserRouter>
-            </NotificationProvider>
+                <NotificationProvider>
+                    <NotificationBar/>
+                    <BrowserRouter>
+                        <CartProvider>
+                            <CartPreview/>
+                            <Routes>
+                                <Route path={"/"} element={<Home/>}></Route>
+                                <Route path={"/error"} element={<ErrorPage/>}></Route>
+                                <Route path={"/:deviceName"} element={<PlatformPage/>}></Route>
+                                <Route path={"/product/:id"} element={<ProductPage/>}></Route>
+                                <Route path={"/cart"} element={<CartPage/>}></Route>
+                                <Route path={"/account/login"}
+                                       element={<LoggedRoute><LoginPage/></LoggedRoute>}></Route>
+                                <Route path={"/account/register"}
+                                       element={<LoggedRoute><RegisterPage/></LoggedRoute>}></Route>
+                                <Route path={"/account/user-panel"}
+                                       element={<UserRoute><UserPanelPage/></UserRoute>}></Route>
+                                <Route path={"/checkout"} element={<UserRoute><CheckoutPage/></UserRoute>}></Route>
+                                <Route path={"/privacy-policy"} element={<PrivacyPolicy/>}></Route>
+                                <Route path={"/terms-and-conditions"} element={<TermsAndConditions/>}></Route>
+                                <Route path={"/account/admin-panel"}
+                                       element={<AdminRoute><AdminPanelPage/></AdminRoute>}></Route>
+                            </Routes>
+                        </CartProvider>
+                    </BrowserRouter>
+                </NotificationProvider>
             </CookiesPolicyProvider>
         </GoogleOAuthProvider>
     );
