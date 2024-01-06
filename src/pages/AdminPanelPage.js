@@ -5,8 +5,11 @@ import MenageOrders from "../components/adminPanelPage/MenageOrders";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
+import axios from "axios";
+
 function AdminPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("users")
+
 
     function chooseActiveTab(event) {
         let tabName = event.target.innerText?.replace(" ", "-").toLowerCase();
@@ -14,8 +17,9 @@ function AdminPanelPage() {
     }
 
 
+
     useEffect(() => {
-        function checkActiveTab(){
+        function checkActiveTab() {
             let queryString = window.location.search;
             let urlSearchParams = new URLSearchParams(queryString);
             let tab = urlSearchParams.get("tab");
@@ -25,10 +29,11 @@ function AdminPanelPage() {
                 menuElement.style.color = "white";
             }
             let selectedMenuElement = document.getElementById(tab);
-            if(selectedMenuElement !== null)
-            selectedMenuElement.style.color = "#0d7edc";
+            if (selectedMenuElement !== null)
+                selectedMenuElement.style.color = "#0d7edc";
 
         }
+
         checkActiveTab()
     }, []);
 

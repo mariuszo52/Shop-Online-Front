@@ -1624,16 +1624,20 @@
 }
 .manage-users-table{
     width: 90%;
-    height: max-content;
+    height: min-content;
     border: 1px white solid;
     overflow: auto;
     border-collapse: collapse;
 }
-.manage-users-table td, .manage-users-table th {
+.manage-users-table td, .manage-users-table th{
+    width: min-content;
     border: 1px white solid;
-    text-align: center;
 }
 .manage-users-table td:hover {
     cursor: pointer;
     scale: 101%;
+}
+.edit-users-form{
+    display: none;
+    width: min-content;
 }
