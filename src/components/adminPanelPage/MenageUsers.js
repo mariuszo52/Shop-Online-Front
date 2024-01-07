@@ -11,7 +11,7 @@ function MenageUsers() {
     const [isEnabled, setIsEnabled] = useState(false)
     const [role, setRole] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
-    const {setIsComponentVisible, setUserId} = useDeleteConfirm();
+    const {setIsComponentVisible, setUserId, index} = useDeleteConfirm();
 
     useEffect(() => {
         function fetchAllUsers() {
@@ -24,7 +24,7 @@ function MenageUsers() {
         }
 
         fetchAllUsers()
-    }, []);
+    }, [index]);
 
     function showElementEditor(index, name, focusElementName) {
         if (!isElementClicked) {
@@ -47,6 +47,7 @@ function MenageUsers() {
     function closeForm(form, span) {
         span.style.display = "flex"
         form.style.display = "none"
+        setIsElementClicked(false)
     }
 
 
@@ -101,9 +102,37 @@ function MenageUsers() {
         setIsComponentVisible(true)
     }
 
+    function onSearchFormSubmit(event) {
+        event.preventDefault()
+        const params = {
+            searchBy: event.target.querySelector("select")?.value,
+            value: event.target.querySelector("input")?.value
+        }
+        axios.get("http://localhost:8080/user-management/user", {params})
+            .then(response => setUsers(new Array(response.data)))
+            .catch(reason => {
+                console.log(reason)
+                setNotificationText(reason.response.data)
+                setNotificationVisible()
+            })
+    }
+
     return (
         <div className={"menu-my-account"}>
             <h1>USERS LIST</h1>
+            <form
+                onSubmit={event => onSearchFormSubmit(event)}
+                className={"admin-panel-search-form"}>
+                <input
+                    required={true}
+                    type={"text"}/>
+                <select>
+                    <option value={"id"}>ID</option>
+                    <option value={"username"}>USERNAME</option>
+                    <option value={"email"}>EMAIL</option>
+                </select>
+                <button type={"submit"}>SEARCH</button>
+            </form>
             <table className={"manage-users-table"}>
                 <thead>
                 <tr>

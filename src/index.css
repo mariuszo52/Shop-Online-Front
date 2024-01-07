@@ -1673,3 +1673,10 @@
     cursor: pointer;
     scale: 101%;
 }
+.admin-panel-search-form{
+    margin: 5px 5px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+}
