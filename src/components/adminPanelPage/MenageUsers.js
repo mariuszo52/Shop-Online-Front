@@ -6,10 +6,6 @@ import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 function MenageUsers() {
     const [users, setUsers] = useState([])
     const [isElementClicked, setIsElementClicked] = useState(false)
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [isEnabled, setIsEnabled] = useState(false)
-    const [role, setRole] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {setIsComponentVisible, setUserId, index} = useDeleteConfirm();
 
@@ -51,25 +47,25 @@ function MenageUsers() {
     }
 
 
-    function updateUserField(fieldName, userId, index) {
+    function updateUserField(event, fieldName, userId, index) {
         let url;
         let value;
         switch (fieldName) {
             case "username":
                 url = "http://localhost:8080/user-management/username"
-                value = username
+                value = event.target.querySelector("input")?.value
                 break
             case "email":
                 url = "http://localhost:8080/user-management/email"
-                value = email
+                value = event.target.querySelector("input")?.value
                 break
             case "isEnabled":
                 url = "http://localhost:8080/user-management/is-enabled"
-                value = isEnabled
+                value = event.target.querySelector("select")?.value
                 break
             case "role":
                 url = "http://localhost:8080/user-management/role"
-                value = role
+                value = event.target.querySelector("select")?.value
         }
         let data = {
             userId: userId,
@@ -93,7 +89,7 @@ function MenageUsers() {
 
     function onUpdateSubmit(event, fieldName, userId, index) {
         event.preventDefault()
-        updateUserField(fieldName, userId, index)
+        updateUserField(event, fieldName, userId, index)
         setIsElementClicked(false)
     }
 
@@ -105,8 +101,8 @@ function MenageUsers() {
     function onSearchFormSubmit(event) {
         event.preventDefault()
         const params = {
-            searchBy: event.target.querySelector("select")?.value,
-            value: event.target.querySelector("input")?.value
+            searchBy: event.target?.querySelector("select")?.value,
+            value: event.target?.querySelector("input")?.value
         }
         axios.get("http://localhost:8080/user-management/user", {params})
             .then(response => setUsers(new Array(response.data)))
@@ -161,8 +157,6 @@ function MenageUsers() {
                                 className={"edit-users-form"}>
                                 <input
                                     required={true}
-                                    value={username}
-                                    onChange={event => setUsername(event.target.value)}
                                 />
                             </form>
                             <span id={"edit-span-username" + index}>{user?.username}</span></td>
@@ -178,8 +172,6 @@ function MenageUsers() {
                                 <input
                                     type={"email"}
                                     required={true}
-                                    value={email}
-                                    onChange={event => setEmail(event.target.value)}
                                 />
                             </form>
                             <span id={"edit-span-email" + index}>{user?.email}</span></td>
@@ -188,16 +180,13 @@ function MenageUsers() {
                             onClick={(event) =>
                                 showElementEditor(index, "isEnabled", "form")}>
                             <form
-                                onSubmit={event =>
-                                    onUpdateSubmit(event, "isEnabled", user?.id, index)}
+                                onSubmit={event =>{
+                                    onUpdateSubmit(event, "isEnabled", user?.id, index)}}
                                 id={"edit-form-isEnabled" + index}
                                 className={"edit-users-form"}>
-                                <select onChange={(event) => {
-                                    setIsEnabled(event.target.value);
-                                }}
-                                >
-                                    <option value={"false"}>FALSE</option>
+                                <select>
                                     <option value={"true"}>TRUE</option>
+                                    <option value={"false"}>FALSE</option>
                                 </select>
                                 <button type={"submit"}>OK</button>
                             </form>
@@ -207,14 +196,12 @@ function MenageUsers() {
                             onClick={(event) =>
                                 showElementEditor(index, "role", "form")}>
                             <form
-                                onSubmit={event =>
-                                    onUpdateSubmit(event, "role", user?.id, index)}
+                                onSubmit={event => {
+                                    onUpdateSubmit(event, "role", user?.id, index)
+                                }}
                                 id={"edit-form-role" + index}
                                 className={"edit-users-form"}>
-                                <select onChange={(event) => {
-                                    setRole(event.target.value);
-                                }}
-                                >
+                                <select>
                                     <option value={"ADMIN"}>ADMIN</option>
                                     <option value={"USER"}>USER</option>
                                 </select>
