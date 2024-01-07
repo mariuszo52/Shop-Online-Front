@@ -24,6 +24,8 @@ import {CookiesPolicyProvider} from "./context/CookiesPolicyContext";
 import CookiesPolicyBar from "./components/CookiesPolicyBar";
 import AdminPanelPage from "./pages/AdminPanelPage";
 import {AdminRoute} from "./routes/AdminRoute";
+import DeleteConfirmComponent from "./components/DeleteConfirmComponent";
+import {ActionConfirmProvider, DeleteConfirmProvider} from "./context/DeleteConfirmContext";
 
 function App() {
     const [googleClientId, setGoogleClientId] = useState("")
@@ -46,6 +48,8 @@ function App() {
                 <NotificationProvider>
                     <NotificationBar/>
                     <BrowserRouter>
+                        <DeleteConfirmProvider>
+                            <DeleteConfirmComponent/>
                         <CartProvider>
                             <CartPreview/>
                             <Routes>
@@ -67,6 +71,7 @@ function App() {
                                        element={<AdminRoute><AdminPanelPage/></AdminRoute>}></Route>
                             </Routes>
                         </CartProvider>
+                        </DeleteConfirmProvider>
                     </BrowserRouter>
                 </NotificationProvider>
             </CookiesPolicyProvider>

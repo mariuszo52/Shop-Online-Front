@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
-import EditPanel from "./EditPanel";
 import {useNotification} from "../../context/NotificationContext";
+import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 
 function MenageUsers() {
     const [users, setUsers] = useState([])
@@ -11,6 +11,8 @@ function MenageUsers() {
     const [isEnabled, setIsEnabled] = useState(false)
     const [role, setRole] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
+    const {setIsComponentVisible, setUserId} = useDeleteConfirm();
+
     useEffect(() => {
         function fetchAllUsers() {
             axios.get("http://localhost:8080/user-management/all-users")
@@ -45,8 +47,6 @@ function MenageUsers() {
     function closeForm(form, span) {
         span.style.display = "flex"
         form.style.display = "none"
-        setIsElementClicked(false)
-
     }
 
 
@@ -81,6 +81,7 @@ function MenageUsers() {
                 span.innerText = value;
                 span.style.display = "flex"
                 form.style.display = "none"
+                setIsElementClicked(false)
             })
             .catch(reason => {
                 setNotificationText(reason.response.data)
@@ -95,6 +96,11 @@ function MenageUsers() {
         setIsElementClicked(false)
     }
 
+    function handleOnDeleteButtonClick(userId) {
+        setUserId(userId)
+        setIsComponentVisible(true)
+    }
+
     return (
         <div className={"menu-my-account"}>
             <h1>USERS LIST</h1>
@@ -107,6 +113,7 @@ function MenageUsers() {
                     <th>IS ENABLED</th>
                     <th>ROLE</th>
                     <th>INFO ID</th>
+                    <th>OPTIONS</th>
                 </tr>
                 </thead>
                 {users?.map((user, index) => (
@@ -186,6 +193,7 @@ function MenageUsers() {
                             </form>
                             <span id={"edit-span-role" + index}>{user?.userRole}</span></td>
                         <td>{user?.userInfo.id}</td>
+                        <td onClick={() => handleOnDeleteButtonClick(user?.id)}>DELETE</td>
                     </tr>
                     </tbody>
                 ))}
