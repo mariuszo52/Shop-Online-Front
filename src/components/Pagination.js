@@ -37,27 +37,30 @@ function Pagination({productsPageable, currentPage, setCurrentPage, currentSize,
 
     return (
         <div className={"pagination-bar"}>
-            <p>{(currentPage) * currentSize} - {lastProductIndex < productsPageable?.totalElements ? lastProductIndex : productsPageable?.totalElements} of {productsPageable?.totalElements}  games loaded</p>
+            <p>{(currentPage) * currentSize} - {lastProductIndex < productsPageable?.totalElements ? lastProductIndex : productsPageable?.totalElements} of {productsPageable?.totalElements}  total loaded</p>
             <p>Current page: {currentPage + 1}</p>
             <div className={"pages-numbers"}>
                 <li onClick={setFirstPage}>first</li>
                 <li onClick={setPreviousPage}>prev</li>
                 {productsPageable?.totalPages <= 15 ? (
                     pagination?.map((value, index) => (
-                        <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>
+                        <li className={"page-button"} id={"page-button" + value}
+                            key={index} onClick={() => handlePageClick(value)}>
                             {value + 1}
                         </li>
                     ))
                 ) : (
                     <>
                         {pagination?.slice(currentPage -3, currentPage).map((value, index) => (
-                            <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>
+                            <li className={"page-button"} id={"page-button" + value} key={index}
+                                onClick={() => handlePageClick(value)}>
                                 {value + 1}
                             </li>
                         ))}
                         <li>...</li>
                         {pagination?.slice(currentPage, currentPage +3).map((value, index) => (
-                            <li className={"page-button"} id={"page-button" + value} key={index} onClick={() => handlePageClick(value)}>
+                            <li className={"page-button"} id={"page-button" + value} key={index}
+                                onClick={() => handlePageClick(value)}>
                                 {value + 1}
                             </li>
                         ))}

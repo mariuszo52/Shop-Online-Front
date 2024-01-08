@@ -1,26 +1,41 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
+import Pagination from "../Pagination";
 
 function MenageUsers() {
     const [users, setUsers] = useState([])
     const [isElementClicked, setIsElementClicked] = useState(false)
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {setIsComponentVisible, setUserId, index} = useDeleteConfirm();
+    const [page, setPage] = useState(0)
+    const [pagination, setPagination] = useState([])
 
     useEffect(() => {
+        const params = {
+            page: page
+        }
         function fetchAllUsers() {
-            axios.get("http://localhost:8080/user-management/all-users")
+            axios.get("http://localhost:8080/user-management/all-users", {params})
                 .then(response => {
                     setUsers(response.data)
+                    calculatePageNumbers(response.data)
                     console.log(response.data)
                 })
                 .catch(reason => console.log(reason))
         }
 
         fetchAllUsers()
-    }, [index]);
+    }, [index, page]);
+
+    function calculatePageNumbers(data) {
+        const numbers = [];
+        for (let i = 0; i < data?.totalPages; i++) {
+            numbers.push(i);
+        }
+        setPagination(numbers);
+    }
 
     function showElementEditor(index, name, focusElementName) {
         if (!isElementClicked) {
@@ -141,7 +156,7 @@ function MenageUsers() {
                     <th>OPTIONS</th>
                 </tr>
                 </thead>
-                {users?.map((user, index) => (
+                {users?.content?.map((user, index) => (
                     <tbody key={index}>
                     <tr>
                         <td>{user?.id}</td>
@@ -214,6 +229,13 @@ function MenageUsers() {
                     </tbody>
                 ))}
             </table>
+            <Pagination
+                productsPageable={users}
+                pagination={pagination}
+                currentPage={page}
+                setCurrentPage={setPage}
+                currentSize={50}
+            />
         </div>
     )
 }
