@@ -65,6 +65,8 @@ function MenageUsers() {
     function updateUserField(event, fieldName, userId, index) {
         let url;
         let value;
+        let span = document.getElementById("edit-span-" + fieldName + index)
+        let form = document.getElementById("edit-form-" + fieldName + index);
         switch (fieldName) {
             case "username":
                 url = "http://localhost:8080/user-management/username"
@@ -88,8 +90,6 @@ function MenageUsers() {
         }
         axios.put(url, data)
             .then(response => {
-                let span = document.getElementById("edit-span-" + fieldName + index)
-                let form = document.getElementById("edit-form-" + fieldName + index);
                 span.innerText = value;
                 span.style.display = "flex"
                 form.style.display = "none"
@@ -98,6 +98,7 @@ function MenageUsers() {
             .catch(reason => {
                 setNotificationText(reason.response.data)
                 setNotificationVisible(true)
+                closeForm(form, span)
                 console.log(reason)
             })
     }
