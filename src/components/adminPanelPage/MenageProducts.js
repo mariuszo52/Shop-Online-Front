@@ -13,7 +13,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor, clo
             const params = {
                 page: page
             }
-            axios.get("http://localhost:8080/product-management/all-products", {params})
+            axios.get("http://localhost:8080/admin/product-management/all-products", {params})
                 .then(response => setProducts(response.data))
                 .catch(reason => console.log(reason))
         }
