@@ -31,11 +31,11 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor, clo
         let form = document.getElementById("edit-form-" + fieldName + index);
         switch (fieldName) {
             case "name":
-                url = "http://localhost:8080/product-management/name"
+                url = "http://localhost:8080/admin/product-management/name"
                 value = event.target.querySelector("input")?.value
                 break
             case "price":
-                url = "http://localhost:8080/product-management/price"
+                url = "http://localhost:8080/admin/product-management/price"
                 value = event.target.querySelector("input")?.value
                 break
         }

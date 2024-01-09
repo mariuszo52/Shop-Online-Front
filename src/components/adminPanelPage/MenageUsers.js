@@ -15,7 +15,7 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
             page: page
         }
         function fetchAllUsers() {
-            axios.get("http://localhost:8080/user-management/all-users", {params})
+            axios.get("http://localhost:8080/admin/user-management/all-users", {params})
                 .then(response => {
                     setUsers(response.data)
                     calculatePageNumbers(response.data)
@@ -39,19 +39,19 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
         let form = document.getElementById("edit-form-" + fieldName + index);
         switch (fieldName) {
             case "username":
-                url = "http://localhost:8080/user-management/username"
+                url = "http://localhost:8080/admin/user-management/username"
                 value = event.target.querySelector("input")?.value
                 break
             case "email":
-                url = "http://localhost:8080/user-management/email"
+                url = "http://localhost:8080/admin/user-management/email"
                 value = event.target.querySelector("input")?.value
                 break
             case "isEnabled":
-                url = "http://localhost:8080/user-management/is-enabled"
+                url = "http://localhost:8080/admin/user-management/is-enabled"
                 value = event.target.querySelector("select")?.value
                 break
             case "role":
-                url = "http://localhost:8080/user-management/role"
+                url = "http://localhost:8080/admin/user-management/role"
                 value = event.target.querySelector("select")?.value
         }
         let data = {
@@ -90,7 +90,7 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
             searchBy: event.target?.querySelector("select")?.value,
             value: event.target?.querySelector("input")?.value
         }
-        axios.get("http://localhost:8080/user-management/user", {params})
+        axios.get("http://localhost:8080/admin/user-management/user", {params})
             .then(response => setUsers(new Array(response.data)))
             .catch(reason => {
                 console.log(reason)
