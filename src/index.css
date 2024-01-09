@@ -469,7 +469,7 @@
     border: solid;
 }
 
-.price {
+.price-span {
     font-size: 35px;
     font-weight: bolder;
 }
@@ -1622,22 +1622,23 @@
 .cookies-accept-button:hover{
     cursor: pointer;
 }
-.manage-users-table{
+.manage-users-table, .manage-products-table{
     width: 90%;
     height: min-content;
     border: 1px white solid;
     overflow: auto;
     border-collapse: collapse;
 }
-.manage-users-table td, .manage-users-table th{
+.manage-users-table td, .manage-users-table th,
+.manage-products-table td, .manage-products-table th{
     width: min-content;
     border: 1px white solid;
 }
-.manage-users-table td:hover {
+.manage-users-table td:hover, .manage-products-table td:hover {
     cursor: pointer;
     scale: 101%;
 }
-.edit-users-form{
+.edit-users-form, .edit-products-form{
     display: none;
     width: min-content;
 }

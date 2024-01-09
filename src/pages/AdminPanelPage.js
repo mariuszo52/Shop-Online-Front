@@ -6,9 +6,13 @@ import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import pagination from "../components/Pagination";
 
 function AdminPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("users")
+    const [pagination, setPagination] = useState([])
+    const [isElementClicked, setIsElementClicked] = useState(false)
+
 
 
     function chooseActiveTab(event) {
@@ -31,9 +35,7 @@ function AdminPanelPage() {
             let selectedMenuElement = document.getElementById(tab);
             if (selectedMenuElement !== null)
                 selectedMenuElement.style.color = "#0d7edc";
-
         }
-
         checkActiveTab()
     }, []);
 
@@ -42,7 +44,35 @@ function AdminPanelPage() {
         sessionStorage.removeItem("refreshToken")
         window.location.href = "http://localhost:3000/account/login"
     }
-
+    function calculatePageNumbers(data) {
+        const numbers = [];
+        for (let i = 0; i < data?.totalPages; i++) {
+            numbers.push(i);
+        }
+        setPagination(numbers);
+    }
+    function showElementEditor(index, name, focusElementName) {
+        if (!isElementClicked) {
+            let span = document.getElementById("edit-span-" + name + index)
+            let form = document.getElementById("edit-form-" + name + index);
+            let focusElement
+            if (focusElementName === "form") {
+                focusElement = form
+            } else {
+                focusElement = form.getElementsByTagName(focusElementName).item(0);
+            }
+            span.style.display = "none"
+            form.style.display = "flex"
+            setIsElementClicked(true)
+            focusElement.focus()
+            focusElement.addEventListener("blur", ev => closeForm(form, span))
+        }
+    }
+    function closeForm(form, span) {
+        span.style.display = "flex"
+        form.style.display = "none"
+        setIsElementClicked(false)
+    }
     return (
         <div className={"main-div"}>
             <Menu/>
@@ -56,9 +86,23 @@ function AdminPanelPage() {
                        className={"account-menu-el"}>ORDERS</p>
                     <p className={"account-menu-el"} onClick={onLogoutClick}>LOGOUT</p>
                 </div>
-                {activeMenuTab === "users" && (<MenageUsers/>)}
-                {activeMenuTab === "products" && (<MenageProducts/>)}
-                {activeMenuTab === "orders" && (<MenageOrders/>)}
+                {activeMenuTab === "users" && (
+                    <MenageUsers
+                    pagination = {pagination}
+                    showElementEditor = {showElementEditor}
+                    setIsElementClicked = {setIsElementClicked}
+                    closeForm = {closeForm}
+                    calculatePageNumbers = {calculatePageNumbers}
+                    />)}
+                {activeMenuTab === "products" && (
+                    <MenageProducts
+                        pagination = {pagination}
+                        showElementEditor = {showElementEditor}
+                        setIsElementClicked = {setIsElementClicked}
+                        closeForm = {closeForm}
+                        calculatePageNumbers = {calculatePageNumbers}
+                    />)}
+                {activeMenuTab === "orders" && (<MenageOrders pagination = {pagination}/>)}
             </div>
             <SocialMedia/>
             <Footer/>

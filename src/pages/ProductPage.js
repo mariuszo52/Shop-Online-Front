@@ -102,7 +102,7 @@ function ProductPage() {
                         <p className={"product-name"}>{product?.name}</p>
                         <p className={"product-description"}>{product?.description}</p>
                         <p className={"products-price"}></p>
-                        <span className={"price"}>{product?.price} PLN</span>
+                        <span className={"price-span"}>{product?.price} PLN</span>
                         <button onClick={() => addToCart(product)} className={"add-product-to-cart"}>TO CART</button>
                         <ul>
                             <li>CAN ACTIVATE IN POLAND</li>

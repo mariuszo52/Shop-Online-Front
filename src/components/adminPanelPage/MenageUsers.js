@@ -4,13 +4,11 @@ import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
 
-function MenageUsers() {
+function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeForm, calculatePageNumbers}) {
     const [users, setUsers] = useState([])
-    const [isElementClicked, setIsElementClicked] = useState(false)
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {setIsComponentVisible, setUserId, index} = useDeleteConfirm();
     const [page, setPage] = useState(0)
-    const [pagination, setPagination] = useState([])
 
     useEffect(() => {
         const params = {
@@ -29,37 +27,9 @@ function MenageUsers() {
         fetchAllUsers()
     }, [index, page]);
 
-    function calculatePageNumbers(data) {
-        const numbers = [];
-        for (let i = 0; i < data?.totalPages; i++) {
-            numbers.push(i);
-        }
-        setPagination(numbers);
-    }
 
-    function showElementEditor(index, name, focusElementName) {
-        if (!isElementClicked) {
-            let span = document.getElementById("edit-span-" + name + index)
-            let form = document.getElementById("edit-form-" + name + index);
-            let focusElement
-            if (focusElementName === "form") {
-                focusElement = form
-            } else {
-                focusElement = form.getElementsByTagName(focusElementName).item(0);
-            }
-            span.style.display = "none"
-            form.style.display = "flex"
-            setIsElementClicked(true)
-            focusElement.focus()
-            focusElement.addEventListener("blur", ev => closeForm(form, span))
-        }
-    }
 
-    function closeForm(form, span) {
-        span.style.display = "flex"
-        form.style.display = "none"
-        setIsElementClicked(false)
-    }
+
 
 
     function updateUserField(event, fieldName, userId, index) {
