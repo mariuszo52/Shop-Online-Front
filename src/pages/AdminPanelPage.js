@@ -5,14 +5,14 @@ import MenageOrders from "../components/adminPanelPage/MenageOrders";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
+import {useDeleteConfirm} from "../context/DeleteConfirmContext";
 import axios from "axios";
-import pagination from "../components/Pagination";
 
 function AdminPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("users")
     const [pagination, setPagination] = useState([])
     const [isElementClicked, setIsElementClicked] = useState(false)
-
+    const {setIsComponentVisible, setId, setParamName} = useDeleteConfirm();
 
 
     function chooseActiveTab(event) {
@@ -20,6 +20,11 @@ function AdminPanelPage() {
         window.location.href = "/account/admin-panel?tab=" + tabName;
     }
 
+    function handleOnDeleteButtonClick(id, paramName) {
+        setParamName(paramName)
+        setId(id)
+        setIsComponentVisible(true)
+    }
 
 
     useEffect(() => {
@@ -36,6 +41,7 @@ function AdminPanelPage() {
             if (selectedMenuElement !== null)
                 selectedMenuElement.style.color = "#0d7edc";
         }
+
         checkActiveTab()
     }, []);
 
@@ -44,6 +50,7 @@ function AdminPanelPage() {
         sessionStorage.removeItem("refreshToken")
         window.location.href = "http://localhost:3000/account/login"
     }
+
     function calculatePageNumbers(data) {
         const numbers = [];
         for (let i = 0; i < data?.totalPages; i++) {
@@ -51,6 +58,7 @@ function AdminPanelPage() {
         }
         setPagination(numbers);
     }
+
     function showElementEditor(index, name, focusElementName) {
         if (!isElementClicked) {
             let span = document.getElementById("edit-span-" + name + index)
@@ -68,11 +76,13 @@ function AdminPanelPage() {
             focusElement.addEventListener("blur", ev => closeForm(form, span))
         }
     }
+
     function closeForm(form, span) {
         span.style.display = "flex"
         form.style.display = "none"
         setIsElementClicked(false)
     }
+
     return (
         <div className={"main-div"}>
             <Menu/>
@@ -84,25 +94,28 @@ function AdminPanelPage() {
                        className={"account-menu-el"}>PRODUCTS</p>
                     <p id={"orders"} onClick={event => chooseActiveTab(event)}
                        className={"account-menu-el"}>ORDERS</p>
+                    <p className={"account-menu-el"}>STATS</p>
                     <p className={"account-menu-el"} onClick={onLogoutClick}>LOGOUT</p>
                 </div>
                 {activeMenuTab === "users" && (
                     <MenageUsers
-                    pagination = {pagination}
-                    showElementEditor = {showElementEditor}
-                    setIsElementClicked = {setIsElementClicked}
-                    closeForm = {closeForm}
-                    calculatePageNumbers = {calculatePageNumbers}
+                        pagination={pagination}
+                        showElementEditor={showElementEditor}
+                        setIsElementClicked={setIsElementClicked}
+                        closeForm={closeForm}
+                        calculatePageNumbers={calculatePageNumbers}
+                        onDeleteButtonClick={handleOnDeleteButtonClick}
                     />)}
                 {activeMenuTab === "products" && (
                     <MenageProducts
-                        pagination = {pagination}
-                        showElementEditor = {showElementEditor}
-                        setIsElementClicked = {setIsElementClicked}
-                        closeForm = {closeForm}
-                        calculatePageNumbers = {calculatePageNumbers}
+                        pagination={pagination}
+                        showElementEditor={showElementEditor}
+                        setIsElementClicked={setIsElementClicked}
+                        closeForm={closeForm}
+                        calculatePageNumbers={calculatePageNumbers}
+                        onDeleteButtonClick={handleOnDeleteButtonClick}
                     />)}
-                {activeMenuTab === "orders" && (<MenageOrders pagination = {pagination}/>)}
+                {activeMenuTab === "orders" && (<MenageOrders pagination={pagination}/>)}
             </div>
             <SocialMedia/>
             <Footer/>

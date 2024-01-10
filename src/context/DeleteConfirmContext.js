@@ -8,20 +8,28 @@ export function DeleteConfirmProvider({children}) {
     const [isComponentVisible, setIsComponentVisible] = useState(false)
     const {setNotificationVisible, setNotificationText} = useNotification();
     const [index, setIndex] = useState(0)
-    const [userId, setUserId] = useState(null)
+    const [id, setId] = useState(null)
+    const [paramName, setParamName] = useState("")
 
     function handleUserDeleteConfirm(){
-        const params = {
-            userId: userId
+        let url
+        switch (paramName){
+            case "userId": url = "http://localhost:8080/admin/user-management/user"
+                break
+            case "productId": url = "http://localhost:8080/admin/product-management/product"
+                break
         }
-        axios.delete("http://localhost:8080/user-management/user", {params} )
+        const params = {
+            [paramName]: id
+        }
+        axios.delete(url, {params} )
             .then(response => {
                 setNotificationText("Done")
                 setNotificationVisible()
                 setIsComponentVisible(false)
                 setIndex(prevState => prevState +1)
             }).catch(reason => {
-                console.log(reason)
+            console.log(reason)
             setNotificationText(reason.response.data)
             setNotificationVisible()
             setIsComponentVisible(false)
@@ -35,7 +43,8 @@ export function DeleteConfirmProvider({children}) {
                 isComponentVisible,
                 setIsComponentVisible,
                 handleUserDeleteConfirm,
-                setUserId,
+                setId,
+                setParamName,
                 index,
                 setIndex
             }}

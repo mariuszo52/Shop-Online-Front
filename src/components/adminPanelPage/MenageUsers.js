@@ -4,16 +4,20 @@ import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
 
-function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeForm, calculatePageNumbers}) {
-    const [users, setUsers] = useState([])
+function MenageUsers({
+                         pagination, setIsElementClicked, onDeleteButtonClick,
+                         showElementEditor, closeForm, calculatePageNumbers
+                     }) {
+    const [users, setUsers] = useState(null)
     const {setNotificationVisible, setNotificationText} = useNotification();
-    const {setIsComponentVisible, setUserId, index} = useDeleteConfirm();
+    const {index} = useDeleteConfirm();
     const [page, setPage] = useState(0)
 
     useEffect(() => {
         const params = {
             page: page
         }
+
         function fetchAllUsers() {
             axios.get("http://localhost:8080/admin/user-management/all-users", {params})
                 .then(response => {
@@ -26,10 +30,6 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
 
         fetchAllUsers()
     }, [index, page]);
-
-
-
-
 
 
     function updateUserField(event, fieldName, userId, index) {
@@ -79,10 +79,6 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
         setIsElementClicked(false)
     }
 
-    function handleOnDeleteButtonClick(userId) {
-        setUserId(userId)
-        setIsComponentVisible(true)
-    }
 
     function onSearchFormSubmit(event) {
         event.preventDefault()
@@ -91,13 +87,16 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
             value: event.target?.querySelector("input")?.value
         }
         axios.get("http://localhost:8080/admin/user-management/user", {params})
-            .then(response => setUsers(new Array(response.data)))
+            .then(response => setUsers({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
                 setNotificationText(reason.response.data)
                 setNotificationVisible()
             })
+
+
     }
+
 
     return (
         <div className={"menu-my-account"}>
@@ -166,8 +165,9 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
                             onClick={(event) =>
                                 showElementEditor(index, "isEnabled", "form")}>
                             <form
-                                onSubmit={event =>{
-                                    onUpdateSubmit(event, "isEnabled", user?.id, index)}}
+                                onSubmit={event => {
+                                    onUpdateSubmit(event, "isEnabled", user?.id, index)
+                                }}
                                 id={"edit-form-isEnabled" + index}
                                 className={"edit-users-form"}>
                                 <select>
@@ -195,7 +195,7 @@ function MenageUsers({pagination, setIsElementClicked, showElementEditor, closeF
                             </form>
                             <span id={"edit-span-role" + index}>{user?.userRole}</span></td>
                         <td>{user?.userInfo.id}</td>
-                        <td onClick={() => handleOnDeleteButtonClick(user?.id)}>DELETE</td>
+                        <td onClick={() => onDeleteButtonClick(user?.id, "userId")}>DELETE</td>
                     </tr>
                     </tbody>
                 ))}

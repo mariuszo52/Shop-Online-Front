@@ -2,11 +2,14 @@ import Pagination from "../Pagination";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
+import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 
-function MenageProducts({pagination, setIsElementClicked, showElementEditor, closeForm, calculatePageNumbers}) {
-    const [products, setProducts] = useState([])
+function MenageProducts({pagination, setIsElementClicked, showElementEditor,
+                            closeForm, calculatePageNumbers, onDeleteButtonClick}) {
+    const [products, setProducts] = useState(null)
     const [page, setPage] = useState(0)
     const {setNotificationVisible, setNotificationText} = useNotification()
+    const {index} = useDeleteConfirm();
 
     useEffect(() => {
         function fetchAllProducts() {
@@ -14,15 +17,29 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor, clo
                 page: page
             }
             axios.get("http://localhost:8080/admin/product-management/all-products", {params})
-                .then(response => setProducts(response.data))
+                .then(response => {
+                    setProducts(response.data)
+                    calculatePageNumbers(response.data)
+                })
                 .catch(reason => console.log(reason))
         }
 
         fetchAllProducts()
-    }, [page]);
+    }, [page, index]);
 
     function onSearchFormSubmit(event) {
-
+        event.preventDefault()
+        const params = {
+            searchBy: event.target?.querySelector("select")?.value,
+            value: event.target?.querySelector("input")?.value
+        }
+        axios.get("http://localhost:8080/admin/product-management/product", {params})
+            .then(response => setProducts({content: new Array(response.data)}))
+            .catch(reason => {
+                console.log(reason)
+                setNotificationText(reason.response.data)
+                setNotificationVisible()
+            })
     }
     function updateProductField(event, fieldName, productId, index) {
         let url;
@@ -64,12 +81,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor, clo
         setIsElementClicked(false)
     }
 
-    function handleOnDeleteButtonClick(id) {
-
-    }
-
-
-    return (
+        return (
         <div className={"menu-my-account"}>
             <h1>PRODUCTS LIST</h1>
             <form
@@ -128,7 +140,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor, clo
                                 />
                             </form>
                             <span id={"edit-span-price" + index}>{product?.price}</span></td>
-                        <td onClick={() => handleOnDeleteButtonClick(product?.id)}>DELETE</td>
+                        <td onClick={() => onDeleteButtonClick(product?.id, "productId")}>DELETE</td>
                     </tr>
                     </tbody>
                 ))}
