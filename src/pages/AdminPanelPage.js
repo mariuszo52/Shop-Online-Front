@@ -52,6 +52,7 @@ function AdminPanelPage() {
     }
 
     function calculatePageNumbers(data) {
+        console.log(data)
         const numbers = [];
         for (let i = 0; i < data?.totalPages; i++) {
             numbers.push(i);
@@ -115,7 +116,14 @@ function AdminPanelPage() {
                         calculatePageNumbers={calculatePageNumbers}
                         onDeleteButtonClick={handleOnDeleteButtonClick}
                     />)}
-                {activeMenuTab === "orders" && (<MenageOrders pagination={pagination}/>)}
+                {activeMenuTab === "orders" && (
+                    <MenageOrders pagination={pagination}
+                                  showElementEditor={showElementEditor}
+                                  setIsElementClicked={setIsElementClicked}
+                                  closeForm={closeForm}
+                                  calculatePageNumbers={calculatePageNumbers}
+                                  onDeleteButtonClick={handleOnDeleteButtonClick}
+                    />)}
             </div>
             <SocialMedia/>
             <Footer/>

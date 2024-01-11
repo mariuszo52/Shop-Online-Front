@@ -1622,7 +1622,9 @@
 .cookies-accept-button:hover{
     cursor: pointer;
 }
-.manage-users-table, .manage-products-table{
+.manage-users-table,
+.manage-products-table,
+.manage-orders-table{
     width: 90%;
     height: min-content;
     border: 1px white solid;
@@ -1630,15 +1632,20 @@
     border-collapse: collapse;
 }
 .manage-users-table td, .manage-users-table th,
-.manage-products-table td, .manage-products-table th{
+.manage-products-table td, .manage-products-table th,
+.manage-orders-table td, .manage-orders-table th{
     width: min-content;
     border: 1px white solid;
 }
-.manage-users-table td:hover, .manage-products-table td:hover {
+.manage-users-table td:hover,
+.manage-products-table td:hover,
+.manage-orders-table td:hover{
     cursor: pointer;
     scale: 101%;
 }
-.edit-users-form, .edit-products-form{
+.edit-users-form,
+.edit-products-form,
+.edit-orders-form{
     display: none;
     width: min-content;
 }
