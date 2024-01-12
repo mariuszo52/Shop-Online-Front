@@ -5,9 +5,9 @@ import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
 
 function MenageOrders({
-                         pagination, setIsElementClicked, onDeleteButtonClick,
-                         showElementEditor, closeForm, calculatePageNumbers
-                     }) {
+                          pagination, setIsElementClicked,
+                          showElementEditor, closeForm, calculatePageNumbers
+                      }) {
     const [orders, setOrders] = useState(null)
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {index} = useDeleteConfirm();
@@ -37,8 +37,29 @@ function MenageOrders({
 
     }
 
-    function onUpdateSubmit(event, userId, id, index) {
-
+    function updateOrderStatusField(event, fieldName,orderId, index) {
+        event.preventDefault()
+        const url = "http://localhost:8080/admin/order-management/order-status"
+        let orderStatus = event.target.querySelector("select")?.value;
+        let span = document.getElementById("edit-span-" + fieldName + index)
+        let form = document.getElementById("edit-form-" + fieldName + index);
+        let data = {
+            orderId: orderId,
+            orderStatus: orderStatus
+        }
+        axios.put(url, data)
+            .then(response => {
+                span.innerText = orderStatus
+                span.style.display = "flex"
+                form.style.display = "none"
+                setIsElementClicked(false)
+            })
+            .catch(reason => {
+                setNotificationText(reason.response.data)
+                setNotificationVisible(true)
+                closeForm(form, span)
+                console.log(reason)
+            })
     }
 
     return (
@@ -69,33 +90,27 @@ function MenageOrders({
                     <tbody key={index}>
                     <tr>
                         <td>{order?.id}</td>
-                        <td
-                            className={"user-id"}
-                            onClick={event =>
-                                showElementEditor(index, "name", "input")}
-                        >
-                            <form
-                                onSubmit={event =>
-                                    onUpdateSubmit(event, "userId", order?.id, index)}
-                                id={"edit-form-userId" + index}
-                                className={"edit-orders-form"}>
-                                <input
-                                    required={true}
-                                />
-                            </form>
+                        <td className={"user-id"}>
                             <span id={"edit-span-name" + index}>{order?.userId}</span></td>
                         <td
                             className={"order-status"}
                             onClick={(event) =>
-                                showElementEditor(index, "orderStatus", "input")}>
+                                showElementEditor(index, "orderStatus", "form")}>
                             <form
                                 onSubmit={event =>
-                                    onUpdateSubmit(event, "orderStatus", order?.orderStatus , index)}
-                                id={"edit-form-order-status" + index}
+                                    updateOrderStatusField(event, "orderStatus", order?.id, index)}
+                                id={"edit-form-orderStatus" + index}
                                 className={"edit-products-form"}>
-                                <input
-                                    required={true}
-                                />
+                                <select id="orderStatus" name="orderStatus">
+                                    <option value="ORDER_RECEIVED">Order Received</option>
+                                    <option value="PAYMENT_CONFIRMATION">Payment Confirmation</option>
+                                    <option value="ORDER_PROCESSING">Order Processing</option>
+                                    <option value="ORDER_SHIPPED">Order Shipped</option>
+                                    <option value="DELIVERED">Delivered</option>
+                                    <option value="ORDER_UPDATE">Order Update</option>
+                                    <option value="CANCELLED">Cancelled</option>
+                                </select>
+                                <button type={"submit"}>OK</button>
                             </form>
                             <span id={"edit-span-orderStatus" + index}>{order?.orderStatus}</span></td>
                     </tr>
