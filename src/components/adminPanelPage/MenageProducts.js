@@ -37,7 +37,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
             .then(response => setProducts({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
-                setNotificationText(reason.response.data)
+                setNotificationText("PRODUCT NOT FOUND.")
                 setNotificationVisible()
             })
     }

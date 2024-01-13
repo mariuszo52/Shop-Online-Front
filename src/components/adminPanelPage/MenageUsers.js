@@ -89,7 +89,7 @@ function MenageUsers({
             .then(response => setUsers({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
-                setNotificationText(reason.response.data)
+                setNotificationText("USER NOT FOUND.")
                 setNotificationVisible()
             })
 

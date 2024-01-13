@@ -91,7 +91,7 @@ function MenageOrders({
             .then(response => setOrders({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
-                setNotificationText(reason.response.data)
+                setNotificationText("ORDERS NOT FOUND.")
                 setNotificationVisible()
             })
     }
