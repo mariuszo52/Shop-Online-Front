@@ -105,8 +105,8 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                     <th>OPTIONS</th>
                 </tr>
                 </thead>
-                {products?.content?.map((product, index) => (
                     <tbody key={index}>
+                    {products?.content?.map((product, index) => (
                     <tr>
                         <td>{product?.id}</td>
                         <td
@@ -142,8 +142,8 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                             <span id={"edit-span-price" + index}>{product?.price}</span></td>
                         <td onClick={() => onDeleteButtonClick(product?.id, "productId")}>DELETE</td>
                     </tr>
+                    ))}
                     </tbody>
-                ))}
             </table>
             <Pagination
                 productsPageable={products}

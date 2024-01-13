@@ -3,6 +3,7 @@ import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
+import OrderDetails from "./OrderDetails";
 
 function MenageOrders({
                           pagination, setIsElementClicked,
@@ -106,7 +107,13 @@ function MenageOrders({
             })
     }
 
+    function handleOrderClick() {
+        document.getElementById("admin-order-details").style.display = "flex"
+    }
+
     return (
+        <>
+        <OrderDetails />
         <div className={"menu-my-account"}>
             <h1>ORDERS LIST</h1>
             <form
@@ -119,11 +126,11 @@ function MenageOrders({
                         ))}
                     </datalist>
                 )}
-                    <input
-                        list={"orderStatus"}
-                        required={true}
-                        type={"text"}
-                    />
+                <input
+                    list={"orderStatus"}
+                    required={true}
+                    type={"text"}
+                />
                 <select onChange={event => setSearchParam(event.target.value)}>
                     <option value={"id"}>ID</option>
                     <option value={"userId"}>USER ID</option>
@@ -139,9 +146,9 @@ function MenageOrders({
                     <th>ORDER STATUS</th>
                 </tr>
                 </thead>
-                {orders?.content?.map((order, index) => (
                     <tbody key={index}>
-                    <tr>
+                    {orders?.content?.map((order, index) => (
+                    <tr onClick={handleOrderClick}>
                         <td>{order?.id}</td>
                         <td className={"user-id"}>
                             <span id={"edit-span-name" + index}>{order?.userId}</span></td>
@@ -162,8 +169,8 @@ function MenageOrders({
                             </form>
                             <span id={"edit-span-orderStatus" + index}>{order?.orderStatus}</span></td>
                     </tr>
+                    ))}
                     </tbody>
-                ))}
             </table>
             <Pagination
                 productsPageable={orders}
@@ -173,6 +180,7 @@ function MenageOrders({
                 currentSize={50}
             />
         </div>
+            </>
     )
 }
 

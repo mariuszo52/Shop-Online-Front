@@ -125,8 +125,8 @@ function MenageUsers({
                     <th>OPTIONS</th>
                 </tr>
                 </thead>
-                {users?.content?.map((user, index) => (
                     <tbody key={index}>
+                    {users?.content?.map((user, index) => (
                     <tr>
                         <td>{user?.id}</td>
                         <td
@@ -196,8 +196,8 @@ function MenageUsers({
                         <td>{user?.userInfo.id}</td>
                         <td onClick={() => onDeleteButtonClick(user?.id, "userId")}>DELETE</td>
                     </tr>
+                    ))}
                     </tbody>
-                ))}
             </table>
             <Pagination
                 productsPageable={users}
