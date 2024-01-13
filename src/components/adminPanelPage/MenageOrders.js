@@ -29,15 +29,36 @@ function MenageOrders({
         }
 
         fetchAllOrders()
-    }, [index, page]);
+    }, [index, page])
+
+    useEffect(() => {
+        function fetchAllOrdersStatuses() {
+            axios.get("http://localhost:8080/admin/order-management/all-statuses")
+                .then(response => console.log(response.data))
+                .catch(reason => console.log(reason))
+        }
+
+        fetchAllOrdersStatuses()
+    }, []);
 
 
     function onSearchFormSubmit(event) {
-
-
+        event.preventDefault()
+        let searchBy = event.target?.querySelector("select")?.value
+        let value = event.target?.querySelector("input")?.value
+        if (searchBy === "id") {
+            searchOrderById(value)
+        } else {
+            const params = {
+                searchBy: searchBy,
+                value: value,
+                page: page
+            }
+            searchOrdersByParameter(params)
+        }
     }
 
-    function updateOrderStatusField(event, fieldName,orderId, index) {
+    function updateOrderStatusField(event, fieldName, orderId, index) {
         event.preventDefault()
         const url = "http://localhost:8080/admin/order-management/order-status"
         let orderStatus = event.target.querySelector("select")?.value;
@@ -62,6 +83,29 @@ function MenageOrders({
             })
     }
 
+    function searchOrderById(value) {
+        const params = {
+            orderId: value
+        }
+        axios.get("http://localhost:8080/admin/order-management/order", {params})
+            .then(response => setOrders({content: new Array(response.data)}))
+            .catch(reason => {
+                console.log(reason)
+                setNotificationText(reason.response.data)
+                setNotificationVisible()
+            })
+    }
+
+    function searchOrdersByParameter(params) {
+        axios.get("http://localhost:8080/admin/order-management/orders", {params})
+            .then(response => setOrders(response.data))
+            .catch(reason => {
+                console.log(reason)
+                setNotificationText("ORDERS NOT FOUND.")
+                setNotificationVisible()
+            })
+    }
+
     return (
         <div className={"menu-my-account"}>
             <h1>ORDERS LIST</h1>
@@ -73,8 +117,8 @@ function MenageOrders({
                     type={"text"}/>
                 <select>
                     <option value={"id"}>ID</option>
-                    <option value={"name"}>USER ID</option>
-                    <option value={"name"}>ORDER STATUS</option>
+                    <option value={"userId"}>USER ID</option>
+                    <option value={"orderStatus"}>ORDER STATUS</option>
                 </select>
                 <button type={"submit"}>SEARCH</button>
             </form>
