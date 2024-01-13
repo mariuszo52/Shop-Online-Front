@@ -12,7 +12,8 @@ function MenageOrders({
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {index} = useDeleteConfirm();
     const [page, setPage] = useState(0)
-
+    const [orderStatuses, setOrderStatuses] = useState([])
+    const [searchParam, setSearchParam] = useState("")
     useEffect(() => {
         const params = {
             page: page
@@ -23,7 +24,6 @@ function MenageOrders({
                 .then(response => {
                     setOrders(response.data)
                     calculatePageNumbers(response.data)
-                    console.log(response.data)
                 })
                 .catch(reason => console.log(reason))
         }
@@ -34,7 +34,7 @@ function MenageOrders({
     useEffect(() => {
         function fetchAllOrdersStatuses() {
             axios.get("http://localhost:8080/admin/order-management/all-statuses")
-                .then(response => console.log(response.data))
+                .then(response => setOrderStatuses(response.data))
                 .catch(reason => console.log(reason))
         }
 
@@ -112,10 +112,19 @@ function MenageOrders({
             <form
                 onSubmit={event => onSearchFormSubmit(event)}
                 className={"admin-panel-search-form"}>
-                <input
-                    required={true}
-                    type={"text"}/>
-                <select>
+                {searchParam === "orderStatus" && (
+                    <datalist key={index} id={"orderStatus"}>
+                        {orderStatuses?.map((order, index) => (
+                            <option key={index} value={order}>{order}</option>
+                        ))}
+                    </datalist>
+                )}
+                    <input
+                        list={"orderStatus"}
+                        required={true}
+                        type={"text"}
+                    />
+                <select onChange={event => setSearchParam(event.target.value)}>
                     <option value={"id"}>ID</option>
                     <option value={"userId"}>USER ID</option>
                     <option value={"orderStatus"}>ORDER STATUS</option>
@@ -146,13 +155,8 @@ function MenageOrders({
                                 id={"edit-form-orderStatus" + index}
                                 className={"edit-products-form"}>
                                 <select id="orderStatus" name="orderStatus">
-                                    <option value="ORDER_RECEIVED">Order Received</option>
-                                    <option value="PAYMENT_CONFIRMATION">Payment Confirmation</option>
-                                    <option value="ORDER_PROCESSING">Order Processing</option>
-                                    <option value="ORDER_SHIPPED">Order Shipped</option>
-                                    <option value="DELIVERED">Delivered</option>
-                                    <option value="ORDER_UPDATE">Order Update</option>
-                                    <option value="CANCELLED">Cancelled</option>
+                                    {orderStatuses?.map((status, index) => (
+                                        <option key={index} value={status}>{status}</option>))}
                                 </select>
                                 <button type={"submit"}>OK</button>
                             </form>

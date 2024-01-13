@@ -23,7 +23,6 @@ function MenageUsers({
                 .then(response => {
                     setUsers(response.data)
                     calculatePageNumbers(response.data)
-                    console.log(response.data)
                 })
                 .catch(reason => console.log(reason))
         }

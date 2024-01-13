@@ -22,7 +22,6 @@ export function CartProvider({children}) {
         if (sessionStorage.getItem("jwt")) {
             axios.get("http://localhost:8080/cart")
                 .then(response => {
-                    console.log(response.data)
                     setCartItems(response.data)
                     let totalElements = 0;
                     for (const element of response.data) {
