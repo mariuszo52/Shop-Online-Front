@@ -125,9 +125,9 @@ function MenageUsers({
                     <th>OPTIONS</th>
                 </tr>
                 </thead>
-                    <tbody key={index}>
+                    <tbody>
                     {users?.content?.map((user, index) => (
-                    <tr>
+                    <tr key={index}>
                         <td>{user?.id}</td>
                         <td
                             className={"username"}

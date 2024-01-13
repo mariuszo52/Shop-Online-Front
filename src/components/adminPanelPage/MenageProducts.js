@@ -105,9 +105,9 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                     <th>OPTIONS</th>
                 </tr>
                 </thead>
-                    <tbody key={index}>
+                    <tbody>
                     {products?.content?.map((product, index) => (
-                    <tr>
+                    <tr key={index}>
                         <td>{product?.id}</td>
                         <td
                             className={"name"}

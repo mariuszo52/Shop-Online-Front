@@ -1633,19 +1633,23 @@
 }
 .manage-users-table td, .manage-users-table th,
 .manage-products-table td, .manage-products-table th,
-.manage-orders-table td, .manage-orders-table th{
+.manage-orders-table td, .manage-orders-table th,
+.order-products-table td, .order-products-table th{
     width: min-content;
     border: 1px white solid;
 }
 .manage-users-table td:hover,
 .manage-products-table td:hover,
-.manage-orders-table td:hover{
+.manage-orders-table td:hover,
+.order-products-table td:hover{
     cursor: pointer;
     scale: 101%;
 }
 .edit-users-form,
 .edit-products-form,
-.edit-orders-form{
+.edit-orders-form,
+.edit-quantity-form,
+.edit-code-form{
     display: none;
     width: min-content;
 }
@@ -1691,12 +1695,13 @@
 #admin-order-details{
     display: none;
     flex-direction: column;
-    width: 30%;
+    width: 50%;
     height: 400px;
     align-items: center;
     position: absolute;
-    background-color: red;
-    left: 50%;
+    background-color: #20143c;
+    left: 30%;
     top: 30%;
     z-index: 100;
+    border: white solid 1px;
 }

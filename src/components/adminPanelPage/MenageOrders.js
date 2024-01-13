@@ -15,6 +15,8 @@ function MenageOrders({
     const [page, setPage] = useState(0)
     const [orderStatuses, setOrderStatuses] = useState([])
     const [searchParam, setSearchParam] = useState("")
+    const [orderProducts, setOrderProducts] = useState([])
+
     useEffect(() => {
         const params = {
             page: page
@@ -107,80 +109,97 @@ function MenageOrders({
             })
     }
 
-    function handleOrderClick() {
+    function handleOrderClick(orderId) {
+        fetchOrderDetails(orderId)
         document.getElementById("admin-order-details").style.display = "flex"
+    }
+    function fetchOrderDetails(orderId){
+        const params ={
+            orderId: orderId
+        }
+        axios.get("http://localhost:8080/admin/order-management/order-products", {params})
+            .then(response => setOrderProducts(response.data))
+            .catch(reason => {
+                setNotificationText("Error during fetching order details.")
+                setNotificationVisible(true)
+                console.log(reason)
+            })
     }
 
     return (
         <>
-        <OrderDetails />
-        <div className={"menu-my-account"}>
-            <h1>ORDERS LIST</h1>
-            <form
-                onSubmit={event => onSearchFormSubmit(event)}
-                className={"admin-panel-search-form"}>
-                {searchParam === "orderStatus" && (
-                    <datalist key={index} id={"orderStatus"}>
-                        {orderStatuses?.map((order, index) => (
-                            <option key={index} value={order}>{order}</option>
-                        ))}
-                    </datalist>
-                )}
-                <input
-                    list={"orderStatus"}
-                    required={true}
-                    type={"text"}
-                />
-                <select onChange={event => setSearchParam(event.target.value)}>
-                    <option value={"id"}>ID</option>
-                    <option value={"userId"}>USER ID</option>
-                    <option value={"orderStatus"}>ORDER STATUS</option>
-                </select>
-                <button type={"submit"}>SEARCH</button>
-            </form>
-            <table className={"manage-orders-table"}>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>USER ID</th>
-                    <th>ORDER STATUS</th>
-                </tr>
-                </thead>
-                    <tbody key={index}>
-                    {orders?.content?.map((order, index) => (
-                    <tr onClick={handleOrderClick}>
-                        <td>{order?.id}</td>
-                        <td className={"user-id"}>
-                            <span id={"edit-span-name" + index}>{order?.userId}</span></td>
-                        <td
-                            className={"order-status"}
-                            onClick={(event) =>
-                                showElementEditor(index, "orderStatus", "form")}>
-                            <form
-                                onSubmit={event =>
-                                    updateOrderStatusField(event, "orderStatus", order?.id, index)}
-                                id={"edit-form-orderStatus" + index}
-                                className={"edit-products-form"}>
-                                <select id="orderStatus" name="orderStatus">
-                                    {orderStatuses?.map((status, index) => (
-                                        <option key={index} value={status}>{status}</option>))}
-                                </select>
-                                <button type={"submit"}>OK</button>
-                            </form>
-                            <span id={"edit-span-orderStatus" + index}>{order?.orderStatus}</span></td>
+            <OrderDetails
+                orderProducts={orderProducts}
+                closeForm={closeForm}
+                setIsElementClicked={setIsElementClicked}
+            />
+            <div className={"menu-my-account"}>
+                <h1>ORDERS LIST</h1>
+                <form
+                    onSubmit={event => onSearchFormSubmit(event)}
+                    className={"admin-panel-search-form"}>
+                    {searchParam === "orderStatus" && (
+                        <datalist id={"orderStatus"}>
+                            {orderStatuses?.map((order, index) => (
+                                <option key={index} value={order}>{order}</option>
+                            ))}
+                        </datalist>
+                    )}
+                    <input
+                        list={"orderStatus"}
+                        required={true}
+                        type={"text"}
+                    />
+                    <select onChange={event => setSearchParam(event.target.value)}>
+                        <option value={"id"}>ID</option>
+                        <option value={"userId"}>USER ID</option>
+                        <option value={"orderStatus"}>ORDER STATUS</option>
+                    </select>
+                    <button type={"submit"}>SEARCH</button>
+                </form>
+                <table className={"manage-orders-table"}>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>USER ID</th>
+                        <th>ORDER STATUS</th>
                     </tr>
+                    </thead>
+                    <tbody>
+                    {orders?.content?.map((order, index) => (
+                        <tr key={index} onClick={() => handleOrderClick(order?.id)}>
+                            <td>{order?.id}</td>
+                            <td className={"user-id"}>
+                                <span id={"edit-span-name" + index}>{order?.userId}</span></td>
+                            <td
+                                className={"order-status"}
+                                onClick={(event) =>
+                                    showElementEditor(index, "orderStatus", "form")}>
+                                <form
+                                    onSubmit={event =>
+                                        updateOrderStatusField(event, "orderStatus", order?.id, index)}
+                                    id={"edit-form-orderStatus" + index}
+                                    className={"edit-products-form"}>
+                                    <select id="orderStatus" name="orderStatus">
+                                        {orderStatuses?.map((status, index) => (
+                                            <option key={index} value={status}>{status}</option>))}
+                                    </select>
+                                    <button type={"submit"}>OK</button>
+                                </form>
+                                <span id={"edit-span-orderStatus" + index}>{order?.orderStatus}</span></td>
+                        </tr>
                     ))}
                     </tbody>
-            </table>
-            <Pagination
-                productsPageable={orders}
-                pagination={pagination}
-                currentPage={page}
-                setCurrentPage={setPage}
-                currentSize={50}
-            />
-        </div>
-            </>
+                </table>
+                <Pagination
+                    productsPageable={orders}
+                    pagination={pagination}
+                    currentPage={page}
+                    setCurrentPage={setPage}
+                    currentSize={50}
+                />
+            </div>
+        </>
     )
 }
 
