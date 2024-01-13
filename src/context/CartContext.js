@@ -146,9 +146,9 @@ export function CartProvider({children}) {
             setNotificationVisible()
         }
         else if(sessionStorage.getItem("jwt") && cartItems?.length !== 0){
-            window.location.href = "http://localhost:3000/checkout"
+            window.location.href = "/checkout"
         }else if (!sessionStorage.getItem("jwt")) {
-            window.location.href = "http://localhost:3000/account/login"
+            window.location.href = "/account/login"
         }
     }
 

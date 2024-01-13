@@ -10,7 +10,7 @@ function DeleteAccountConfirm(){
                 sessionStorage.removeItem("refreshToken")
                 setNotificationText("Account deleted.")
                 setNotificationVisible(true)
-                window.location.href = "http://localhost:3000/account/login"
+                window.location.href = "/account/login"
 
             })
             .catch(reason =>{

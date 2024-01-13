@@ -48,7 +48,7 @@ function LoginPage() {
                 console.log(response.data)
                 if (response.tokenId !== null) {
                     saveCartToDatabase()
-                    window.location.href = "http://localhost:3000";
+                    window.location.href = "/";
                 }
             })
             .catch(err => {
@@ -76,7 +76,7 @@ function LoginPage() {
                 setNotificationText("Login success.")
                 setNotificationVisible(true)
                 saveCartToDatabase()
-                window.location.href = "http://localhost:3000";
+                window.location.href = "/";
             })
             .catch(err => {
                 setNotificationText(err.response.data)
@@ -109,7 +109,7 @@ function LoginPage() {
             .then(response => {
                 if (response.data.accessToken !== null) {
                     saveCartToDatabase()
-                    window.location.href = "http://localhost:3000";
+                    window.location.href = "/";
                     console.log(response.data)
                 }}).catch(err => {
                     setNotificationText(err.response.data)

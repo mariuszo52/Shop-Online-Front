@@ -11,9 +11,9 @@ function Menu() {
     const {setIsCartVisible} = useCart();
 
     function onCartIconClick() {
-        if (window.location.href === "http://localhost:3000/checkout") {
+        if (window.location.href === "/checkout") {
             navigate("/cart")
-        } else if (window.location.href !== "http://localhost:3000/cart")
+        } else if (window.location.href !== "S/cart")
             setIsCartVisible(true)
 
     }
@@ -48,7 +48,7 @@ function Menu() {
                     <p onClick={() => navigate("/ROCKSTAR-GAMES")}>ROCKSTAR</p>
                 </div>
                 <div className={"logo-div"}>
-                    <img onClick={() => window.location.href = "http://localhost:3000"} alt="logo" className={"logo"}
+                    <img onClick={() => window.location.href = "/"} alt="logo" className={"logo"}
                          src={logo}/>
                 </div>
                 <div className={"user-panel"}>
