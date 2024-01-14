@@ -11,9 +11,9 @@ function Menu() {
     const {setIsCartVisible} = useCart();
 
     function onCartIconClick() {
-        if (window.location.href === "/checkout") {
+        if (window.location.pathname === "/checkout") {
             navigate("/cart")
-        } else if (window.location.href !== "S/cart")
+        } else if (window.location.pathname !== "/cart")
             setIsCartVisible(true)
 
     }
