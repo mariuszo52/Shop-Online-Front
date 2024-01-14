@@ -132,6 +132,7 @@ function MenageOrders({
                 orderProducts={orderProducts}
                 closeForm={closeForm}
                 setIsElementClicked={setIsElementClicked}
+                showElementEditor ={showElementEditor}
             />
             <div className={"menu-my-account"}>
                 <h1>ORDERS LIST</h1>
@@ -167,9 +168,9 @@ function MenageOrders({
                     </thead>
                     <tbody>
                     {orders?.content?.map((order, index) => (
-                        <tr key={index} onClick={() => handleOrderClick(order?.id)}>
-                            <td>{order?.id}</td>
-                            <td className={"user-id"}>
+                        <tr key={index}>
+                            <td onClick={() => handleOrderClick(order?.id)}>{order?.id}</td>
+                            <td onClick={() => handleOrderClick(order?.id)} className={"user-id"}>
                                 <span id={"edit-span-name" + index}>{order?.userId}</span></td>
                             <td
                                 className={"order-status"}

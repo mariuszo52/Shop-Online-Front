@@ -23,17 +23,17 @@ function Menu() {
             window.location.href = "/account/login";
         } else if (sessionStorage.getItem("jwt")?.startsWith("Bearer")) {
             if(jwtDecode(sessionStorage.getItem("jwt"))?.role === "ADMIN") {
-                window.location.href = "/account/admin-panel?tab=" + "users";
+                window.location.href = "/account/admin-panel?tab=users";
             }else {
-                window.location.href = "/account/user-panel?tab=" + "my-account";
+                window.location.href = "/account/user-panel?tab=my-account";
             }
         } else {
-            window.location.href = "/account/user-panel?tab=" + "my-account";
+            window.location.href = "/account/user-panel?tab=my-account";
         }
     }
 
     function onFavIconClick() {
-        window.location.href = "/account/user-panel?tab=" + "wishlist";
+        window.location.href = "/account/user-panel?tab=wishlist";
     }
 
     return (

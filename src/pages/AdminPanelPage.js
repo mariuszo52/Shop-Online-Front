@@ -6,7 +6,6 @@ import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
 import {useDeleteConfirm} from "../context/DeleteConfirmContext";
-import axios from "axios";
 
 function AdminPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("users")

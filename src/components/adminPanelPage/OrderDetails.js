@@ -2,27 +2,36 @@ import React from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 
-function OrderDetails({orderProducts, closeForm, setIsElementClicked}) {
+function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElementEditor}) {
     //todo add codes list
 
     const {setNotificationVisible, setNotificationText} = useNotification();
+
     function handleCloseButtonClick() {
         document.getElementById("admin-order-details").style.display = "none"
     }
 
-    function updateOrderProductField(event, fieldName, orderId, index) {
+    function updateOrderProductField(event, fieldName, orderProductId, index) {
         event.preventDefault()
-        const url = "http://localhost:8080/admin/order-management/order-status"
-        let orderStatus = event.target.querySelector("select")?.value;
+        let url
+        switch (fieldName) {
+            case "quantity":
+                url = "http://localhost:8080/admin/order-management/order-product-quantity"
+                break
+            case "code":
+                url = "http://localhost:8080/admin/order-management/order-product-code"
+                break
+        }
+        let value = event.target.querySelector("input")?.value;
         let span = document.getElementById("edit-span-" + fieldName + index)
         let form = document.getElementById("edit-form-" + fieldName + index);
         let data = {
-            orderId: orderId,
-            orderStatus: orderStatus
+            orderProductId: orderProductId,
+            [fieldName]: value
         }
         axios.put(url, data)
             .then(response => {
-                span.innerText = orderStatus
+                span.innerText = value
                 span.style.display = "flex"
                 form.style.display = "none"
                 setIsElementClicked(false)
@@ -34,6 +43,7 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked}) {
                 console.log(reason)
             })
     }
+
 
     return (
         <div id={"admin-order-details"}>
@@ -52,31 +62,39 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked}) {
                     <tr key={index}>
                         <td className={"order-product-id"}>{orderProduct?.id}</td>
                         <td className={"order-product-name"}>{orderProduct?.product.name}</td>
-                        <td className={"order-product-quantity"}>
+                        <td className={"order-product-quantity"}
+                            onClick={(event) =>
+                                showElementEditor(index, "quantity", "input")}>
+
                             <form
                                 onSubmit={event =>
-                                    updateOrderProductField(event, "orderProductQuantity",
-                                        orderProduct?.quantity, index)}
-                                id={"edit-form-orderQuantity" + index}
+                                    updateOrderProductField(event, "quantity",
+                                        orderProduct?.id, index)}
+                                id={"edit-form-quantity" + index}
                                 className={"edit-quantity-form"}>
                                 <input
                                     type={"number"}
                                     required={true}
                                 />
+
                             </form>
-                            <span id={"edit-span-orderCode" + index}>{orderProduct?.code}6</span></td>
-                        <td className={"order-product-orderCode"}>
+                            <span id={"edit-span-quantity" + index}>{orderProduct?.quantity}</span></td>
+                        <td className={"order-product-code"}
+                            onClick={(event) =>
+                                showElementEditor(index, "code", "input")}>
                             <form
                                 onSubmit={event =>
                                     updateOrderProductField(event, "code",
-                                        orderProduct?.code, index)}
+                                        orderProduct?.id, index)}
                                 id={"edit-form-code" + index}
                                 className={"edit-code-form"}>
                                 <input
                                     required={true}
                                 />
                             </form>
-                            <span id={"edit-span-orderCode" + index}>{orderProduct?.code}CODE</span></td>
+                            <span id={"edit-span-code" + index}>
+                                {orderProduct?.activationCodes.length !== 0 ? orderProduct.activationCodes.join("|") : "SET CODE"}
+                            </span></td>
                     </tr>
                 ))}
                 </tbody>
