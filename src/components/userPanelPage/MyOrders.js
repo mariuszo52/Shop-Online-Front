@@ -4,6 +4,7 @@ import ActivationCodes from "./ActivationCodes";
 
 function MyOrders() {
     const [orderProducts, setOrderProducts] = useState([])
+    const [codesList, setCodesList] = useState([])
 
     useEffect(() => {
         function fetchOrderProducts() {
@@ -17,7 +18,9 @@ function MyOrders() {
     }, []);
 
 
-    function showOrderCode() {
+    function showOrderCode(codes) {
+        alert(codes)
+        setCodesList(codes)
         document.getElementsByClassName("activation-codes-container").item(0).style.display = "flex"
     }
 
@@ -35,7 +38,9 @@ function MyOrders() {
 
     return (
         <div className={"menu-my-account"}>
-            <ActivationCodes />
+            <ActivationCodes
+                codesList = {codesList}
+            />
             <h1>MY ORDERS</h1>
             <div className={"user-panel-header"}>
                 <h3>GAMES PURCHASED</h3>

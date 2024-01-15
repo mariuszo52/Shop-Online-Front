@@ -1202,7 +1202,8 @@
 .password-generate-container > span{
     margin-top: 10px;
 }
-.password-generate-button{
+.password-generate-button,
+.activate-code-button{
     margin-top: 5px;
     width: max-content;
     border-radius: 25px;
@@ -1214,7 +1215,8 @@
     background-color: #0d7edc;
     padding: 5px 50px;
 }
-.password-generate-button:hover{
+.password-generate-button:hover,
+.activate-code-button{
     opacity: 80%;
     cursor: pointer;
 }
@@ -1709,4 +1711,30 @@
     top: 30%;
     z-index: 100;
     border: white solid 1px;
+}
+.codes-list{
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    font-size: 30px;
+}
+.codes-list-element{
+    border: solid white 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 50px;
+}
+.activate-code-button {
+    height: 50px;
+    border: none;
+    color: white;
+    margin: 10px 0;
 }
