@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import cover from "../images/fifa20.jpg"
 import axios from "axios";
+import ActivationCodes from "./ActivationCodes";
 
 function MyOrders() {
     const [orderProducts, setOrderProducts] = useState([])
@@ -18,7 +18,7 @@ function MyOrders() {
 
 
     function showOrderCode() {
-        //TODO
+        document.getElementsByClassName("activation-codes-container").item(0).style.display = "flex"
     }
 
     function formatOrderDate(order) {
@@ -35,6 +35,7 @@ function MyOrders() {
 
     return (
         <div className={"menu-my-account"}>
+            <ActivationCodes />
             <h1>MY ORDERS</h1>
             <div className={"user-panel-header"}>
                 <h3>GAMES PURCHASED</h3>
@@ -63,7 +64,7 @@ function MyOrders() {
                             </div>
                             <div className={"order-actions-container"}>
                                 <button
-                                    onClick={showOrderCode}
+                                    onClick={() => showOrderCode(orderProduct?.activationCodes)}
                                     className={"show-order-code-button"}
                                 >
                                     GET CODE

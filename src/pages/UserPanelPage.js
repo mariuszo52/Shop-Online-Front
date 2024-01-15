@@ -3,13 +3,11 @@ import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import React, {useEffect, useState} from "react";
 import MyAccount from "../components/userPanelPage/MyAccount";
-import MyOrders from "../components/MyOrders";
-import {useNavigate} from "react-router-dom";
+import MyOrders from "../components/userPanelPage/MyOrders";
 import Wishlist from "../components/userPanelPage/Wishlist";
 
 function UserPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("my account")
-    let navigate = useNavigate();
 
     function chooseActiveTab(event) {
         let tabName = event.target.innerText?.replace(" ", "-").toLowerCase();

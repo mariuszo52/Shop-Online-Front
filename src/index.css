@@ -1696,7 +1696,8 @@
     flex-direction: row;
     width: 90%;
 }
-#admin-order-details{
+#admin-order-details,
+.activation-codes-container{
     display: none;
     flex-direction: column;
     width: 50%;

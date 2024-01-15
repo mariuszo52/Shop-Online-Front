@@ -3,7 +3,6 @@ import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 
 function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElementEditor}) {
-    //todo add codes list
 
     const {setNotificationVisible, setNotificationText} = useNotification();
 
@@ -21,6 +20,7 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
             case "code":
                 url = "http://localhost:8080/admin/order-management/order-product-code"
                 break
+            default: console.log("Illegal fieldName value");
         }
         let value = event.target.querySelector("input")?.value;
         let span = document.getElementById("edit-span-" + fieldName + index)
