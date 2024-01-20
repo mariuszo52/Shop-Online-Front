@@ -62,7 +62,6 @@ function MyOrders() {
                                 <p>PAYMENT METHOD: {orderProduct?.order.paymentMethod}</p>
                                 <p>ORDER NUMBER: #{orderProduct?.order.id} (THIS IS NOT YOUR CODE)</p>
                                 <p>PLATFORM: {orderProduct?.product.platformDto.name}</p>
-                                <p>AGE RATING: {orderProduct?.product.ageRating}</p>
                                 <p>QUANTITY: {orderProduct?.quantity}</p>
                                 <p>PRODUCT SUMMARY PRICE: {calculateProductSummaryPrice(orderProduct).toFixed(2)}</p>
                                 <p className={"order-price"}>ORDER SUMMARY PRICE {orderProduct?.order.totalPrice.toFixed(2)} PLN</p>

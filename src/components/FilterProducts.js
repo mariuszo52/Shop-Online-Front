@@ -17,46 +17,46 @@ function FilterProducts({
     let [minPrice, setMinPrice] = useState()
     let [maxPrice, setMaxPrice] = useState()
     let [platform, setPlatform] = useState("");
-    let [region, setRegion] = useState("");
     let [genre, setGenre] = useState("");
     let [language, setLanguage] = useState("");
     let [sort, setSort] = useState("");
 
 
-
-
     useEffect(() => {
         const params = {
-            device:deviceName
+            device: deviceName
         };
 
-        async function getPlatforms() {
-            await axios.get("http://localhost:8080/platform/device-platforms", {params})
+        function getPlatforms() {
+            axios.get("http://localhost:8080/platform/device-platforms", {params})
                 .then(r => setPlatforms(r.data))
                 .catch(err => console.log(err))
         }
+
         getPlatforms()
     }, [productsPageable]);
 
     useEffect(() => {
         const params = {
-            device:deviceName
+            device: deviceName
         };
 
-       async function getGenres() {
-           await axios.get("http://localhost:8080/genre/device-genres", {params})
+        function getGenres() {
+            axios.get("http://localhost:8080/genre/device-genres", {params})
                 .then(r => setGenres(r.data))
-               .catch(err => console.log(err))
+                .catch(err => console.log(err))
         }
+
         getGenres()
     }, [productsPageable]);
 
     useEffect(() => {
-        async function getLanguages() {
-            await axios.get("http://localhost:8080/language/all")
+        function getLanguages() {
+            axios.get("http://localhost:8080/language/all")
                 .then(r => setLanguages(r.data))
                 .catch(err => console.log(err))
         }
+
         getLanguages()
 
     }, [productsPageable]);
@@ -69,11 +69,13 @@ function FilterProducts({
     function handleMaxPrice(event) {
         setMaxPrice(event.target.value)
     }
-    function handleFilterClick(){
+
+    function handleFilterClick() {
         setCurrentPage(0)
         filterProducts()
     }
-        async function filterProducts() {
+
+    function filterProducts() {
         setDataLoading(true)
         const params = {
             page: currentPage,
@@ -81,13 +83,12 @@ function FilterProducts({
             device: deviceName,
             platform: platform,
             language: language,
-            region: region,
             genre: genre,
             minPrice: minPrice,
             maxPrice: maxPrice,
             sort: sort
         };
-        await axios.get("http://localhost:8080/product/products", {params})
+        axios.get("http://localhost:8080/product/products", {params})
             .then(response => {
                 setProductsPageable(response.data)
                 calculatePageNumbers(response.data)
@@ -123,17 +124,13 @@ function FilterProducts({
                     ))}
                 </select>
             </label>
-            <label><p>Region</p>
-                <select onChange={event => setRegion(event.target.value)} className={"filter"}>
-                    <option className={"filter-option"} value={""}>All regions</option>
-                    <option className={"filter-option"} value={"Poland"}>Poland</option>
-                </select>
-            </label>
             <label>
-                <p>Min Price: <span><input value={minPrice} onChange={event => handleMinPrice(event)} type={"number"}/>PLN</span></p>
+                <p>Min Price: <span><input value={minPrice} onChange={event => handleMinPrice(event)} type={"number"}/>PLN</span>
+                </p>
                 <input onChange={event => handleMinPrice(event)}
                        value={minPrice} defaultValue={0} step={10} type="range" id="minRange" min="0" max="10000"/>
-                <p>Max Price: <span><input value={maxPrice} onChange={event => handleMaxPrice(event)} type={"number"}/>PLN</span></p>
+                <p>Max Price: <span><input value={maxPrice} onChange={event => handleMaxPrice(event)} type={"number"}/>PLN</span>
+                </p>
                 <input onChange={event => handleMaxPrice(event)}
                        value={maxPrice} type="range" step={10} id="maxRange" min="0" max="10000" defaultValue={10000}/>
             </label>
@@ -154,7 +151,7 @@ function FilterProducts({
                 </select>
             </label>
             <div className={"filter-button-div"}>
-            <button className={"filter-button"} onClick={handleFilterClick}>Filter</button>
+                <button className={"filter-button"} onClick={handleFilterClick}>Filter</button>
             </div>
         </div>
     )
