@@ -550,7 +550,7 @@
 }
 
 .more-info-content {
-    align-items: center;
+    align-items: start;
     display: none;
     flex-direction: column;
     width: 80%;
@@ -865,6 +865,9 @@
     margin: 5px;
     color: grey;
     font-size: small;
+}
+#screenshots{
+    align-items: center;
 }
 
 #full-cart-quantity-input {
@@ -1737,4 +1740,7 @@
     border: none;
     color: white;
     margin: 10px 0;
+}
+.may-also-like-container{
+    width: 100%;
 }

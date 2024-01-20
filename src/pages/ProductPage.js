@@ -1,13 +1,11 @@
 import Menu from "../components/Menu";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
-import {useLocation, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import ProductListElement from "../components/ProductListElement";
 import {useCart} from "../context/CartContext";
-import {useNotification} from "../context/NotificationContext";
 
 function ProductPage() {
     const {id} = useParams();
@@ -36,6 +34,7 @@ function ProductPage() {
                 .then(r => setProduct(r.data))
                 .catch(err => console.log("Cannot fetch product info." + err))
         }
+
         getProduct()
     }, [id]);
 
@@ -48,6 +47,7 @@ function ProductPage() {
                 .then(r => setSimilarProducts(r.data))
                 .catch(err => console.log("Cannot fetch product info." + err))
         }
+
         getSimilarProducts()
     }, [id]);
 
@@ -60,6 +60,7 @@ function ProductPage() {
                 .then(r => setLanguages(r.data))
                 .catch(err => console.log("Cannot fetch languages." + err))
         }
+
         getLanguages()
     }, [id]);
 
@@ -83,7 +84,7 @@ function ProductPage() {
     return (
 
         <div className={"main-div"}>
-            <Menu />
+            <Menu/>
             <div className={"product-info-container"}>
                 <div className={"navigation-bar"}>
                     <p onClick={() => navigate("/")}
@@ -103,11 +104,14 @@ function ProductPage() {
                         <p className={"product-description"}>{product?.description}</p>
                         <p className={"products-price"}></p>
                         <span className={"price-span"}>{product?.price} PLN</span>
-                        <button onClick={() => addToCart(product)} className={"add-product-to-cart"}>TO CART</button>
+                        <button onClick={() => addToCart(product)}
+                                className={"add-product-to-cart"}>
+                            {product?.isPreorder ? 'BUY PREORDER' : 'BUY NOW'}
+                        </button>
                         <ul>
-                            <li>CAN ACTIVATE IN POLAND</li>
-                            <li>CURRENTLY IN STOCK</li>
-                            <li>CODE DELIVERED TO YOU DIGITALLY</li>
+                            <li>{product?.regionalLimitations}</li>
+                            <li>{product?.inStock ? 'CURRENTLY IN STOCK' : "AVAILABLE TO PRE-ORDER"}</li>
+                            <li>{product?.isPreorder ? 'PRE-ORDER' : 'CODE DELIVERED TO YOU DIGITALLY'}</li>
                         </ul>
                     </div>
                 </div>
@@ -152,16 +156,13 @@ function ProductPage() {
                 </div>
                 <div id={"information"} className={"more-info-content"}>
                     <h1>What are the system requirements?</h1>
-                    <p>{product?.systemRequirements}</p>
+                    <p>{product?.description}</p>
                 </div>
                 <div id={"videos"} className={"more-info-content"}>
-                    {product?.videoUrls.map((video, index) => (
-                        <iframe src={video} key={index}
-                                title="YouTube video player" frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
+                    <iframe src={product?.videoUrl}
+                            title="YouTube video player" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
                             web-share" allowFullScreen></iframe>
-
-                    ))}
                 </div>
                 <div id={"screenshots"} className={"more-info-content"}>
                     {product?.screenshotsUrls.map((screenshot, index) => (
