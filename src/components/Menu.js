@@ -2,13 +2,15 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
 import logo from "../images/logo.jpg"
 import {useNavigate} from "react-router-dom";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
 import {jwtDecode} from "jwt-decode";
+import axios from "axios";
 
 function Menu() {
     const navigate = useNavigate();
     const {setIsCartVisible} = useCart();
+    const [menuElements, setMenuElements] = useState([])
 
     function onCartIconClick() {
         if (window.location.pathname === "/checkout") {
@@ -17,6 +19,15 @@ function Menu() {
             setIsCartVisible(true)
 
     }
+
+    useEffect(() => {
+        function fetchMenuElements(){
+            axios.get("http://localhost:8080/platform/all-devices")
+                .then(response => setMenuElements(response.data))
+                .catch(reason => console.log(reason))
+        }
+        fetchMenuElements()
+    }, []);
 
     function onUserIconClick() {
         if (!sessionStorage.getItem("jwt")) {
@@ -40,12 +51,8 @@ function Menu() {
         <>
             <div className={"menu-div"}>
                 <div className={"menu-panel"}>
-                    <p onClick={() => navigate("/PC")}>PC</p>
-                    <p onClick={() => navigate("/PSN")}>PSN</p>
-                    <p onClick={() => navigate("/XBOX")}>XBOX</p>
-                    <p onClick={() => navigate("/NINTENDO")}>NINTENDO</p>
-                    <p onClick={() => navigate("/OTHERS")}>OTHER</p>
-                    <p onClick={() => navigate("/ROCKSTAR-GAMES")}>ROCKSTAR</p>
+                    {menuElements.map((menuElement, index) => (
+                        <p key={index} onClick={() => navigate("/" + menuElement)}>{menuElement}</p>))}
                 </div>
                 <div className={"logo-div"}>
                     <img onClick={() => window.location.href = "/"} alt="logo" className={"logo"}
