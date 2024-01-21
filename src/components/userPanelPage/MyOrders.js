@@ -19,7 +19,6 @@ function MyOrders() {
 
 
     function showOrderCode(codes) {
-        alert(codes)
         setCodesList(codes)
         document.getElementsByClassName("activation-codes-container").item(0).style.display = "flex"
     }
