@@ -10,17 +10,17 @@ import Pagination from "../components/Pagination";
 import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
-import CartPreview from "../components/CartPreview";
-import NotificationBar from "../components/NotificationBar";
+import {useTranslation} from "react-i18next";
 
 function Home() {
     const [slideIndex, setSlideIndex] = useState(1);
     const [productsPageable, setProductsPageable] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const [currentSize, setCurrentSize] = useState(24);
+    const [currentSize, ] = useState(24);
     const [pagination, setPagination] = useState([]);
     const [dataLoading, setDataLoading] = useState(true)
     const [productName, setProductName] = useState(null)
+    const {t} = useTranslation()
 
 
 
@@ -99,7 +99,7 @@ function Home() {
             <div className={"search-form"}>
                 <input onKeyDown={event => handleEnterDown(event)}
                        onChange={event => setProductName(event.target.value)} type={"text"}
-                       placeholder={"Insert name of game you want to find."}/>
+                       placeholder={t("searchPlaceholder")}/>
                 <FontAwesomeIcon onClick={fetchProducts} className={"submit-search-icon"} icon={faMagnifyingGlass}/>
             </div>
             <ProductList

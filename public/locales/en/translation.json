@@ -1,0 +1,9 @@
+{
+  "searchPlaceholder": "Insert name of game you want to find.",
+  "language": {
+    "polish": "Polish",
+    "english": "English"
+  },
+  "languageButton": "Change"
+
+}

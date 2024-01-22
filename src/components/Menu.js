@@ -6,11 +6,13 @@ import React, {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
+import {useTranslation} from "react-i18next";
 
 function Menu() {
     const navigate = useNavigate();
     const {setIsCartVisible} = useCart();
     const [menuElements, setMenuElements] = useState([])
+    const {t, i18n} = useTranslation()
 
     function onCartIconClick() {
         if (window.location.pathname === "/checkout") {
@@ -47,6 +49,12 @@ function Menu() {
         window.location.href = "/account/user-panel?tab=wishlist";
     }
 
+    function onSelectLanguageSubmit(event) {
+        event.preventDefault()
+        let language = event.target?.querySelector("select")?.value;
+        i18n.changeLanguage(language).then(() => console.log("Language changed"))
+    }
+
     return (
         <>
             <div className={"menu-div"}>
@@ -59,6 +67,14 @@ function Menu() {
                          src={logo}/>
                 </div>
                 <div className={"user-panel"}>
+                    <form onSubmit={event => onSelectLanguageSubmit(event)}
+                          className={"select-language"}>
+                        <select id={"select-language"}>
+                            <option value={"pl"}>{t("language.polish")}</option>
+                            <option value={"en"}>{t("language.english")}</option>
+                        </select>
+                        <button className={"select-language-button"}>{t("languageButton")}</button>
+                    </form>
                     <FontAwesomeIcon onClick={onUserIconClick} className={"user-panel-icon"} icon={faUser}/>
                     <FontAwesomeIcon onClick={onFavIconClick} className={"user-panel-icon"} icon={faHeart}/>
                     <FontAwesomeIcon onClick={onCartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
