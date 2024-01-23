@@ -4,6 +4,7 @@ import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
 import OrderDetails from "./OrderDetails";
+import {useTranslation} from "react-i18next";
 
 function MenageOrders({
                           pagination, setIsElementClicked,
@@ -16,6 +17,8 @@ function MenageOrders({
     const [orderStatuses, setOrderStatuses] = useState([])
     const [searchParam, setSearchParam] = useState("")
     const [orderProducts, setOrderProducts] = useState([])
+    const {t} = useTranslation()
+
 
     useEffect(() => {
         const params = {
@@ -94,7 +97,7 @@ function MenageOrders({
             .then(response => setOrders({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
-                setNotificationText("ORDERS NOT FOUND.")
+                setNotificationText(t("ordersNotFound"))
                 setNotificationVisible()
             })
     }
@@ -104,7 +107,7 @@ function MenageOrders({
             .then(response => setOrders(response.data))
             .catch(reason => {
                 console.log(reason)
-                setNotificationText("ORDERS NOT FOUND.")
+                setNotificationText(t("ordersNotFound"))
                 setNotificationVisible()
             })
     }
@@ -120,7 +123,7 @@ function MenageOrders({
         axios.get("http://localhost:8080/admin/order-management/order-products", {params})
             .then(response => setOrderProducts(response.data))
             .catch(reason => {
-                setNotificationText("Error during fetching order details.")
+                setNotificationText(t("orderDetailsError"))
                 setNotificationVisible(true)
                 console.log(reason)
             })
@@ -135,7 +138,7 @@ function MenageOrders({
                 showElementEditor ={showElementEditor}
             />
             <div className={"menu-my-account"}>
-                <h1>ORDERS LIST</h1>
+                <h1>{t("orderList")}</h1>
                 <form
                     onSubmit={event => onSearchFormSubmit(event)}
                     className={"admin-panel-search-form"}>
@@ -153,17 +156,17 @@ function MenageOrders({
                     />
                     <select onChange={event => setSearchParam(event.target.value)}>
                         <option value={"id"}>ID</option>
-                        <option value={"userId"}>USER ID</option>
-                        <option value={"orderStatus"}>ORDER STATUS</option>
+                        <option value={"userId"}>{t("userId")}</option>
+                        <option value={"orderStatus"}>{t("orderStatus")}</option>
                     </select>
-                    <button type={"submit"}>SEARCH</button>
+                    <button type={"submit"}>{t("search")}</button>
                 </form>
                 <table className={"manage-orders-table"}>
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>USER ID</th>
-                        <th>ORDER STATUS</th>
+                        <th>{t("userId")}</th>
+                        <th>{t("orderStatus")}</th>
                     </tr>
                     </thead>
                     <tbody>

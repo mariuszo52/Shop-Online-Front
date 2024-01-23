@@ -4,6 +4,41 @@
     "polish": "Polski",
     "english": "Angielski"
   },
-  "languageButton": "Wybierz"
-
+  "languageButton": "Wybierz",
+  "pagination": {
+    "first": "pierwsza",
+    "last": "ostatnia",
+    "prev": "poprzednia",
+    "next": "następna",
+    "current": "Aktualna strona:",
+    "total": "z {{total}} załadowanych"
+  },
+  "toCart": "DO KOSZYKA",
+  "productsNotFound": "NIE ZNALEZIONO PRODUKTÓW!",
+  "edit": "EDYTUJ",
+  "newValue": "NOWA WARTOŚĆ",
+  "submit": "ZATWIERDŹ",
+  "ordersNotFound": "NIE ZNALEZIONO ZAMÓWIEŃ.",
+  "orderDetailsError": "WYSTĄPIŁ BŁĄD PODCZAS POBIERANIA PRODUKTÓW.",
+  "orderList": "LISTA ZAMÓWIEŃ",
+  "userId": "ID UŻYTKOWNIKA",
+  "orderStatus": "STATUS ZAMÓWIENIA",
+  "search": "SZUKAJ",
+  "productsList": "LISTA PRODUKTÓW",
+  "name": "NAZWA",
+  "price": "CENA",
+  "options": "OPCJE",
+  "delete": "USUŃ",
+  "userNotFound": "NIE ZNALEZIONO UŻYTKOWNIKA",
+  "userList": "LISTA UŻYTKOWNIKÓW",
+  "username": "NAZWA UŻYTKOWNIKA",
+  "isEnabled": "CZY JEST AKTYWNY",
+  "role": "ROLA",
+  "true": "TAK",
+  "FALSE": "NIE",
+  "user": "UŻYTKOWNIK",
+  "illegalValue": "NIEPRAWIDŁOWA NAZWA POLA",
+  "quantity": "ILOŚĆ",
+  "code": "KOD",
+  "setCode": "WPISZ KOD"
 }

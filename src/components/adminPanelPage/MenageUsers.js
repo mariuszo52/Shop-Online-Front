@@ -3,6 +3,7 @@ import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
+import {useTranslation} from "react-i18next";
 
 function MenageUsers({
                          pagination, setIsElementClicked, onDeleteButtonClick,
@@ -12,6 +13,8 @@ function MenageUsers({
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {index} = useDeleteConfirm();
     const [page, setPage] = useState(0)
+    const {t} = useTranslation()
+
 
     useEffect(() => {
         const params = {
@@ -89,7 +92,7 @@ function MenageUsers({
             .then(response => setUsers({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
-                setNotificationText("USER NOT FOUND.")
+                setNotificationText(t("userNotFound"))
                 setNotificationVisible()
             })
 
@@ -99,7 +102,7 @@ function MenageUsers({
 
     return (
         <div className={"menu-my-account"}>
-            <h1>USERS LIST</h1>
+            <h1>{t("userList")}</h1>
             <form
                 onSubmit={event => onSearchFormSubmit(event)}
                 className={"admin-panel-search-form"}>
@@ -108,21 +111,21 @@ function MenageUsers({
                     type={"text"}/>
                 <select>
                     <option value={"id"}>ID</option>
-                    <option value={"username"}>USERNAME</option>
+                    <option value={"username"}>{t("username")}</option>
                     <option value={"email"}>EMAIL</option>
                 </select>
-                <button type={"submit"}>SEARCH</button>
+                <button type={"submit"}>{t("search")}</button>
             </form>
             <table className={"manage-users-table"}>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>USERNAME</th>
+                    <th>{t("username")}</th>
                     <th>EMAIL</th>
-                    <th>IS ENABLED</th>
-                    <th>ROLE</th>
+                    <th>{t("isEnabled")}</th>
+                    <th>{t("role")}</th>
                     <th>INFO ID</th>
-                    <th>OPTIONS</th>
+                    <th>{t("options")}</th>
                 </tr>
                 </thead>
                     <tbody>
@@ -170,8 +173,8 @@ function MenageUsers({
                                 id={"edit-form-isEnabled" + index}
                                 className={"edit-users-form"}>
                                 <select>
-                                    <option value={"true"}>TRUE</option>
-                                    <option value={"false"}>FALSE</option>
+                                    <option value={"true"}>{t("true")}</option>
+                                    <option value={"false"}>{t("false")}</option>
                                 </select>
                                 <button type={"submit"}>OK</button>
                             </form>
@@ -188,13 +191,13 @@ function MenageUsers({
                                 className={"edit-users-form"}>
                                 <select>
                                     <option value={"ADMIN"}>ADMIN</option>
-                                    <option value={"USER"}>USER</option>
+                                    <option value={"USER"}>{t("user")}</option>
                                 </select>
                                 <button type={"submit"}>OK</button>
                             </form>
                             <span id={"edit-span-role" + index}>{user?.userRole}</span></td>
                         <td>{user?.userInfo.id}</td>
-                        <td onClick={() => onDeleteButtonClick(user?.id, "userId")}>DELETE</td>
+                        <td onClick={() => onDeleteButtonClick(user?.id, "userId")}>{t("delete")}</td>
                     </tr>
                     ))}
                     </tbody>

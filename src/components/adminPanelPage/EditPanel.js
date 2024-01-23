@@ -1,9 +1,9 @@
-import {useNotification} from "../../context/NotificationContext";
 import axios from "axios";
+import {useTranslation} from "react-i18next";
 
 
 function EditPanel({url, userId, name}){
-    const {setNotificationVisible, setNotificationText} = useNotification();
+    const {t} = useTranslation()
 
     function handleCloseButtonClick() {
         let editPanelForm = document.getElementById("edit-field-container");
@@ -28,10 +28,10 @@ function EditPanel({url, userId, name}){
               onKeyDown={event => handleEnterDown(event)} id={"edit-field-container"}
               className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <label>EDIT {name?.toUpperCase()}</label><br/>
-            <label>NEW VALUE</label>
+            <label>{t("edit")} {name?.toUpperCase()}</label><br/>
+            <label>{t("newValue")}</label>
             <input type={"text"}/>
-            <button type={"submit"} className={"login-button"} >SUBMIT</button>
+            <button type={"submit"} className={"login-button"} >{t("submit")}</button>
         </form>
     )
 }

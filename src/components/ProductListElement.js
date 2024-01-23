@@ -1,14 +1,16 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons'
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
 import axios from "axios";
+import {useTranslation} from "react-i18next";
 
 function ProductListElement({products, classname}) {
     const {addToCart} = useCart();
     const [favoriteProducts, setFavoriteProducts] = useState([])
     let navigate = useNavigate();
+    const {t} = useTranslation()
 
     function fetchFavoriteProducts() {
         if (sessionStorage.getItem("jwt")) {
@@ -38,21 +40,23 @@ function ProductListElement({products, classname}) {
 
     function handleFavIconClick(product) {
         if (sessionStorage.getItem("jwt")) {
-            if (isProductInFavorites(product)){
+            if (isProductInFavorites(product)) {
                 deleteProductFromFavorite(product)
-            }else{
+            } else {
                 addProductToFavorite(product)
             }
-        }else {
+        } else {
             navigate("/account/login")
         }
     }
-    function addProductToFavorite(product){
+
+    function addProductToFavorite(product) {
         axios.post("http://localhost:8080/favorite-product", product)
             .then(() => fetchFavoriteProducts())
             .catch(reason => console.log(reason))
     }
-    function deleteProductFromFavorite(product){
+
+    function deleteProductFromFavorite(product) {
         const params = {
             productId: product?.id
         }
@@ -93,10 +97,12 @@ function ProductListElement({products, classname}) {
                     key={product?.id}
                     onMouseOver={() => handleMouseOver(product?.id)}
                     onMouseOut={() => handleMouseOut(product?.id)}
-                    className={classname? classname : "products-list-el"}
+                    className={classname ? classname : "products-list-el"}
                 >
-        <span onClick={() => addToCart(product)} className={"add-to-cart"} id={"add-to-cart-" + product?.id}>
-          TO CART
+        <span onClick={() => addToCart(product)}
+              className={"add-to-cart"}
+              id={"add-to-cart-" + product?.id}>
+              {t("toCart")}
         </span>
                     <FontAwesomeIcon
                         onClick={() => handleFavIconClick(product)}

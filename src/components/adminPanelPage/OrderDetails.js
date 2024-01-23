@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
+import {useTranslation} from "react-i18next";
 
 function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElementEditor}) {
-
+    const {t} = useTranslation()
     const {setNotificationVisible, setNotificationText} = useNotification();
 
     function handleCloseButtonClick() {
@@ -20,7 +21,7 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
             case "code":
                 url = "http://localhost:8080/admin/order-management/order-product-code"
                 break
-            default: console.log("Illegal fieldName value");
+            default: console.log(t("illegalValue"));
         }
         let value = event.target.querySelector("input")?.value;
         let span = document.getElementById("edit-span-" + fieldName + index)
@@ -52,9 +53,9 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
                 <thead>
                 <tr>
                     <td>ID</td>
-                    <td>PRODUCT NAME</td>
-                    <td>QUANTITY</td>
-                    <td>CODE</td>
+                    <td>{t("name")}</td>
+                    <td>{t("quantity")}</td>
+                    <td>{t("code")}</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -93,7 +94,8 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
                                 />
                             </form>
                             <span id={"edit-span-code" + index}>
-                                {orderProduct?.activationCodes.length !== 0 ? orderProduct.activationCodes.join("|") : "SET CODE"}
+                                {orderProduct?.activationCodes.length !== 0 ?
+                                    orderProduct.activationCodes.join("|") : t("setCode")}
                             </span></td>
                     </tr>
                 ))}

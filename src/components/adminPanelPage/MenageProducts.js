@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
+import {useTranslation} from "react-i18next";
 
 function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                             closeForm, calculatePageNumbers, onDeleteButtonClick}) {
@@ -10,6 +11,8 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
     const [page, setPage] = useState(0)
     const {setNotificationVisible, setNotificationText} = useNotification()
     const {index} = useDeleteConfirm();
+    const {t} = useTranslation()
+
 
     useEffect(() => {
         function fetchAllProducts() {
@@ -37,7 +40,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
             .then(response => setProducts({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
-                setNotificationText("PRODUCT NOT FOUND.")
+                setNotificationText(t("productsNotFound"))
                 setNotificationVisible()
             })
     }
@@ -83,7 +86,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
 
         return (
         <div className={"menu-my-account"}>
-            <h1>PRODUCTS LIST</h1>
+            <h1>{t("productsList")}</h1>
             <form
                 onSubmit={event => onSearchFormSubmit(event)}
                 className={"admin-panel-search-form"}>
@@ -92,17 +95,17 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                     type={"text"}/>
                 <select>
                     <option value={"id"}>ID</option>
-                    <option value={"name"}>NAME</option>
+                    <option value={"name"}>{t("name")}</option>
                 </select>
-                <button type={"submit"}>SEARCH</button>
+                <button type={"submit"}>{t("search")}</button>
             </form>
             <table className={"manage-products-table"}>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>NAME</th>
-                    <th>PRICE</th>
-                    <th>OPTIONS</th>
+                    <th>{t("name")}</th>
+                    <th>{t("price")}</th>
+                    <th>{t("options")}</th>
                 </tr>
                 </thead>
                     <tbody>
@@ -140,7 +143,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                                 />
                             </form>
                             <span id={"edit-span-price" + index}>{product?.price}</span></td>
-                        <td onClick={() => onDeleteButtonClick(product?.id, "productId")}>DELETE</td>
+                        <td onClick={() => onDeleteButtonClick(product?.id, "productId")}>{t("delete")}</td>
                     </tr>
                     ))}
                     </tbody>

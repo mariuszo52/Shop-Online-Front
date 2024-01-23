@@ -151,7 +151,7 @@
     width: 100%;
 }
 
-.products-list-el, .wishlist-el{
+.products-list-el, .wishlist-el {
     position: relative;
     border-radius: 10px 10px 10px 10px;
     width: 15%;
@@ -163,11 +163,12 @@
     align-items: center;
     background-color: #160e2a;
 }
-.wishlist-el{
+
+.wishlist-el {
     width: 20%;
 }
 
-.products-list-el:hover, .wishlist-el:hover{
+.products-list-el:hover, .wishlist-el:hover {
     scale: 101%;
     cursor: pointer;
 }
@@ -323,7 +324,8 @@
     top: 20%;
     left: 50%;
 }
-.fav-heart{
+
+.fav-heart {
     display: none;
     scale: 3;
     color: #800000;
@@ -451,7 +453,8 @@
     text-align: center;
     font-size: 40px;
 }
-.product-name-p{
+
+.product-name-p {
     height: 200px;
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -595,6 +598,7 @@
     overflow-y: scroll;
     align-items: center;
 }
+
 .product-name-p::-webkit-scrollbar {
     display: none;
 }
@@ -856,8 +860,9 @@
 .title {
     margin: 5px;
 }
-.title:hover{
-    cursor:pointer;
+
+.title:hover {
+    cursor: pointer;
     scale: 101%;
 }
 
@@ -866,7 +871,8 @@
     color: grey;
     font-size: small;
 }
-#screenshots{
+
+#screenshots {
     align-items: center;
 }
 
@@ -941,7 +947,8 @@
     display: flex;
     justify-content: space-between;
 }
-.checkout-button-container{
+
+.checkout-button-container {
     width: 40%;
     display: flex;
     background-color: #160e2a;
@@ -950,6 +957,7 @@
     justify-content: center;
     height: 100px;
 }
+
 .checkout-button {
     border-radius: 10px;
     display: flex;
@@ -961,11 +969,13 @@
     background-color: darkgreen;
     padding: 5px 10px;
 }
+
 .checkout-button:hover {
     background-color: green;
     cursor: pointer;
 }
-.login-page-container{
+
+.login-page-container {
     margin-top: 200px;
     margin-bottom: 100px;
     display: flex;
@@ -974,14 +984,16 @@
     height: 550px;
     justify-content: space-between;
 }
-.login-form-container{
+
+.login-form-container {
     align-items: center;
     display: flex;
     flex-direction: column;
     width: 48%;
     background-color: #160e2a;
 }
-.login-header{
+
+.login-header {
     z-index: 10;
     width: max-content;
     position: relative;
@@ -991,14 +1003,16 @@
     opacity: 80%;
     border-radius: 5px;
 }
-.register-form-container{
+
+.register-form-container {
     align-items: center;
     display: flex;
     flex-direction: column;
     width: 48%;
     background-color: #160e2a;
 }
-.register-header{
+
+.register-header {
     width: max-content;
     position: relative;
     top: -25px;
@@ -1007,21 +1021,24 @@
     opacity: 80%;
     border-radius: 5px;
 }
-.login-inputs{
+
+.login-inputs {
     display: flex;
     flex-direction: row;
     width: 100%;
     margin-top: 50px;
     justify-content: space-between;
 }
-.login-input{
+
+.login-input {
     margin-left: 20px;
     margin-right: 20px;
     width: 40%;
     display: flex;
     flex-direction: column;
 }
-.login-input > input{
+
+.login-input > input {
     border-radius: 25px;
     padding: 5px 15px;
     height: 30px;
@@ -1030,22 +1047,25 @@
     border: solid grey;
     color: white;
 }
+
 .login-input > input:-webkit-autofill,
 .login-input > input:-webkit-autofill:hover,
 .login-input > input:-webkit-autofill:focus,
-.login-input > input:-webkit-autofill:active{
+.login-input > input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #160e2a inset !important;
     -webkit-text-fill-color: white !important;
     font-size: 18px !important
 }
 
-.login-input > label{
+.login-input > label {
     font-size: smaller;
 }
-.login-input > span{
+
+.login-input > span {
     font-size: 10px;
 }
-.forgot-password-container{
+
+.forgot-password-container {
     width: 100%;
     margin-top: 25px;
     display: flex;
@@ -1054,16 +1074,19 @@
     justify-content: space-between;
     margin-bottom: 25px;
 }
-.forgot-password-container > a{
+
+.forgot-password-container > a {
     margin-left: 20px;
     text-decoration: underline;
     color: blue;
 }
-.forgot-password-container > a:hover{
+
+.forgot-password-container > a:hover {
     color: darkblue;
     cursor: pointer;
 }
-.login-button{
+
+.login-button {
     color: white;
     margin-right: 20px;
     width: max-content;
@@ -1076,14 +1099,17 @@
     background-color: #67c067;
     padding: 5px 50px;
 }
-.login-button:hover{
+
+.login-button:hover {
     opacity: 80%;
     cursor: pointer;
 }
-.login-form-container > hr{
+
+.login-form-container > hr {
     width: 90%;
 }
-.oauth-login-container{
+
+.oauth-login-container {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -1091,7 +1117,8 @@
     justify-content: space-between;
     align-items: center;
 }
-.facebook-button{
+
+.facebook-button {
     border-radius: 20px;
     background-color: #293772;
     text-align: center;
@@ -1102,7 +1129,8 @@
     justify-content: center;
     height: 30px;
 }
-.google-button{
+
+.google-button {
     margin-top: 20px;
     border-radius: 20px;
     padding: 5px 0;
@@ -1115,33 +1143,39 @@
     justify-content: center;
 }
 
-.login-button-icon{
+.login-button-icon {
     width: 25px;
     margin-right: 20px;
 }
-.google-button:hover{
+
+.google-button:hover {
     opacity: 80%;
     cursor: pointer;
 }
-.facebook-button:hover{
+
+.facebook-button:hover {
     opacity: 80%;
     cursor: pointer;
 }
-.form-description-paragraph{
+
+.form-description-paragraph {
     width: 60%;
     text-align: center;
     margin-bottom: 50px;
 }
-.register-icon{
+
+.register-icon {
     width: 50px;
 }
-.register-form-container > h2{
+
+.register-form-container > h2 {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
-.register-button{
+
+.register-button {
     margin-top: 50px;
     width: max-content;
     border-radius: 25px;
@@ -1153,24 +1187,28 @@
     background-color: #67c067;
     padding: 5px 50px;
 }
-.register-button:hover{
+
+.register-button:hover {
     opacity: 80%;
     cursor: pointer;
 }
 
-.footer-hr{
+.footer-hr {
     margin-top: 50px;
     width: 90%;
 }
-.register-page-h1{
+
+.register-page-h1 {
     margin-top: 150px;
     margin-bottom: 50px;
 }
-#register-container{
+
+#register-container {
     display: flex;
     align-items: center;
 }
-.register-personal-info{
+
+.register-personal-info {
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -1178,7 +1216,8 @@
     background-color: #160e2a;
     align-items: center;
 }
-.personal-info-inputs{
+
+.personal-info-inputs {
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -1187,7 +1226,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.register-sign-in-info{
+
+.register-sign-in-info {
     margin-top: 50px;
     height: 400px;
     display: flex;
@@ -1196,17 +1236,20 @@
     background-color: #160e2a;
     align-items: center;
 }
-.password-generate-container{
+
+.password-generate-container {
     flex-direction: column;
     display: flex;
     align-items: center;
     width: 100%;
 }
-.password-generate-container > span{
+
+.password-generate-container > span {
     margin-top: 10px;
 }
+
 .password-generate-button,
-.activate-code-button{
+.activate-code-button {
     margin-top: 5px;
     width: max-content;
     border-radius: 25px;
@@ -1218,12 +1261,14 @@
     background-color: #0d7edc;
     padding: 5px 50px;
 }
+
 .password-generate-button:hover,
-.activate-code-button{
+.activate-code-button {
     opacity: 80%;
     cursor: pointer;
 }
-.submit-register-container{
+
+.submit-register-container {
     align-items: center;
     margin-top: 15px;
     display: flex;
@@ -1231,7 +1276,8 @@
     justify-content: space-between;
     width: 80%;
 }
-.register-form-button{
+
+.register-form-button {
     width: max-content;
     border-radius: 25px;
     display: flex;
@@ -1242,15 +1288,18 @@
     background-color: #67c067;
     padding: 5px 50px;
 }
-.register-form-button:hover{
+
+.register-form-button:hover {
     cursor: pointer;
     opacity: 80%;
 }
-.back-to-login-button:hover{
+
+.back-to-login-button:hover {
     cursor: pointer;
     opacity: 80%;
 }
-.google-login-button{
+
+.google-login-button {
     flex-direction: row !important;
     display: flex !important;
     background-color: #cc4133 !important;
@@ -1259,18 +1308,21 @@
     align-items: center !important;
     justify-content: center !important;
 }
-.google-button button:hover{
+
+.google-button button:hover {
     opacity: 80%;
     cursor: pointer;
 }
-.facebook-login-button{
+
+.facebook-login-button {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     padding: 5px;
 }
-.fp-input{
+
+.fp-input {
     width: 50%;
     border-radius: 25px;
     padding: 5px 15px;
@@ -1280,7 +1332,8 @@
     border: solid grey;
     color: white;
 }
-.fp-main-container{
+
+.fp-main-container {
     height: min-content;
     background-color: #20143c;
     top: 20%;
@@ -1293,22 +1346,26 @@
     border: white solid 1px;
     z-index: 100;
 }
-.close-fp-main-container{
+
+.close-fp-main-container {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: right;
 }
-.close-fp-button{
+
+.close-fp-button {
     right: 5px;
     top: 2px;
     position: absolute;
 }
-.close-fp-button:hover{
+
+.close-fp-button:hover {
     cursor: pointer;
     scale: 101%;
 }
-.account-panel-container{
+
+.account-panel-container {
     width: 100%;
     min-height: 1000px;
     height: max-content;
@@ -1316,7 +1373,8 @@
     flex-direction: row;
     margin-top: 100px;
 }
-.account-menu{
+
+.account-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1326,7 +1384,8 @@
     background-color: #160e2a;
     margin-top: 50px;
 }
-.account-menu-el{
+
+.account-menu-el {
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -1335,11 +1394,13 @@
     height: 50px;
     margin-top: 20px;
 }
-.account-menu-el:hover{
+
+.account-menu-el:hover {
     cursor: pointer;
     scale: 101%;
 }
-.menu-my-account{
+
+.menu-my-account {
     display: flex;
     flex-direction: column;
     width: 70%;
@@ -1347,7 +1408,8 @@
     margin-top: 50px;
 
 }
-.user-panel-header{
+
+.user-panel-header {
     height: 50px;
     justify-content: space-between;
     margin-bottom: 30px;
@@ -1356,7 +1418,8 @@
     width: 90%;
     align-items: center;
 }
-.account-information-div{
+
+.account-information-div {
     justify-content: space-between;
     flex-direction: column;
     display: flex;
@@ -1365,16 +1428,19 @@
     height: 300px;
     background-color: #160e2a;
 }
-.account-information-div h4{
+
+.account-information-div h4 {
     width: 30%;
     margin: 30px 20px;
 }
-.account-info-paragraph{
+
+.account-info-paragraph {
     color: grey;
     width: 30%;
     margin: 0 0 5px 20px;
 }
-.account-info-button{
+
+.account-info-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1385,33 +1451,39 @@
     border: 1px solid;
     border-radius: 20px;
 }
-.account-info-button:hover{
+
+.account-info-button:hover {
     scale: 101%;
     cursor: pointer;
 }
-.account-info-header-button{
+
+.account-info-header-button {
     text-align: center;
     width: 30%;
     padding: 5px 10px;
     border: 1px solid;
     border-radius: 20px;
 }
-.account-info-header-button:hover{
+
+.account-info-header-button:hover {
     scale: 101%;
     cursor: pointer;
 }
-#delete-account-button{
+
+#delete-account-button {
     border: 1px solid red;
     background-color: #cc4133;
 }
-.menu-my-orders{
+
+.menu-my-orders {
     display: flex;
     flex-direction: column;
     width: 70%;
     align-items: center;
     margin-top: 50px;
 }
-.purchased-games-el{
+
+.purchased-games-el {
     background-color: #96959a;
     display: flex;
     flex-direction: row;
@@ -1419,12 +1491,14 @@
     height: 300px;
     margin-bottom: 20px;
 }
-.order-cover-container{
+
+.order-cover-container {
     display: flex;
     width: 25%;
     background-color: white;
 }
-.order-info-container{
+
+.order-info-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1435,7 +1509,8 @@
     width: 50%;
     color: black;
 }
-.order-actions-container{
+
+.order-actions-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1443,13 +1518,16 @@
     width: 25%;
     background-color: #817f79;
 }
-.order-cover{
+
+.order-cover {
     width: 100%;
 }
-.order-title, .order-price{
+
+.order-title, .order-price {
     font-weight: bold;
 }
-.show-order-code-button{
+
+.show-order-code-button {
     border: solid 1px black;
     border-radius: 10px;
     display: flex;
@@ -1459,17 +1537,21 @@
     width: 60%;
     height: 50px;
 }
+
 .show-order-code-button:hover {
     cursor: pointer;
     scale: 101%;
 }
-#my-account{
+
+#my-account {
     color: #0d7edc;
 }
-.checkout-h1{
+
+.checkout-h1 {
     margin-top: 110px;
 }
-.billing-address-form, .payment-method-form{
+
+.billing-address-form, .payment-method-form {
     margin-top: 50px;
     background-color: #160e2a;
     display: flex;
@@ -1478,17 +1560,21 @@
     align-items: center;
     height: 600px;
 }
-.payment-method-form{
+
+.payment-method-form {
     height: max-content;
     opacity: 0.5;
 }
-.payment-method-form *{
+
+.payment-method-form * {
     pointer-events: none;
 }
-.billing-address-form > label{
+
+.billing-address-form > label {
     font-size: smaller;
 }
-.billing-address-form > input{
+
+.billing-address-form > input {
     margin-bottom: 5px;
     width: 50%;
     border-radius: 25px;
@@ -1499,15 +1585,17 @@
     border: solid grey;
     color: white;
 }
+
 .billing-address-form > input:-webkit-autofill,
 .billing-address-form > input:-webkit-autofill:hover,
 .billing-address-form > input:-webkit-autofill:focus,
-.billing-address-form > input:-webkit-autofill:active{
+.billing-address-form > input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #160e2a inset !important;
     -webkit-text-fill-color: white !important;
     font-size: 18px !important
 }
-.form-h2{
+
+.form-h2 {
     z-index: 10;
     width: max-content;
     position: relative;
@@ -1517,7 +1605,8 @@
     opacity: 80%;
     border-radius: 5px;
 }
-.submit-button{
+
+.submit-button {
     color: white;
     margin-right: 20px;
     width: max-content;
@@ -1530,14 +1619,17 @@
     background-color: #67c067;
     padding: 5px 50px;
 }
-.submit-button:hover{
+
+.submit-button:hover {
     opacity: 80%;
     cursor: pointer;
 }
-.payment-method-form > label{
+
+.payment-method-form > label {
     text-align: center;
 }
-.order-summary-h2{
+
+.order-summary-h2 {
     top: 15px;
     z-index: 10;
     width: max-content;
@@ -1547,7 +1639,8 @@
     opacity: 80%;
     border-radius: 5px;
 }
-.filter-button-div{
+
+.filter-button-div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1555,7 +1648,8 @@
     width: 5%;
     height: 100%;
 }
-.filter-button{
+
+.filter-button {
     margin-left: 5px;
     border-color: white;
     width: 100%;
@@ -1563,29 +1657,35 @@
     color: white;
 
 }
-.span-link{
+
+.span-link {
     font-weight: bold;
 }
-.span-link:hover{
+
+.span-link:hover {
     cursor: pointer;
 }
-.purchased-games-list, .wishlist{
+
+.purchased-games-list, .wishlist {
     display: flex;
     flex-direction: column;
     width: 90%;
     height: max-content;
 }
-.wishlist{
+
+.wishlist {
     flex-direction: row;
 }
-.wishlist-options{
+
+.wishlist-options {
     display: flex;
     flex-direction: row;
     width: 90%;
     justify-content: center;
     margin-top: 50px;
 }
-.cookies-bar{
+
+.cookies-bar {
     opacity: 80%;
     color: white;
     align-items: center;
@@ -1601,15 +1701,17 @@
     height: 50px;
     width: 100%;
 }
-.cookies-bar span{
+
+.cookies-bar span {
     font-weight: bold;
     text-decoration-line: underline;
 }
-.cookies-bar span:hover{
+
+.cookies-bar span:hover {
     cursor: pointer;
 }
 
-.cookies-accept-button{
+.cookies-accept-button {
     margin-right: 20px;
     width: max-content;
     border-radius: 25px;
@@ -1621,48 +1723,56 @@
     background-color: #67c067;
     padding: 10px 5px;
 }
-.cookies-bar-text{
+
+.cookies-bar-text {
     margin-left: 50px;
 }
-.cookies-accept-button:hover{
+
+.cookies-accept-button:hover {
     cursor: pointer;
 }
+
 .manage-users-table,
 .manage-products-table,
-.manage-orders-table{
+.manage-orders-table {
     width: 90%;
     height: min-content;
     border: 1px white solid;
     overflow: auto;
     border-collapse: collapse;
 }
+
 .manage-users-table td, .manage-users-table th,
 .manage-products-table td, .manage-products-table th,
 .manage-orders-table td, .manage-orders-table th,
-.order-products-table td, .order-products-table th{
+.order-products-table td, .order-products-table th {
     width: min-content;
     border: 1px white solid;
 }
+
 .manage-users-table td:hover,
 .manage-products-table td:hover,
 .manage-orders-table td:hover,
-.order-products-table td:hover{
+.order-products-table td:hover {
     cursor: pointer;
     scale: 101%;
 }
+
 .edit-users-form,
 .edit-products-form,
 .edit-orders-form,
 .edit-quantity-form,
-.edit-code-form{
+.edit-code-form {
     display: none;
     width: min-content;
 }
-.order-products-table{
+
+.order-products-table {
     width: 100%;
     margin-top: 30px;
 }
-.action-confirm-container{
+
+.action-confirm-container {
     color: white;
     height: min-content;
     background-color: #20143c;
@@ -1677,7 +1787,8 @@
     border: white solid 1px;
     z-index: 100;
 }
-.action-confirm-button{
+
+.action-confirm-button {
     color: white;
     margin-top: 5px;
     width: 50%;
@@ -1690,19 +1801,22 @@
     background-color: #0d7edc;
     padding: 5px 50px;
 }
-.action-confirm-button:hover{
+
+.action-confirm-button:hover {
     cursor: pointer;
     scale: 101%;
 }
-.admin-panel-search-form{
+
+.admin-panel-search-form {
     margin: 5px 5px;
     justify-content: center;
     display: flex;
     flex-direction: row;
     width: 90%;
 }
+
 #admin-order-details,
-.activation-codes-container{
+.activation-codes-container {
     display: none;
     flex-direction: column;
     width: 50%;
@@ -1715,7 +1829,8 @@
     z-index: 100;
     border: white solid 1px;
 }
-.codes-list{
+
+.codes-list {
     display: flex;
     list-style: none;
     flex-direction: column;
@@ -1726,7 +1841,8 @@
     overflow-y: auto;
     font-size: 30px;
 }
-.codes-list-element{
+
+.codes-list-element {
     border: solid white 1px;
     display: flex;
     flex-direction: column;
@@ -1735,12 +1851,23 @@
     width: 90%;
     height: 50px;
 }
+
 .activate-code-button {
     height: 50px;
     border: none;
     color: white;
     margin: 10px 0;
 }
-.may-also-like-container{
+
+.may-also-like-container {
     width: 100%;
+}
+
+.select-language {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+#select-language{
+    text-align: center;
 }

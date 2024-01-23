@@ -24,6 +24,7 @@ function Home() {
 
 
 
+
     function calculatePageNumbers(data) {
         const numbers = [];
         for (let i = 0; i < data?.totalPages; i++) {

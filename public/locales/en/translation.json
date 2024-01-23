@@ -4,6 +4,44 @@
     "polish": "Polish",
     "english": "English"
   },
-  "languageButton": "Change"
+  "languageButton": "Change",
+  "pagination": {
+    "first": "first",
+    "last": "last",
+    "prev": "prev",
+    "next": "next",
+    "current": "Current page:",
+    "total": "of {{total}} total loaded"
+  },
+  "toCart": "TO CART",
+  "productsNotFound": "PRODUCTS NOT FOUND!",
+  "edit": "EDIT",
+  "newValue": "NEW VALUE",
+  "submit": "SUBMIT",
+  "ordersNotFound": "ORDERS NOT FOUND.",
+  "orderDetailsError": "ERROR DURING FETCHING ORDER DETAILS.",
+  "orderList": "ORDER LIST",
+  "userId": "USER ID",
+  "orderStatus": "ORDER STATUS",
+  "search": "SEARCH",
+  "productsList": "PRODUCTS LIST",
+  "name": "NAME",
+  "price": "PRICE",
+  "options": "OPTIONS",
+  "delete": "DELETE",
+  "userNotFound": "USER NOT FOUND",
+  "userList": "USER LIST",
+  "username": "USERNAME",
+  "isEnabled": "IS ENABLED",
+  "role": "ROLE",
+  "true": "TRUE",
+  "FALSE": "FALSE",
+  "user": "USER",
+  "illegalValue": "ILLEGAL FIELD NAME VALUE",
+  "quantity": "QUANTITY",
+  "code": "CODE",
+  "setCode": "SET CODE"
+
+
 
 }

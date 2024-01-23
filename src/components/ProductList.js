@@ -1,8 +1,10 @@
 
 import { ThreeCircles } from "react-loader-spinner";
 import ProductListElement from "./ProductListElement";
+import {useTranslation} from "react-i18next";
 
 function ProductList({ productsPageable, dataLoading}) {
+    const {t} = useTranslation()
 
 
     return (
@@ -19,7 +21,7 @@ function ProductList({ productsPageable, dataLoading}) {
             )}
             {productsPageable?.content?.length === 0 && (
                 <div className={"no-products-div"}>
-                    <h1>PRODUCTS NOT FOUND!</h1>
+                    <h1>{t("productsNotFound")}</h1>
                 </div>
             )}
         </div>
