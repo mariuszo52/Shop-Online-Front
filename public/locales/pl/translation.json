@@ -40,5 +40,10 @@
   "illegalValue": "NIEPRAWIDŁOWA NAZWA POLA",
   "quantity": "ILOŚĆ",
   "code": "KOD",
-  "setCode": "WPISZ KOD"
+  "setCode": "WPISZ KOD",
+  "users": "UŻYTKOWNICY",
+  "products": "PRODUKTY",
+  "orders": "ZAMÓWIENIA",
+  "stats": "STATYSTYKI",
+  "logout": "WYLOGUJ"
 }

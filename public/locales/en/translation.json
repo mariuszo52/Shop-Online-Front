@@ -40,7 +40,13 @@
   "illegalValue": "ILLEGAL FIELD NAME VALUE",
   "quantity": "QUANTITY",
   "code": "CODE",
-  "setCode": "SET CODE"
+  "setCode": "SET CODE",
+  "users": "USERS",
+  "products": "PRODUCTS",
+  "orders": "ORDERS",
+  "stats": "STATS",
+  "logout": "LOGOUT"
+
 
 
 

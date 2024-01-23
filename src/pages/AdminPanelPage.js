@@ -6,16 +6,19 @@ import SocialMedia from "../components/SocialMedia";
 import Footer from "../components/Footer";
 import {useEffect, useState} from "react";
 import {useDeleteConfirm} from "../context/DeleteConfirmContext";
+import {useTranslation} from "react-i18next";
 
 function AdminPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("users")
     const [pagination, setPagination] = useState([])
     const [isElementClicked, setIsElementClicked] = useState(false)
     const {setIsComponentVisible, setId, setParamName} = useDeleteConfirm();
+    const {t} = useTranslation()
+
 
 
     function chooseActiveTab(event) {
-        let tabName = event.target.innerText?.replace(" ", "-").toLowerCase();
+        let tabName = event.target.id?.replace(" ", "-").toLowerCase();
         window.location.href = "/account/admin-panel?tab=" + tabName;
     }
 
@@ -88,13 +91,13 @@ function AdminPanelPage() {
             <div className={"account-panel-container"}>
                 <div className={"account-menu"}>
                     <p id={"users"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>USERS</p>
+                       className={"account-menu-el"}>{t("users")}</p>
                     <p id={"products"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>PRODUCTS</p>
+                       className={"account-menu-el"}>{t("products")}</p>
                     <p id={"orders"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>ORDERS</p>
-                    <p className={"account-menu-el"}>STATS</p>
-                    <p className={"account-menu-el"} onClick={onLogoutClick}>LOGOUT</p>
+                       className={"account-menu-el"}>{t("orders")}</p>
+                    <p id={"stats"} className={"account-menu-el"}>{t("stats")}</p>
+                    <p className={"account-menu-el"} onClick={onLogoutClick}>{t("logout")}</p>
                 </div>
                 {activeMenuTab === "users" && (
                     <MenageUsers
