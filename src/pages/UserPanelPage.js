@@ -45,13 +45,13 @@ function UserPanelPage() {
             <div className={"account-panel-container"}>
                 <div className={"account-menu"}>
                     <p id={"my-account"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>MY ACCOUNT</p>
+                       className={"account-menu-el"}>{this("myAccount")}</p>
                     <p id={"my-orders"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>MY ORDERS</p>
+                       className={"account-menu-el"}>{t("myOrders")}</p>
                     <p id={"wishlist"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>WISHLIST</p>
-                    <p id={"messages"} className={"account-menu-el"}>MESSAGES</p>
-                    <p className={"account-menu-el"} onClick={onLogoutClick}>LOGOUT</p>
+                       className={"account-menu-el"}>{t("wishlist")}</p>
+                    <p id={"messages"} className={"account-menu-el"}>{t("messages")}</p>
+                    <p className={"account-menu-el"} onClick={onLogoutClick}>{t("logout")}</p>
                 </div>
                 {activeMenuTab === "my-account" && (<MyAccount/>)}
                 {activeMenuTab === "my-orders" && (<MyOrders/>)}

@@ -17,6 +17,7 @@ function CheckoutPage() {
     const [city, setCity] = useState("")
     const [payment, setPayment] = useState("BLIK")
     const [totalPrice, setTotalPrice] = useState(0.0)
+    const {t} = useTranslate()
 
 
     let shippingAddress = {
@@ -102,42 +103,42 @@ function CheckoutPage() {
     return (
         <div className={"main-div"}>
             <Menu/>
-            <h1 className={"checkout-h1"}>CHECKOUT</h1>
+            <h1 className={"checkout-h1"}>{t("checkout")}</h1>
             <form className={"billing-address-form"} onSubmit={event => onsubmitBillingAddress(event)}>
                 <div className={"form-h2"}>
-                    <h2>BILLING ADDRESS</h2>
+                    <h2>{t("billingAddress")}</h2>
                 </div>
-                <label>COUNTRY*</label>
+                <label>{t("country")}*</label>
                 <input defaultValue={shippingAddress?.country}
                        onChange={event => setCountry(event.target.value)} required={true}/>
-                <label>FIRST NAME*</label>
+                <label>{t("firstName")}*</label>
                 <input defaultValue={shippingAddress?.name}
                        onChange={event => setName(event.target.value)} required={true}/>
-                <label>LAST NAME*</label>
+                <label>{t("lastName")}*</label>
                 <input defaultValue={shippingAddress?.lastName}
                        onChange={event => setLastName(event.target.value)} required={true}/>
-                <label>STREET ADDRESS*</label>
+                <label>{t("streetAddress")}*</label>
                 <input defaultValue={shippingAddress?.address}
                        onChange={event => setAddress(event.target.value)}
                        required={true}/>
-                <label>CITY*</label>
+                <label>{t("city")}*</label>
                 <input defaultValue={shippingAddress?.city}
                        onChange={event => setCity(event.target.value)} required={true}/>
-                <label>POSTAL CODE*</label>
+                <label>{t("postalCode")}*</label>
                 <input defaultValue={shippingAddress?.postalCode}
                        minLength={5}
                        maxLength={5}
                        onChange={event => setPostalCode(event.target.value)} type={"text"} required={true}/>
-                <label>PHONE NUMBER*</label>
+                <label>{t("phoneNumber")}*</label>
                 <input defaultValue={shippingAddress?.phoneNumber}
                        onChange={event => setPhoneNumber(event.target.value)}
                        type={"tel"} required={true}/>
-                <button className={"submit-button"} type={"submit"}>CONFIRM ADDRESS</button>
+                <button className={"submit-button"} type={"submit"}>{t("confirmAddress")}</button>
             </form>
             <form className={"payment-method-form"}
                   onSubmit={event => onSubmitPaymentMethod(event)}>
                 <div className={"form-h2"}>
-                    <h2>PAYMENT METHOD</h2>
+                    <h2>{t("paymentMethod")}</h2>
                 </div>
                 <label>
                     <input
@@ -161,7 +162,7 @@ function CheckoutPage() {
                 </label>
 
                 <div className={"order-summary-h2"}>
-                    <h2>ORDER SUMMARY</h2>
+                    <h2>{t("orderSummary")}</h2>
                 </div>
                 {cartItems?.map((item, index) => (
                     <div key={index} className={"cart-product"}>
@@ -182,13 +183,13 @@ function CheckoutPage() {
                             <p className={"product-price"}>{((item?.price) * (item?.cartQuantity))?.toFixed(2)} PLN</p>
                         </div>
                     </div>))}
-                <h2>TOTAL: {totalPrice?.toFixed(2)} PLN</h2>
+                <h2>{t("total")}: {totalPrice?.toFixed(2)} PLN</h2>
 
                 <label><input required={true} type={"checkbox"}/> I agree to
                     the
                     <span className={"span-link"} onClick={onTermsClick}> Terms & Conditions</span> and
                     <span className={"span-link"} onClick={onPrivacyPolicyClick}> Privacy Policy</span></label>
-                <button type={"submit"} className={"submit-button"}>ORDER</button>
+                <button type={"submit"} className={"submit-button"}>{t("order")}</button>
             </form>
 
         </div>

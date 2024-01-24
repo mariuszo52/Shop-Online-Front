@@ -123,7 +123,67 @@
   "done": "DONE.",
   "product": "PRODUCT",
   "noItems": "YOU HAVE NO ITEMS IN YOUR SHOPPING CART.",
-  "orderTotal": "ORDER TOTAL"
+  "orderTotal": "ORDER TOTAL",
+  "billingAddress": "BILLING ADDRESS",
+  "streetAddress": "STREET ADDRESS",
+  "confirmAddress": "CONFIRM ADDRESS",
+  "total": "TOTAL",
+  "order": "ORDER",
+  "homePage": "HOME",
+  "buyPreorder": "BUY PREORDER",
+  "buyNow": "BUY NOW",
+  "availablePreorder": "AVAILABLE TO PREORDER",
+  "currentlyInStock": "CURRENTLY IN STOCK",
+  "preorder": "PREORDER",
+  "deliverDigitaly": "CODE DELIVERED TO YOU DIGITALY",
+  "releaseDate": "RELEASE DATE",
+  "languages": "LANGUAGES",
+  "alsoLike": "YOU MAY ALSO LIKE",
+  "information": "INFORMATION",
+  "videos": "VIDEOS",
+  "screenshots": "SCREENSHOTS",
+  "activation": "ACTIVATION",
+  "loginSuccess": "LOGIN SUCCESS.",
+  "alreadyRegistred": "ALREADY REGISTRED? PLEASE LOGIN FROM HERE.",
+  "requiredField": "THIS IS REQUIRED FIELD",
+  "forgotPass": "FORGOT YOUR PASSWORD?",
+  "login": "LOGIN",
+  "or": "OR",
+  "register": "REGISTER",
+  "registerDescr": "SIMPLY CLICK THE REGISTER BUTTON AND FILL OUT FORM TO BECOME PART OF HUGE ONLINE COMMUNITY.",
+  "earn": "EARN UP TO 30 BADGES",
+  "discounts": "RECEIVE DISCOUNTS & BENEFITS.",
+  "partCommunity": "BE A PART OF COMMUNITY",
+  "confirmEmail": "CONFIRMATION EMAIL HAS SENT AT ",
+  "newAccount": "CREATE NEW CUSTOMER deleteAccount",
+  "personalInfo": "PERSONAL INFORMATIONS",
+  "signInInfo": "SIGN IN INFORMATIONS",
+  "confirm": "CONFIRM",
+  "strongPass": "SUGGEST STRONG PASSWORD.",
+  "createAccount": "CREATE ACCOUNT",
+  "back": "BACK",
+  "messages": "MESSAGES"
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

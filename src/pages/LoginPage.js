@@ -22,6 +22,7 @@ function LoginPage() {
     const [emailPass, setEmailPass] = useState("")
     const [facebookAppId, setFacebookAppId] = useState("")
     const {saveCartToDatabase} = useCart();
+    const {t} = useTranslate()
     let loginCredentials = {
         "email": emailLogin,
         "password": emailPass
@@ -73,7 +74,7 @@ function LoginPage() {
             .then(response => {
                 sessionStorage.setItem("jwt", "Bearer " + response?.data.accessToken)
                 sessionStorage.setItem("refreshToken", "Bearer " + response?.data.refreshToken)
-                setNotificationText("Login success.")
+                setNotificationText(t("loginSuccess"))
                 setNotificationVisible(true)
                 saveCartToDatabase()
                 window.location.href = "/";
@@ -156,32 +157,32 @@ function LoginPage() {
             <div className={"login-page-container"}>
                 <div className={"login-form-container"}>
                     <h1 className={"login-header"}>LOGIN</h1>
-                    <p>Already Registered? Please Login From Here.</p>
+                    <p>{t("alreadyRegistred")}</p>
                     <form id={"login-form"} onKeyDown={event => handleKeypress(event)}
                           onSubmit={event => onLoginButtonClick(event)}
                           className={"login-form"}>
                         <div className={"login-inputs"}>
                             <div className={"login-input"}>
-                                <label>EMAIL*</label>
+                                <label>{t("email")}*</label>
                                 <input required={true} onChange={event => setEmailLogin(event.target.value)}
                                        type={"email"}
                                        name={"email"}/>
-                                <span>THIS IS A REQUIRED FIELD.</span>
+                                <span>{t("requiredField")}</span>
                             </div>
                             <div className={"login-input"}>
-                                <label>PASSWORD*</label>
+                                <label>{t("password")}*</label>
                                 <input required={true} onChange={event => setEmailPass(event.target.value)}
                                        type={"password"} name={"password"}/>
-                                <span>THIS IS A REQUIRED FIELD.</span>
+                                <span>{t("requiredField")}</span>
                             </div>
                         </div>
                         <div className={"forgot-password-container"}>
-                            <a onClick={handleForgotPasswordButton}>FORGOT YOUR PASSWORD?</a>
-                            <button type={"submit"} className={"login-button"}>LOGIN</button>
+                            <a onClick={handleForgotPasswordButton}>{t("forgotPass")}</a>
+                            <button type={"submit"} className={"login-button"}>{t("login")}</button>
                         </div>
                     </form>
                     <hr/>
-                    <h1 className={"login-header"}>OR</h1>
+                    <h1 className={"login-header"}>{"or"}</h1>
                     <div className={"oauth-login-container"}>
                         {renderFacebookLogin()}
                         <div className={"google-button"}>
@@ -200,16 +201,15 @@ function LoginPage() {
                     </div>
                 </div>
                 <form className={"register-form-container"}>
-                    <h1 className={"register-header"}>REGISTER</h1>
-                    <p className={"form-description-paragraph"}>SIMPLY CLICK THE REGISTER BUTTON AND FILL OUT THE FORM
-                        TO BECOME PART OF A HUGE ONLINE COMMUNITY.</p>
-                    <h2><img className={"register-icon"} alt={"earn"} src={earn}/>EARN UP TO 30 BADGES
+                    <h1 className={"register-header"}>{t("register")}</h1>
+                    <p className={"form-description-paragraph"}>{t("registerDescr")}</p>
+                    <h2><img className={"register-icon"} alt={"earn"} src={earn}/>{t("earn")}
                     </h2>
-                    <h2><img className={"register-icon"} alt={"discount"} src={discount}/>RECEIVE DISCOUNTS & BENEFITS
+                    <h2><img className={"register-icon"} alt={"discount"} src={discount}/>{t("discounts")}
                     </h2>
-                    <h2><img className={"register-icon"} alt={"community"} src={community}/>BE PART OF A COMMUNITY
+                    <h2><img className={"register-icon"} alt={"community"} src={community}/>{t("partCommunity")}
                     </h2>
-                    <p onClick={() => navigate("/account/register")} className={"register-button"}>REGISTER</p>
+                    <p onClick={() => navigate("/account/register")} className={"register-button"}>{t("register")}</p>
                 </form>
             </div>
             <SocialMedia/>

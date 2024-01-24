@@ -15,6 +15,7 @@ function ProductPage() {
     const [similarProducts, setSimilarProducts] = useState([]);
     const [productActivation, setProductActivation] = useState([]);
     const {addToCart} = useCart();
+    const {t} = useTranslate()
 
     useEffect(() => {
         function activationInfo() {
@@ -88,7 +89,7 @@ function ProductPage() {
             <div className={"product-info-container"}>
                 <div className={"navigation-bar"}>
                     <p onClick={() => navigate("/")}
-                       className={"navigation-item"}>Home</p>
+                       className={"navigation-item"}>{t("homePage")}</p>
                     <hr className={"divide-line"}/>
                     <p onClick={() =>
                         navigate("/" + product?.platformDto.device)}
@@ -106,26 +107,26 @@ function ProductPage() {
                         <span className={"price-span"}>{product?.price} PLN</span>
                         <button onClick={() => addToCart(product)}
                                 className={"add-product-to-cart"}>
-                            {product?.isPreorder ? 'BUY PREORDER' : 'BUY NOW'}
+                            {product?.isPreorder ? t("buyPreorder") : t("buyNow")}
                         </button>
                         <ul>
                             <li>{product?.regionalLimitations}</li>
-                            <li>{product?.inStock ? 'CURRENTLY IN STOCK' : "AVAILABLE TO PRE-ORDER"}</li>
-                            <li>{product?.isPreorder ? 'PRE-ORDER' : 'CODE DELIVERED TO YOU DIGITALLY'}</li>
+                            <li>{product?.inStock ? t("currentlyInStock") : t("availablePreorder")}</li>
+                            <li>{product?.isPreorder ? t("preorder") : t("deliverDigitaly")}</li>
                         </ul>
                     </div>
                 </div>
                 <div className={"product-information-container"}>
                     <div className={"info-el"}>
-                        <p>Platform</p>
+                        <p>{t("platform")}</p>
                         <p>{product?.platformDto.name}</p>
                     </div>
                     <div className={"info-el"}>
-                        <p>Release Date</p>
+                        <p>{t("releaseDate")}</p>
                         <p>{product?.releaseDate}</p>
                     </div>
                     <div className={"info-el"}>
-                        <p>Languages</p>
+                        <p>{t("languages")}</p>
                         <div className={"language-icons-container"}>
                             {languages?.map((language, index) => (
                                 <img className={"language-icon"} alt={language.name} key={index}
@@ -136,7 +137,7 @@ function ProductPage() {
                     </div>
                 </div>
             </div>
-            <h1>YOU MAY ALSO LIKE</h1>
+            <h1>{t("alsoLike")}</h1>
             <div className={"may-also-like-container"}>
                 <ul className={"products-list"}>
                     <ProductListElement
@@ -146,16 +147,15 @@ function ProductPage() {
             <div className={"product-more-info"}>
                 <div className={"more-info-menu"}>
                     <p onClick={event => handleClickInfoMenuButton(event)}
-                       className={"more-info-el"}>INFORMATION</p>
+                       className={"more-info-el"}>{t("information")}</p>
                     <p onClick={event => handleClickInfoMenuButton(event)}
-                       className={"more-info-el"}>VIDEOS</p>
+                       className={"more-info-el"}>{t("videos")}</p>
                     <p onClick={event => handleClickInfoMenuButton(event)}
-                       className={"more-info-el"}>SCREENSHOTS</p>
+                       className={"more-info-el"}>{t("screenshots")}</p>
                     <p onClick={event => handleClickInfoMenuButton(event)}
-                       className={"more-info-el"}>ACTIVATION</p>
+                       className={"more-info-el"}>{t("activation")}</p>
                 </div>
                 <div id={"information"} className={"more-info-content"}>
-                    <h1>What are the system requirements?</h1>
                     <p>{product?.description}</p>
                 </div>
                 <div id={"videos"} className={"more-info-content"}>

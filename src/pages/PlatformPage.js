@@ -30,7 +30,7 @@ function PlatformPage(){
         <div key={deviceName} className={"main-div"}>
             <Menu/>
             <div className={"category-name-container"}>
-                <h1>{deviceName} KEYS</h1><br/>
+                <h1>{deviceName}</h1><br/>
                 <hr/>
             </div>
            <FilterProducts

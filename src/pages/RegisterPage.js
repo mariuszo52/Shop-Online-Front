@@ -16,6 +16,7 @@ function RegisterPage() {
     const [username, setUsername] = useState("")
     const navigate = useNavigate();
     let {setNotificationText, setNotificationVisible} = useNotification();
+    const {t} = useTranslate()
     const userRegister = {
         "name": name,
         "lastName": lastName,
@@ -51,7 +52,7 @@ function RegisterPage() {
         event.preventDefault()
         axios.post("http://localhost:8080/register", userRegister)
             .then(() => {
-                setNotificationText("Confirmation email has sent at " + userRegister.email)
+                setNotificationText(t("confirmEmail")+ userRegister.email)
                 setNotificationVisible()
                 navigate("/account/login")
             })
@@ -65,27 +66,27 @@ function RegisterPage() {
     return (
         <div id={"register-container"} className={"main-div"}>
             <Menu/>
-            <h1 className={"register-page-h1"}>CREATE NEW CUSTOMER ACCOUNT</h1><br/>
+            <h1 className={"register-page-h1"}>{t("newAccount")}</h1><br/>
             <div className={"register-personal-info"}>
-                <h1 className={"login-header"}>PERSONAL INFORMATION</h1>
+                <h1 className={"login-header"}>{t("personalInfo")}</h1>
                 <div className={"personal-info-inputs"}>
                     <div className={"login-input"}>
-                        <label>NAME*</label>
+                        <label>{t("firstName")}*</label>
                         <input
                             onChange={event => setName(event.target.value)}
                             required={true}
                             type={"text"}
                             name={"name"}/>
-                        <span>THIS IS A REQUIRED FIELD.</span>
+                        <span>{t("requiredField")}</span>
                     </div>
                     <div className={"login-input"}>
-                        <label>LASTNAME*</label>
+                        <label>{t("lastName")}*</label>
                         <input
                             onChange={event => setLastName(event.target.value)}
                             required={true}
                             type={"text"}
                             name={"lastName"}/>
-                        <span>THIS IS A REQUIRED FIELD.</span>
+                        <span>{t("requiredField")}</span>
                     </div>
                 </div>
             </div>
@@ -95,16 +96,16 @@ function RegisterPage() {
                 onKeyDown={event => handleKeypress(event)}
                 className={"register-sign-in-info"}>
                 <div>
-                    <h1 className={"login-header"}>SIGN-IN INFORMATION</h1>
+                    <h1 className={"login-header"}>{t("signInInfo")}</h1>
                     <div className={"personal-info-inputs"}>
                         <div className={"login-input"}>
-                            <label>USERNAME*</label>
+                            <label>{t("username")}*</label>
                             <input
                                 onChange={event => setUsername(event.target.value)}
                                 required={true}
                                 type={"text"}
                                 name={"username"}/>
-                            <span>THIS IS A REQUIRED FIELD.</span>
+                            <span>{t("requiredField")}</span>
                         </div>
                         <div className={"login-input"}>
                             <label>EMAIL*</label>
@@ -113,50 +114,49 @@ function RegisterPage() {
                                 required={true}
                                 type={"email"}
                                 name={"email"}/>
-                            <span>THIS IS A REQUIRED FIELD.</span>
+                            <span>{t("requiredField")}</span>
                         </div>
                         <div className={"login-input"}>
-                            <label>CONFIRM EMAIL*</label>
+                            <label>{t("confirm")} EMAIL*</label>
                             <input
                                 onChange={event => setConfirmEmail(event.target.value)}
                                 required={true}
                                 type={"email"}
                                 name={"confirmEmail"}/>
-                            <span>THIS IS A REQUIRED FIELD.</span>
+                            <span>{t("requiredField")}</span>
                         </div>
                     </div>
                     <div className={"personal-info-inputs"}>
                         <div className={"login-input"}>
-                            <label>PASSWORD*</label>
+                            <label>{t("password")}*</label>
                             <input
                                 id={"password-input"}
                                 onChange={event => setPassword(event.target.value)}
                                 required={true}
                                 type={"password"}
                                 name={"password"}/>
-                            <span>THIS IS A REQUIRED FIELD.</span>
+                            <span>{t("requiredField")}</span>
                         </div>
                         <div className={"login-input"}>
-                            <label>CONFIRM PASSWORD*</label>
+                            <label>{t("confirm")} {t("password")}*</label>
                             <input
                                 id={"confirm-password-input"}
                                 onChange={event => setConfirmPassword(event.target.value)}
                                 required={true}
                                 type={"password"}
                                 name={"confirmPassword"}/>
-                            <span>THIS IS A REQUIRED FIELD.</span>
+                            <span>{t("requiredField")}</span>
                         </div>
                     </div>
                     <div className={"password-generate-container"}>
-                        <p onClick={handleSuggestStrongPassButton} className={"password-generate-button"}>SUGGEST STRONG
-                            PASSWORD</p>
+                        <p onClick={handleSuggestStrongPassButton} className={"password-generate-button"}>{t("strongPass")}</p>
                         <span>Your password needs to be at least 8 characters long and use 4 different types of character
                         (Lower Case, Upper Case, Digits, Special Characters).</span>
                     </div>
                 </div>
                 <div className={"submit-register-container"}>
-                    <p onClick={() => navigate("/account/login")} className={"back-to-login-button"}>BACK</p>
-                    <button className={"register-form-button"}>CREATE AN ACCOUNT</button>
+                    <p onClick={() => navigate("/account/login")} className={"back-to-login-button"}>{t("back")}</p>
+                    <button className={"register-form-button"}>{t("createAccount")}</button>
                 </div>
             </form>
             <SocialMedia/>
