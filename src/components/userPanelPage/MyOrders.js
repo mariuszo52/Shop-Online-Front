@@ -5,6 +5,7 @@ import ActivationCodes from "./ActivationCodes";
 function MyOrders() {
     const [orderProducts, setOrderProducts] = useState([])
     const [codesList, setCodesList] = useState([])
+    const {t} = useTranslation()
 
     useEffect(() => {
         function fetchOrderProducts() {
@@ -40,9 +41,9 @@ function MyOrders() {
             <ActivationCodes
                 codesList = {codesList}
             />
-            <h1>MY ORDERS</h1>
+            <h1>{t("myOrders")}</h1>
             <div className={"user-panel-header"}>
-                <h3>GAMES PURCHASED</h3>
+                <h3>{t("gamesPurchased")}</h3>
             </div>
             {orderProducts?.map((orderProduct, index) => (
                 <div className={"purchased-games-list"} key={index}>
@@ -56,21 +57,22 @@ function MyOrders() {
                             </div>
                             <div className={"order-info-container"}>
                                 <p className={"order-title"}>{orderProduct?.product.name} </p>
-                                <p>DATE ORDERED: {formatOrderDate(orderProduct?.order)}</p>
-                                <p>ORDER STATUS: {orderProduct?.order.orderStatus}</p>
-                                <p>PAYMENT METHOD: {orderProduct?.order.paymentMethod}</p>
-                                <p>ORDER NUMBER: #{orderProduct?.order.id} (THIS IS NOT YOUR CODE)</p>
-                                <p>PLATFORM: {orderProduct?.product.platformDto.name}</p>
-                                <p>QUANTITY: {orderProduct?.quantity}</p>
-                                <p>PRODUCT SUMMARY PRICE: {calculateProductSummaryPrice(orderProduct).toFixed(2)}</p>
-                                <p className={"order-price"}>ORDER SUMMARY PRICE {orderProduct?.order.totalPrice.toFixed(2)} PLN</p>
+                                <p>{t("dateOrdered")}: {formatOrderDate(orderProduct?.order)}</p>
+                                <p>{t("orderStatus")}: {orderProduct?.order.orderStatus}</p>
+                                <p>{t("paymentMethod")}: {orderProduct?.order.paymentMethod}</p>
+                                <p>{t("orderNumber")}: #{orderProduct?.order.id} ({t("notYourCode")})</p>
+                                <p>{t("platform")}: {orderProduct?.product.platformDto.name}</p>
+                                <p>{t("quantity")}: {orderProduct?.quantity}</p>
+                                <p>{t("productSummary")}: {calculateProductSummaryPrice(orderProduct).toFixed(2)}</p>
+                                <p className={"order-price"}>{t("orderSummary")} {orderProduct?.order.totalPrice.toFixed(2)} PLN</p>
                             </div>
                             <div className={"order-actions-container"}>
                                 <button
                                     onClick={() => showOrderCode(orderProduct?.activationCodes)}
                                     className={"show-order-code-button"}
                                 >
-                                    GET CODE
+                                    {t("getCode")}
+        
                                 </button>
                             </div>
                         </div>

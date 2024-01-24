@@ -10,7 +10,7 @@ import DeleteAccountConfirm from "./DeleteAccountConfirm";
 function MyAccount(){
     const [userAccountInfo, setUserAccountInfo] = useState(null)
     const {setNotificationVisible, setNotificationText} = useNotification();
-
+    const {t} = useTranslation()
     useEffect(() => {
         function fetchUserAccountInfo(){
             axios.get("http://localhost:8080/user")
@@ -22,11 +22,11 @@ function MyAccount(){
 
     function handleChangePasswordButton() {
         if(sessionStorage.getItem("jwt").startsWith("FB")){
-            setNotificationText("Unfortunately, you cannot change your password as you are using Facebook authentication.")
+            setNotificationText(t("fbAuth"))
             setNotificationVisible(true);
         }
         else if(sessionStorage.getItem("jwt").startsWith("GOOGLE")){
-            setNotificationText("Unfortunately, you cannot change your password as you are using Google authentication.")
+            setNotificationText(t("googleAuth"))
             setNotificationVisible(true);
         }else {
         let forgetPasswordForm = document.getElementById("password-change-container");
@@ -63,55 +63,55 @@ function MyAccount(){
         <ChangeAddress />
         <DeleteAccount />
         <DeleteAccountConfirm />
-        <h1>MY ACCOUNT</h1>
+        <h1>{t("myAccount")}</h1>
         <div className={"user-panel-header"}>
-            <h3>ACCOUNT INFORMATION</h3>
+            <h3>{t("accountInfo")}</h3>
         </div>
         <div className={"account-information-div"}>
-            <h4>ACCOUNT INFORMATION</h4>
+            <h4>{t("accountInfo")}</h4>
             {userAccountInfo?.name ?(<p className={"account-info-paragraph"}>{userAccountInfo?.name} {userAccountInfo?.lastName}</p>
             ):(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
             )}
             {userAccountInfo?.email ?(<p className={"account-info-paragraph"}>{userAccountInfo?.email}</p>
             ):(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
             )}
-            <p className={"account-info-button"} onClick={handleChangeInfoButton}>EDIT INFORMATION</p>
-            <p className={"account-info-button"} onClick={handleChangePasswordButton}>CHANGE PASSWORD</p>
+            <p className={"account-info-button"} onClick={handleChangeInfoButton}>{t("changeInfo")}</p>
+            <p className={"account-info-button"} onClick={handleChangePasswordButton}>"{t("changePassword")}</p>
         </div>
         <div className={"user-panel-header"}>
-            <h3>ADDRESS BOOK</h3>
-            <p onClick={handleChangeAddressButton} className={"account-info-header-button"}>EDIT ADDRESS</p>
+            <h3>{t("addressBook")}</h3>
+            <p onClick={handleChangeAddressButton} className={"account-info-header-button"}>{t("editAddress")}</p>
         </div>
         <div className={"account-information-div"}>
-            <h4>DEFAULT SHIPPING ADDRESS</h4>
+            <h4>{t("defaultAddress")}</h4>
             {userAccountInfo?.name ?(<p className={"account-info-paragraph"}>{userAccountInfo?.name} {userAccountInfo?.lastName}</p>
                 ):(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
                 )}
             {userAccountInfo?.address ?(<p className={"account-info-paragraph"}>{userAccountInfo?.address}</p>
                 ) :(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
                 )}
             {userAccountInfo?.city ?(<p className={"account-info-paragraph"}>{userAccountInfo?.city}</p>
             ) :(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
             )}
             {userAccountInfo?.country ?(<p className={"account-info-paragraph"}>{userAccountInfo?.country}</p>
             ) :(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
             )}
             {userAccountInfo?.postalCode ?(<p className={"account-info-paragraph"}>{userAccountInfo?.postalCode }</p>
             ) :(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
             )}
             {userAccountInfo?.phoneNumber ?(<p className={"account-info-paragraph"}>{userAccountInfo?.phoneNumber }</p>
             ) :(
-                <p className={"account-info-paragraph"}>NO DATA AVAILABLE</p>
+                <p className={"account-info-paragraph"}>{t("noData")}</p>
             )}
         </div>
-        <p onClick={handleAccountDeleteButton} id={"delete-account-button"} className={"account-info-button"}>DELETE ACCOUNT</p>
+        <p onClick={handleAccountDeleteButton} id={"delete-account-button"} className={"account-info-button"}>{t("deleteAccount")}</p>
     </div>
         </>
     )

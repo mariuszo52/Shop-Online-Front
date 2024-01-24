@@ -5,6 +5,7 @@ import {useNotification} from "../../context/NotificationContext";
 function DeleteAccount(){
     const [password, setPassword] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
+    const {t} = useTranslate()
     function deleteAccount(event) {
         event.preventDefault()
         const config ={
@@ -15,7 +16,7 @@ function DeleteAccount(){
             axios.delete("http://localhost:8080/user/standard", config)
                 .then(response => {
                     sessionStorage.removeItem("jwt")
-                    setNotificationText("Account deleted.")
+                    setNotificationText(t("accountDeleted"))
                     setNotificationVisible(true)
                     window.location.href = "/account/login"
 
@@ -43,11 +44,11 @@ return(
             onKeyDown={event => handleEnterDown(event)} id={"account-delete-container"}
               className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <label>Delete account</label><br/>
-            <label>Password</label>
+            <label>{t("deleteAccount")}</label><br/>
+            <label></label>
             <input onChange={event => setPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
-            <button id={"delete-account-button"} className={"login-button"} type={"submit"}>DELETE</button>
+            <button id={"delete-account-button"} className={"login-button"} type={"submit"}>{t("delete")}</button>
         </form>
     )
 }

@@ -59,7 +59,45 @@
   "changePassword": "CHANGE PASSWORD",
   "oldPass": "Old changePassword",
   "newPass": "New changePassword",
-  "confirmNewPass": "Confirm new password"
+  "confirmNewPass": "Confirm new password",
+  "userInfoHasChanged": "USER INFO HAS CHANGED.",
+  "changeUserInfo": " CHANGE USER INFORMATIONS",
+  "firstName": "Name",
+  "lastName":"Last firstName",
+  "password": "Password",
+  "deleteAccount": "DELETE ACCOUNT",
+  "accountDeleted": "ACCOUNT DELETED.",
+  "sure": "ARE YOU SURE?",
+  "fbAuth": "UNFORTUNATELY, YOU CANNOT CHANGE YOUR PASSWORD, AS YOU ARE USING FACEBOOK AUTHENTICATION.",
+  "googleAuth": "UNFORTUNATELY, YOU CANNOT CHANGE YOUR PASSWORD AS YOU ARE USING GOOGLE AUTHENTICATION.",
+  "myAccount": "MY ACCOUNT",
+  "noData": "NO DATA AVAILABLE",
+  "changeInfo": "CHANGE INFO",
+  "editAddress": "EDIT ADDRESS",
+  "defaultAddress": "DEFAULT SHIPPING ADDRESS",
+  "gamesPurchased": "GAMES PURCHASED",
+  "dateOrdered": "DATE ORDERED",
+  "paymentMethod": "PAYMENT METHOD",
+  "orderNumber": "ORDER NUMBER",
+  "platform": "PLATFORM",
+  "productSummary": "PRODUCT SUMMARY PRICE",
+  "notYourCode": "THIS IS NOT YOUR CODE",
+  "orderSummary": "ORDER SUMMARY PRICE",
+  "getCode": "GET CODE"
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
 
 
 

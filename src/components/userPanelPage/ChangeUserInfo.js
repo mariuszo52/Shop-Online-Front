@@ -6,6 +6,7 @@ function ChangeUserInfo(){
     const [name, setName] = useState("")
     const [lastName, setLastName] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
+    const {t} = useTranslate()
     function changeUserInfo(event) {
         event.preventDefault()
         const data = {
@@ -14,7 +15,7 @@ function ChangeUserInfo(){
         }
             axios.patch("http://localhost:8080/user-info/edit", data)
                 .then(response => {
-                    setNotificationText("User info has changed.")
+                    setNotificationText(t("userInfoHasChanged"))
                     setNotificationVisible(true)
                     handleCloseButtonClick()
                 })
@@ -41,14 +42,14 @@ return(
               id={"user-info-change-container"}
               className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <label>Change user information</label><br/>
-            <label>Name</label>
+            <label>{t("changeUserInfo")}</label><br/>
+            <label>{t("firstName")}</label>
             <input onChange={event => setName(event.target.value)}
                    required={true} className={"fp-input"} minLength={2} type={"text"}/><br/>
-            <label>Last name</label>
+            <label>{t("lastName")}</label>
             <input onChange={event => setLastName(event.target.value)}
                    required={true} className={"fp-input"} minLength={2} type={"text"}/><br/>
-            <button className={"login-button"} type={"submit"}>EDIT</button>
+            <button className={"login-button"} type={"submit"}>{t("edit")}</button>
         </form>
     )
 }

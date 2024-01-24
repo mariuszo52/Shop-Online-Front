@@ -3,12 +3,13 @@ import {useNotification} from "../../context/NotificationContext";
 
 function DeleteAccountConfirm(){
     const {setNotificationVisible, setNotificationText} = useNotification();
+    const {t} = useTranslate()
     function deleteAccount() {
         axios.delete("http://localhost:8080/user/sm")
             .then(response => {
                 sessionStorage.removeItem("jwt")
                 sessionStorage.removeItem("refreshToken")
-                setNotificationText("Account deleted.")
+                setNotificationText(t("accountDeleted"))
                 setNotificationVisible(true)
                 window.location.href = "/account/login"
 
@@ -29,8 +30,8 @@ function DeleteAccountConfirm(){
     return(
         <div id={"account-delete-confirm-container"} className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <label>ARE YOU SURE?</label><br/>
-            <button id={"delete-account-button"} className={"login-button"} onClick={deleteAccount}>DELETE</button>
+            <label>{t("sure")}</label><br/>
+            <button id={"delete-account-button"} className={"login-button"} onClick={deleteAccount}>{t("delete")}</button>
         </div>
     )
 }
