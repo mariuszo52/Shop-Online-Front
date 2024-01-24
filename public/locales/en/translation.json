@@ -45,7 +45,25 @@
   "products": "PRODUCTS",
   "orders": "ORDERS",
   "stats": "STATS",
-  "logout": "LOGOUT"
+  "logout": "LOGOUT",
+  "howActivate": "HOW TO ACTIVATE YOUR CODE",
+  "gameCodes": "GAME CODES", 
+  "addressChanged": "SHIPPING ADDRESS HAS CHANGED.",
+  "changeAddressLabel": "CHANGE SHIPPING ADDRESS",
+  "address": "Address",
+  "city": "City",
+  "country": "country",
+  "postalCode": "Postal postalCode",
+  "phoneNumber": "Phone number",
+  "passwordHasChanged": "PASSWORD HAS CHANGED.",
+  "changePassword": "CHANGE PASSWORD",
+  "oldPass": "Old changePassword",
+  "newPass": "New changePassword",
+  "confirmNewPass": "Confirm new password"
+
+
+
+
 
 
 

@@ -7,6 +7,7 @@ function ChangePassword(){
     const [newPassword, setNewPassword] = useState("")
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
+    const {t} = useTranslate()
     function changePassword(event) {
         event.preventDefault()
         const data = {
@@ -16,7 +17,7 @@ function ChangePassword(){
         }
             axios.patch("http://localhost:8080/user/password", data)
                 .then(response => {
-                    setNotificationText("Password has changed.")
+                    setNotificationText(t("passwordHasChanged"))
                     setNotificationVisible(true)
                     handleCloseButtonClick()
                 })
@@ -43,14 +44,14 @@ return(
             onKeyDown={event => handleEnterDown(event)} id={"password-change-container"}
               className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <label>Change password</label><br/>
-            <label>Old password</label>
+            <label>{t("changePassword")}</label><br/>
+            <label>{t("oldPass")}</label>
             <input onChange={event => setOldPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
-            <label>New password</label>
+            <label>{t("newPass")}</label>
             <input onChange={event => setNewPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
-            <label>Confirm new password</label>
+            <label>{t("confirmNewPass")}</label>
             <input onChange={event => setConfirmNewPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
             <button type={"submit"} className={"login-button"} >CHANGE PASSWORD</button>
