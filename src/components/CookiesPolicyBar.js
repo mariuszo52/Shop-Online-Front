@@ -26,9 +26,9 @@ function CookiesPolicyBar() {
             !isBarHidden && (
                 <div id={"cookies-bar"} className={"cookies-bar"}>
                     <p className={"cookies-bar-text"}>
-                        By continuing to use this site you automatically accept our
-                        <span onClick={handlePrivacyPolicyClick}> privacy policy</span> and
-                        <span onClick={handleTermsClick}> terms and conditions</span>.
+                        {t("byContinuing")}
+                        <span onClick={handlePrivacyPolicyClick}> {t("privacyPolicy")}</span> {t("and")}
+                        <span onClick={handleTermsClick}> {t("terms")}</span>.
                     </p>
                     <p onClick={handleAllowButtonClick} className={"cookies-accept-button"}>
                         {t("allowCookies")}
