@@ -83,7 +83,66 @@
   "productSummary": "PRODUCT SUMMARY PRICE",
   "notYourCode": "THIS IS NOT YOUR CODE",
   "orderSummary": "ORDER SUMMARY PRICE",
-  "getCode": "GET CODE"
+  "getCode": "GET CODE",
+  "wishlist": "WISHLIST",
+  "items": "ITEMS",
+  "removeAllItems": "REMOVE ALL ITEMS",
+  "addAllToCart": "ADD ALL ITEMS TO CART",
+  "myCart": "MY CART",
+  "cartEmpty": "CART IS EMPTY",
+  "qty": "QTY",
+  "subtotal": "SUBTOTAL",
+  "refreshCart": "REFRESH CART",
+  "clearCart": "CLEAR CART",
+  "viewCart": "SHOW CART",
+  "checkout": "CHECKOUT",
+  "allowCookies": "ALLOW COOKIES",
+  "yes": "YES",
+  "no": "NO",
+  "sortBy": "SORT BY",
+  "nameAsc": "NAME ASC",
+  "nameDesc": "NAME DESC",
+  "priceAsc": "PRICE ASC",
+  "priceDesc": "PRICE DESC",
+  "dateAsc": "RELEASE DATE ASC",
+  "dateDesc": "RELEASE DATE DESC",
+  "allPlatforms":"ALL PLATFORMS",
+  "genre": "GENRE",
+  "allGenres": "ALL GENRES",
+  "allLanguages": "ALL LANGUAGES",
+  "filter": "FILTER",
+  "copyright": "COPYRIGHT cd-keys.com.pl 2024 ©️",
+  "enterEmail": "ENTER YOUR EMAIL ADDRESS",
+  "send": "SEND",
+  "enterNewPass": "ENTER NEW PASSWORD",
+  "changePass": "CHANGE PASSWORD",
+  "socialMedia": "SOCIAL MEDIA",
+  "paymentMethods": "PAYMENT METHODS",
+  "prodInCart": "PRODUCT IS ALLREADY IN CART.",
+  "emptyCart": "CART IS EMPTY.",
+  "done": "DONE.",
+  "product": "PRODUCT",
+  "noItems": "YOU HAVE NO ITEMS IN YOUR SHOPPING CART.",
+  "orderTotal": "ORDER TOTAL"
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

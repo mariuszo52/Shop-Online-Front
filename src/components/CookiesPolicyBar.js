@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 function CookiesPolicyBar() {
     const [cookies, setCookie, removeCookie] = useCookies(["cookiesAccept"]);
     const [isBarHidden, setIsBarHidden] = useState(cookies.cookiesAccept)
-
+    const {t} = useTranslate()
     function handleAllowButtonClick() {
         setIsBarHidden(true)
         setCookie("cookiesAccept", true, {
@@ -29,7 +29,7 @@ function CookiesPolicyBar() {
                         <span onClick={handleTermsClick}> terms and conditions</span>.
                     </p>
                     <p onClick={handleAllowButtonClick} className={"cookies-accept-button"}>
-                        ALLOW COOKIES
+                        {t("allowCookies")}
                     </p>
                 </div>
             )

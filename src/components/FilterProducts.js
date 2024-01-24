@@ -11,6 +11,7 @@ function FilterProducts({
                             setDataLoading,
                             setCurrentPage
                         }) {
+    const {t} = useTranslation()                       
     let [platforms, setPlatforms] = useState([]);
     let [genres, setGenres] = useState([]);
     let [languages, setLanguages] = useState([]);
@@ -104,20 +105,20 @@ function FilterProducts({
 
     return (
         <div className="filter-container">
-            <label><p>Sort By</p>
+            <label><p>{t("sortBy")}</p>
                 <select onChange={event => setSort(event.target.value)} className={"filter"}>
-                    <option value={"ASC,name"} className={"filter-option"}>Name ASC</option>
-                    <option value={"DESC,name"} className={"filter-option"}>Name DESC</option>
-                    <option value={"ASC,price"} className={"filter-option"}>Price ASC</option>
-                    <option value={"DESC,price"} className={"filter-option"}>Price DESC</option>
-                    <option value={"ASC,releaseDate"} className={"filter-option"}>Release date ASC</option>
-                    <option value={"DESC,releaseDate"} className={"filter-option"}>Release date DESC</option>
+                    <option value={"ASC,name"} className={"filter-option"}>{t("nameAsc")}</option>
+                    <option value={"DESC,name"} className={"filter-option"}>{t("nameDesc")}</option>
+                    <option value={"ASC,price"} className={"filter-option"}>{t("priceAsc")}</option>
+                    <option value={"DESC,price"} className={"filter-option"}>{t("priceDesc")}</option>
+                    <option value={"ASC,releaseDate"} className={"filter-option"}>{t("dateAsc")}</option>
+                    <option value={"DESC,releaseDate"} className={"filter-option"}>{t("dateDesc")}</option>
                 </select>
             </label>
-            <label><p>Platform</p>
+            <label><p>{t("platform")}</p>
                 <select onChange={event => setPlatform(event.target.value)}
                         className={"filter"}>
-                    <option className={"filter-option"} value={""}>All platforms</option>
+                    <option className={"filter-option"} value={""}>{t("allPlatforms")}</option>
                     {platforms?.map((platform, index) => (
                         <option value={platform} key={index}
                                 className={"filter-option"}>{platform}</option>
@@ -125,33 +126,33 @@ function FilterProducts({
                 </select>
             </label>
             <label>
-                <p>Min Price: <span><input value={minPrice} onChange={event => handleMinPrice(event)} type={"number"}/>PLN</span>
+                <p>Min {t("price")}: <span><input value={minPrice} onChange={event => handleMinPrice(event)} type={"number"}/>PLN</span>
                 </p>
                 <input onChange={event => handleMinPrice(event)}
                        value={minPrice} defaultValue={0} step={10} type="range" id="minRange" min="0" max="10000"/>
-                <p>Max Price: <span><input value={maxPrice} onChange={event => handleMaxPrice(event)} type={"number"}/>PLN</span>
+                <p>Max {t("price")}: <span><input value={maxPrice} onChange={event => handleMaxPrice(event)} type={"number"}/>PLN</span>
                 </p>
                 <input onChange={event => handleMaxPrice(event)}
                        value={maxPrice} type="range" step={10} id="maxRange" min="0" max="10000" defaultValue={10000}/>
             </label>
-            <label><p>Genre</p>
+            <label><p>{t("genre")}</p>
                 <select onChange={event => setGenre(event.target.value)} className={"filter"}>
-                    <option className={"filter-option"} value={""}>All genres</option>
+                    <option className={"filter-option"} value={""}>{t("allGenres")}</option>
                     {genres?.map((genre, index) => (
                         <option key={index} className={"filter-option"}>{genre}</option>
                     ))}
                 </select>
             </label>
-            <label><p>Language</p>
+            <label><p>{t("language")}</p>
                 <select onChange={event => setLanguage(event.target.value)} className={"filter"}>
-                    <option className={"filter-option"} value={""}>All languages</option>
+                    <option className={"filter-option"} value={""}>{t("allLanguages")}</option>
                     {languages?.map((language, index) => (
                         <option key={index} className={"filter-option"}>{language}</option>
                     ))}
                 </select>
             </label>
             <div className={"filter-button-div"}>
-                <button className={"filter-button"} onClick={handleFilterClick}>Filter</button>
+                <button className={"filter-button"} onClick={handleFilterClick}>{t("filter")}</button>
             </div>
         </div>
     )

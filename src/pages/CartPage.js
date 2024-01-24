@@ -8,6 +8,7 @@ import SocialMedia from "../components/SocialMedia";
 
 
 function CartPage() {
+    const {t} = useTranslate()
     const navigate = useNavigate();
     const {
         index, onQuantityChange, removeProductFromCart, fetchCart,
@@ -39,19 +40,19 @@ function CartPage() {
         <div className={"main-div"}>
             <Menu/>
             <div className={"cart-h1"}>
-                <h1 className={"my-cart-h1"}>MY CART</h1>
-                <span>{cartTotalElements} ITEMS</span>
+                <h1 className={"my-cart-h1"}>{t("myCart")}</h1>
+                <span>{cartTotalElements} {t("items")}</span>
             </div>
             <div className={"full-cart-header"}>
                 <div className={"product-column"}>
-                    <p id={"product"}>PRODUCT</p>
+                    <p id={"product"}>{t("product")}</p>
 
                 </div>
                 <div className={"quantity-column"}>
-                    <p>QUANTITY</p>
+                    <p>{t("quantity")}</p>
                 </div>
                 <div className={"subtotal-column"}>
-                    <p>SUBTOTAL</p>
+                    <p>{t("subtotal")}</p>
                 </div>
                 <div className={"remove-column"}>
                 </div>
@@ -90,7 +91,7 @@ function CartPage() {
                 </div>)}
             {cartItems?.length === 0 && (
                 <div id={"empty-cart-products-container"} className={"cart-products-container"}>
-                    <p>You have no items in your shopping cart.</p>
+                    <p>{t("noItems")}</p>
                     <p>
                         Click <span onClick={() => navigate("/")}>here</span> to continue shopping.
                     </p>
@@ -100,12 +101,12 @@ function CartPage() {
             <div className={"submit-cart-container"}>
                 <div className={"checkout-container"}>
                     <div className={"total-prize-div"}>
-                        <p className={"total-prize-p"}>ORDER TOTAL</p>
+                        <p className={"total-prize-p"}>{t("orderTotal")}</p>
                         <p className={"total-prize-p"}>{cartTotalPrice?.toFixed(2)} PLN</p>
                     </div>
                 </div>
                 <div className={"checkout-button-container"}>
-                    <p onClick={onCheckoutClick} className={"checkout-button"}>CHECKOUT</p>
+                    <p onClick={onCheckoutClick} className={"checkout-button"}>{t("checkout")}</p>
                 </div>
             </div>
             <SocialMedia/>

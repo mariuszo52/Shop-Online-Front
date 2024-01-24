@@ -12,6 +12,7 @@ function CartPreview() {
     } = useCart();
     const navigate = useNavigate();
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
+    const {t} = useTranslate()
     useEffect(() => {
        fetchCart();
     }, [index]);
@@ -51,14 +52,14 @@ function CartPreview() {
             <div className="cart-preview-container">
                 <div className="cart-header">
                     <div className={"items-quantity"}>
-                        <h3>MY CART</h3>
-                        <h4>{cartTotalElements} ITEMS</h4>
+                        <h3>{t("myCart")}</h3>
+                        <h4>{cartTotalElements} {t("items")}</h4>
                     </div>
                     <p className={"close-cart"} onClick={closeCartPreview}>x</p>
                 </div>
                 <div className={"cart-items"}>
                     {cartItems?.length === 0 && (
-                        <p>Cart is empty.</p>
+                        <p>{t("cartEmpty")}</p>
                     )}
                     {cartItems?.map((item, index) => (
                         <div key={index} className={"cart-item"}>
@@ -69,7 +70,7 @@ function CartPreview() {
                                        className={"cart-product-title"}>{item?.name?.substring(0, 30)}</p>
                                 </div>
                                 <div className={"quantity-container"}>
-                                    <span>QTY:  </span>
+                                    <span>{t("qty")}:  </span>
                                     <input type={"number"}
                                            min={1}
                                            max={5}
@@ -89,14 +90,14 @@ function CartPreview() {
                 </div>
 
                 <div className={"total-prize-container"}>
-                    <p>SUBTOTAL</p>
+                    <p>{t("subtotal")}</p>
                     <p>{cartTotalPrice?.toFixed(2)} PLN</p>
                 </div>
                 <div className={"summary-container"}>
-                    <p onClick={refreshCart}>REFRESH CART</p>
-                    <p onClick={clearCart}>CLEAR CART</p>
-                    <p onClick={onViewCartClick}>VIEW CART</p>
-                    <p onClick={onCheckoutClick}>CHECKOUT</p>
+                    <p onClick={refreshCart}>{t("refreshCart")}</p>
+                    <p onClick={clearCart}>{t("clearCart")}</p>
+                    <p onClick={onViewCartClick}>{t("viewCart")}</p>
+                    <p onClick={onCheckoutClick}>{t("checkout")}</p>
                 </div>
             </div>
         )

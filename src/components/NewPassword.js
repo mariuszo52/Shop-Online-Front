@@ -6,6 +6,7 @@ function NewPassword(){
     const [token, setToken] = useState(null)
     const [newPassword, setNewPassword] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
+    const {t} = useTranslate()
 
     useEffect(() => {
         let urlSearchParams = new URLSearchParams(window.location.search);
@@ -50,10 +51,10 @@ function NewPassword(){
             onKeyDown={event => handleEnterDown(event)} id={"password-reset-container"}
               className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <label>Enter new password</label><br/>
+            <label>{t("enterNewPass")}</label><br/>
             <input onChange={event => setNewPassword(event.target.value)}
                    required={true} className={"fp-input"} type={"password"}/><br/>
-            <button className={"login-button"} type={"submit"}>CHANGE PASSWORD</button>
+            <button className={"login-button"} type={"submit"}>{t("changePass")}</button>
         </form>
     )
 }

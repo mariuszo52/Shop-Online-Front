@@ -4,6 +4,7 @@ import {useNotification} from "../context/NotificationContext";
 
 function ForgetPasswordForm(){
     const [email, setEmail] = useState("");
+    const {t} = useTranslate()
     let {setNotificationVisible, setNotificationText} = useNotification();
     function handleCloseButtonClick() {
         let forgetPasswordForm = document.getElementById("fp-main-container");
@@ -39,10 +40,10 @@ function ForgetPasswordForm(){
         <form onSubmit={event => handleSendButtonClick(event)}
             onKeyDown={handleEnterDown} id={"fp-main-container"} className={"fp-main-container"}>
                 <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <p>ENTER YOUR EMAIL ADDRESS</p><br/>
+            <p>{t("enterEmail")}</p><br/>
             <input className={"fp-input"}  required={true} type={"email"}
                    onChange={event => setEmail(event.target.value)}/><br/>
-            <button type={"submit"} className={"login-button"}>SEND</button>
+            <button type={"submit"} className={"login-button"}>{t("send")}</button>
         </form>
     )
 }

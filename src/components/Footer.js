@@ -1,8 +1,9 @@
 import React from "react";
 function footer(){
+    const {t} = useTranslate()
     return(
 <footer className={"footer"}>
-    <p>Copyright cd-keys.com.pl 2023, all rights reserved</p>
+    <p>{t("copyright")}</p>
 </footer>
     )}
 export default footer;

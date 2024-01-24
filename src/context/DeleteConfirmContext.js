@@ -10,6 +10,7 @@ export function DeleteConfirmProvider({children}) {
     const [index, setIndex] = useState(0)
     const [id, setId] = useState(null)
     const [paramName, setParamName] = useState("")
+    const {t} = useTranslate()
 
     function handleUserDeleteConfirm(){
         let url
@@ -24,7 +25,7 @@ export function DeleteConfirmProvider({children}) {
         }
         axios.delete(url, {params} )
             .then(response => {
-                setNotificationText("Done")
+                setNotificationText(t("done"))
                 setNotificationVisible()
                 setIsComponentVisible(false)
                 setIndex(prevState => prevState +1)

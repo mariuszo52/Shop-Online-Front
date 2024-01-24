@@ -9,6 +9,7 @@ export function CartProvider({children}) {
     const {setNotificationVisible, setNotificationText} = useNotification();
     const [cartItems, setCartItems] = useState()
     const [cartTotalElements, setCartTotalElements] = useState()
+    const {t} = useTranslate()
     function saveCartToDatabase() {
         let cart = JSON.parse(sessionStorage.getItem("cart"));
         if (sessionStorage.getItem("jwt") && cart) {
@@ -69,7 +70,7 @@ export function CartProvider({children}) {
             }
         } else {
             setNotificationVisible();
-            setNotificationText("Product is already in a cart.")
+            setNotificationText(t("prodInCart"))
         }
         setIndex((prevState) => prevState + 1);
 
@@ -138,11 +139,11 @@ export function CartProvider({children}) {
     function onCheckoutClick(){
         let cart = sessionStorage.getItem("cart");
         if(sessionStorage.getItem("jwt") && (!cartItems || cartItems?.length === 0)){
-            setNotificationText("Cart is empty.")
+            setNotificationText(t("emptyCart"))
             setNotificationVisible()
         }
         if(!sessionStorage.getItem("jwt") && (!cart && JSON.parse(cart)?.length === 0 )){
-            setNotificationText("Cart is empty.")
+            setNotificationText(t("emptyCart"))
             setNotificationVisible()
         }
         else if(sessionStorage.getItem("jwt") && cartItems?.length !== 0){

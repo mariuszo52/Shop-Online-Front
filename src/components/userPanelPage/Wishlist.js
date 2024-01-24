@@ -6,7 +6,7 @@ import {useCart} from "../../context/CartContext";
 function Wishlist() {
     const [wishlist, setWishlist] = useState([])
     const {addToCart} = useCart();
-
+    const {t} = useTranslate()
     useEffect(() => {
         function fetchFavoriteProducts() {
             axios.get("http://localhost:8080/favorite-product")
@@ -31,9 +31,9 @@ function Wishlist() {
 
     return (
         <div className={"menu-my-account"}>
-            <h1>WISHLIST</h1>
+            <h1>{t("wishlist")}</h1>
             <div className={"user-panel-header"}>
-                <h3>{wishlist?.length} ITEMS</h3>
+                <h3>{wishlist?.length} {t("items")}</h3>
             </div>
             <ul className={"wishlist"}>
                 <ProductListElement
@@ -41,8 +41,8 @@ function Wishlist() {
                     products={wishlist}/>
             </ul>
             {wishlist?.length !== 0 ? (<div className={"wishlist-options"}>
-                <p onClick={handleRemoveAllItems} className={"account-info-button"}>REMOVE ALL ITEMS</p>
-                <p onClick={handleAddAllItemsToCart} className={"account-info-button"}>ADD ALL ITEMS TO CART</p>
+                <p onClick={handleRemoveAllItems} className={"account-info-button"}>{t("removeAllItems")}</p>
+                <p onClick={handleAddAllItemsToCart} className={"account-info-button"}>{t("addAllToCart")}</p>
             </div>) : (<div className={"wishlist-options"}></div>)}
         </div>
     )
