@@ -5,10 +5,11 @@ import {useCart} from "../context/CartContext";
 import {useNavigate} from "react-router-dom";
 import Footer from "../components/Footer";
 import SocialMedia from "../components/SocialMedia";
+import {useTranslation} from "react-i18next";
 
 
 function CartPage() {
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     const navigate = useNavigate();
     const {
         index, onQuantityChange, removeProductFromCart, fetchCart,
@@ -93,7 +94,7 @@ function CartPage() {
                 <div id={"empty-cart-products-container"} className={"cart-products-container"}>
                     <p>{t("noItems")}</p>
                     <p>
-                        Click <span onClick={() => navigate("/")}>here</span> to continue shopping.
+                        {t("click")} <span onClick={() => navigate("/")}>{t("here")}</span> {t("continueShopping")}
                     </p>
                 </div>
 

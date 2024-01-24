@@ -2,11 +2,12 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import ProductListElement from "../ProductListElement";
 import {useCart} from "../../context/CartContext";
+import {useTranslation} from "react-i18next";
 
 function Wishlist() {
     const [wishlist, setWishlist] = useState([])
     const {addToCart} = useCart();
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     useEffect(() => {
         function fetchFavoriteProducts() {
             axios.get("http://localhost:8080/favorite-product")

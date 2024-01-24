@@ -1,4 +1,5 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 function ActivationCodes({codesList}) {
     const {t} = useTranslation()

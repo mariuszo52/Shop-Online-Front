@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import ProductListElement from "../components/ProductListElement";
 import {useCart} from "../context/CartContext";
+import {useTranslation} from "react-i18next";
 
 function ProductPage() {
     const {id} = useParams();
@@ -15,7 +16,7 @@ function ProductPage() {
     const [similarProducts, setSimilarProducts] = useState([]);
     const [productActivation, setProductActivation] = useState([]);
     const {addToCart} = useCart();
-    const {t} = useTranslate()
+    const {t} = useTranslation()
 
     useEffect(() => {
         function activationInfo() {
@@ -66,7 +67,7 @@ function ProductPage() {
     }, [id]);
 
     const handleClickInfoMenuButton = (event) => {
-        let moreInfoContentName = event.target.textContent.toLowerCase();
+        let moreInfoContentName = event.target.id?.toLowerCase();
         let moreInfoMenuElements = document.getElementsByClassName("more-info-el");
         for (let moreInfoMenuElement of moreInfoMenuElements) {
             moreInfoMenuElement.style.backgroundColor = "#160e2a"
@@ -112,7 +113,7 @@ function ProductPage() {
                         <ul>
                             <li>{product?.regionalLimitations}</li>
                             <li>{product?.inStock ? t("currentlyInStock") : t("availablePreorder")}</li>
-                            <li>{product?.isPreorder ? t("preorder") : t("deliverDigitaly")}</li>
+                            <li>{product?.isPreorder ? t("preorder") : t("deliverDigitally")}</li>
                         </ul>
                     </div>
                 </div>
@@ -147,12 +148,16 @@ function ProductPage() {
             <div className={"product-more-info"}>
                 <div className={"more-info-menu"}>
                     <p onClick={event => handleClickInfoMenuButton(event)}
+                       id={"INFORMATION"}
                        className={"more-info-el"}>{t("information")}</p>
                     <p onClick={event => handleClickInfoMenuButton(event)}
+                       id={"VIDEOS"}
                        className={"more-info-el"}>{t("videos")}</p>
                     <p onClick={event => handleClickInfoMenuButton(event)}
+                       id={"SCREENSHOTS"}
                        className={"more-info-el"}>{t("screenshots")}</p>
                     <p onClick={event => handleClickInfoMenuButton(event)}
+                       id={"ACTIVATION"}
                        className={"more-info-el"}>{t("activation")}</p>
                 </div>
                 <div id={"information"} className={"more-info-content"}>

@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
+import {useTranslation} from "react-i18next";
 
 function RegisterPage() {
     const [name, setName] = useState("")
@@ -16,7 +17,7 @@ function RegisterPage() {
     const [username, setUsername] = useState("")
     const navigate = useNavigate();
     let {setNotificationText, setNotificationVisible} = useNotification();
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     const userRegister = {
         "name": name,
         "lastName": lastName,
@@ -150,8 +151,7 @@ function RegisterPage() {
                     </div>
                     <div className={"password-generate-container"}>
                         <p onClick={handleSuggestStrongPassButton} className={"password-generate-button"}>{t("strongPass")}</p>
-                        <span>Your password needs to be at least 8 characters long and use 4 different types of character
-                        (Lower Case, Upper Case, Digits, Special Characters).</span>
+                        <span>{t("passRestrictions")}</span>
                     </div>
                 </div>
                 <div className={"submit-register-container"}>

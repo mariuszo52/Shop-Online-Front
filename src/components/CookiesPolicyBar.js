@@ -1,10 +1,12 @@
 import {useState} from "react";
 import {useCookies} from "react-cookie";
+import {useTranslation} from "react-i18next";
 
 function CookiesPolicyBar() {
     const [cookies, setCookie, removeCookie] = useCookies(["cookiesAccept"]);
     const [isBarHidden, setIsBarHidden] = useState(cookies.cookiesAccept)
-    const {t} = useTranslate()
+    const {t} = useTranslation()
+
     function handleAllowButtonClick() {
         setIsBarHidden(true)
         setCookie("cookiesAccept", true, {

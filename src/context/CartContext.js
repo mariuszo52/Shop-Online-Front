@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import {useNotification} from "./NotificationContext";
 import axios from "axios";
+import {useTranslation} from "react-i18next";
 const CartContext = createContext();
 
 export function CartProvider({children}) {
@@ -9,7 +10,7 @@ export function CartProvider({children}) {
     const {setNotificationVisible, setNotificationText} = useNotification();
     const [cartItems, setCartItems] = useState()
     const [cartTotalElements, setCartTotalElements] = useState()
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     function saveCartToDatabase() {
         let cart = JSON.parse(sessionStorage.getItem("cart"));
         if (sessionStorage.getItem("jwt") && cart) {

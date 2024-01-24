@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
+import {useTranslation} from "react-i18next";
 
 
 function ChangeAddress(){
@@ -49,7 +50,7 @@ return(
             onKeyDown={event => handleEnterDown(event)} id={"address-change-container"}
               className={"fp-main-container"}>
             <p onClick={handleCloseButtonClick} className={"close-fp-button"}>x</p>
-            <label>{t("changeaddressLabel")}</label><br/>
+            <label>{t("changeAddressLabel")}</label><br/>
             <label>{t("address")}</label>
             <input onChange={event => setAddress(event.target.value)}
                    required={true} className={"fp-input"} minLength={2} type={"text"}/><br/>

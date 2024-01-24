@@ -1,10 +1,11 @@
 import {useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
+import {useTranslation} from "react-i18next";
 
 function ForgetPasswordForm(){
     const [email, setEmail] = useState("");
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     let {setNotificationVisible, setNotificationText} = useNotification();
     function handleCloseButtonClick() {
         let forgetPasswordForm = document.getElementById("fp-main-container");

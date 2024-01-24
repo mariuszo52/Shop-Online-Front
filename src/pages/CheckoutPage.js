@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import Menu from "../components/Menu";
-import trash from "../images/trash.jpg";
 import {useNavigate} from "react-router-dom";
 import {useCart} from "../context/CartContext";
 import axios from "axios";
+import {useTranslation} from "react-i18next";
 
 function CheckoutPage() {
     let {cartItems} = useCart();
@@ -17,7 +17,7 @@ function CheckoutPage() {
     const [city, setCity] = useState("")
     const [payment, setPayment] = useState("BLIK")
     const [totalPrice, setTotalPrice] = useState(0.0)
-    const {t} = useTranslate()
+    const {t} = useTranslation()
 
 
     let shippingAddress = {
@@ -185,10 +185,9 @@ function CheckoutPage() {
                     </div>))}
                 <h2>{t("total")}: {totalPrice?.toFixed(2)} PLN</h2>
 
-                <label><input required={true} type={"checkbox"}/> I agree to
-                    the
-                    <span className={"span-link"} onClick={onTermsClick}> Terms & Conditions</span> and
-                    <span className={"span-link"} onClick={onPrivacyPolicyClick}> Privacy Policy</span></label>
+                <label><input required={true} type={"checkbox"}/>{t("iAgree")}
+                    <span className={"span-link"} onClick={onTermsClick}> {t("terms")}</span> {t("and")}
+                    <span className={"span-link"} onClick={onPrivacyPolicyClick}> {t("privacyPolicy")}</span></label>
                 <button type={"submit"} className={"submit-button"}>{t("order")}</button>
             </form>
 

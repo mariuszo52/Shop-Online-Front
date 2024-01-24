@@ -47,7 +47,7 @@
   "stats": "STATS",
   "logout": "LOGOUT",
   "howActivate": "HOW TO ACTIVATE YOUR CODE",
-  "gameCodes": "GAME CODES", 
+  "gameCodes": "GAME CODES",
   "addressChanged": "SHIPPING ADDRESS HAS CHANGED.",
   "changeAddressLabel": "CHANGE SHIPPING ADDRESS",
   "address": "Address",
@@ -61,9 +61,9 @@
   "newPass": "New changePassword",
   "confirmNewPass": "Confirm new password",
   "userInfoHasChanged": "USER INFO HAS CHANGED.",
-  "changeUserInfo": " CHANGE USER INFORMATIONS",
+  "changeUserInfo": " CHANGE USER INFORMATION",
   "firstName": "Name",
-  "lastName":"Last firstName",
+  "lastName": "Last firstName",
   "password": "Password",
   "deleteAccount": "DELETE ACCOUNT",
   "accountDeleted": "ACCOUNT DELETED.",
@@ -106,7 +106,7 @@
   "priceDesc": "PRICE DESC",
   "dateAsc": "RELEASE DATE ASC",
   "dateDesc": "RELEASE DATE DESC",
-  "allPlatforms":"ALL PLATFORMS",
+  "allPlatforms": "ALL PLATFORMS",
   "genre": "GENRE",
   "allGenres": "ALL GENRES",
   "allLanguages": "ALL LANGUAGES",
@@ -118,14 +118,14 @@
   "changePass": "CHANGE PASSWORD",
   "socialMedia": "SOCIAL MEDIA",
   "paymentMethods": "PAYMENT METHODS",
-  "prodInCart": "PRODUCT IS ALLREADY IN CART.",
+  "prodInCart": "PRODUCT IS ALREADY IN CART.",
   "emptyCart": "CART IS EMPTY.",
   "done": "DONE.",
   "product": "PRODUCT",
   "noItems": "YOU HAVE NO ITEMS IN YOUR SHOPPING CART.",
   "orderTotal": "ORDER TOTAL",
   "billingAddress": "BILLING ADDRESS",
-  "streetAddress": "STREET ADDRESS",
+  "streetAddress": "Street address",
   "confirmAddress": "CONFIRM ADDRESS",
   "total": "TOTAL",
   "order": "ORDER",
@@ -135,7 +135,7 @@
   "availablePreorder": "AVAILABLE TO PREORDER",
   "currentlyInStock": "CURRENTLY IN STOCK",
   "preorder": "PREORDER",
-  "deliverDigitaly": "CODE DELIVERED TO YOU DIGITALY",
+  "deliverDigitally": "CODE DELIVERED TO YOU DIGITALLY",
   "releaseDate": "RELEASE DATE",
   "languages": "LANGUAGES",
   "alsoLike": "YOU MAY ALSO LIKE",
@@ -144,7 +144,7 @@
   "screenshots": "SCREENSHOTS",
   "activation": "ACTIVATION",
   "loginSuccess": "LOGIN SUCCESS.",
-  "alreadyRegistred": "ALREADY REGISTRED? PLEASE LOGIN FROM HERE.",
+  "alreadyRegistered": "ALREADY REGISTERED? PLEASE LOGIN FROM HERE.",
   "requiredField": "THIS IS REQUIRED FIELD",
   "forgotPass": "FORGOT YOUR PASSWORD?",
   "login": "LOGIN",
@@ -155,74 +155,26 @@
   "discounts": "RECEIVE DISCOUNTS & BENEFITS.",
   "partCommunity": "BE A PART OF COMMUNITY",
   "confirmEmail": "CONFIRMATION EMAIL HAS SENT AT ",
-  "newAccount": "CREATE NEW CUSTOMER deleteAccount",
-  "personalInfo": "PERSONAL INFORMATIONS",
-  "signInInfo": "SIGN IN INFORMATIONS",
+  "newAccount": "CREATE NEW CUSTOMER ACCOUNT",
+  "personalInfo": "PERSONAL INFORMATION",
+  "signInInfo": "SIGN IN INFORMATION",
   "confirm": "CONFIRM",
   "strongPass": "SUGGEST STRONG PASSWORD.",
   "createAccount": "CREATE ACCOUNT",
   "back": "BACK",
-  "messages": "MESSAGES"
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
+  "messages": "MESSAGES",
+  "email": "Email",
+  "passRestrictions": "Your password needs to be at least 8 characters long and use 4 different types of character (Lower Case, Upper Case, Digits, Special Characters).",
+  "click": "Click",
+  "here": "here",
+  "continueShopping": "to continue shopping.",
+  "iAgree": "I agree to the",
+  "terms": "Terms & Conditions",
+  "and": "and",
+  "privacyPolicy": "Privacy Policy",
+  "myOrders": "MY ORDERS",
+  "accountInfo": "ACCOUNT INFORMATION",
+  "addressBook": "ADDRESS BOOK",
+  "loginHeader": "LOGIN"
 
 }

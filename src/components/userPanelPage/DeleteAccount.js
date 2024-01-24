@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
+import {useTranslation} from "react-i18next";
 
 function DeleteAccount(){
     const [password, setPassword] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     function deleteAccount(event) {
         event.preventDefault()
         const config ={

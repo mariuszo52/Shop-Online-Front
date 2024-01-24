@@ -2,8 +2,7 @@ import trash from "../images/trash.jpg"
 import {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
-
+import {useTranslation} from "react-i18next";
 function CartPreview() {
     const {
         isCartVisible, index, setIndex, clearCart,
@@ -12,7 +11,7 @@ function CartPreview() {
     } = useCart();
     const navigate = useNavigate();
     const [cartTotalPrice, setCartTotalPrice] = useState(0)
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     useEffect(() => {
        fetchCart();
     }, [index]);

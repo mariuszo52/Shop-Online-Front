@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {useTranslation} from "react-i18next";
 
 function FilterProducts({
                             productsPageable,
@@ -143,7 +144,7 @@ function FilterProducts({
                     ))}
                 </select>
             </label>
-            <label><p>{t("language")}</p>
+            <label><p>{t("languages")}</p>
                 <select onChange={event => setLanguage(event.target.value)} className={"filter"}>
                     <option className={"filter-option"} value={""}>{t("allLanguages")}</option>
                     {languages?.map((language, index) => (

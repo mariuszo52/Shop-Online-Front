@@ -5,12 +5,13 @@ import React, {useEffect, useState} from "react";
 import MyAccount from "../components/userPanelPage/MyAccount";
 import MyOrders from "../components/userPanelPage/MyOrders";
 import Wishlist from "../components/userPanelPage/Wishlist";
+import {useTranslation} from "react-i18next";
 
 function UserPanelPage() {
     const [activeMenuTab, setActiveMenuTab] = useState("my account")
-
+    const {t} = useTranslation()
     function chooseActiveTab(event) {
-        let tabName = event.target.innerText?.replace(" ", "-").toLowerCase();
+        let tabName = event.target.id;
         window.location.href = "/account/user-panel?tab=" + tabName;
     }
 
@@ -45,7 +46,7 @@ function UserPanelPage() {
             <div className={"account-panel-container"}>
                 <div className={"account-menu"}>
                     <p id={"my-account"} onClick={event => chooseActiveTab(event)}
-                       className={"account-menu-el"}>{this("myAccount")}</p>
+                       className={"account-menu-el"}>{t("myAccount")}</p>
                     <p id={"my-orders"} onClick={event => chooseActiveTab(event)}
                        className={"account-menu-el"}>{t("myOrders")}</p>
                     <p id={"wishlist"} onClick={event => chooseActiveTab(event)}

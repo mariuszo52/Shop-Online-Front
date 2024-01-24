@@ -1,9 +1,10 @@
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
+import {useTranslation} from "react-i18next";
 
 function DeleteAccountConfirm(){
     const {setNotificationVisible, setNotificationText} = useNotification();
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     function deleteAccount() {
         axios.delete("http://localhost:8080/user/sm")
             .then(response => {

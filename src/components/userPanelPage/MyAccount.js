@@ -6,6 +6,7 @@ import ChangeUserInfo from "./ChangeUserInfo";
 import ChangeAddress from "./ChangeAddress";
 import DeleteAccount from "./DeleteAccount";
 import DeleteAccountConfirm from "./DeleteAccountConfirm";
+import {useTranslation} from "react-i18next";
 
 function MyAccount(){
     const [userAccountInfo, setUserAccountInfo] = useState(null)
@@ -78,7 +79,7 @@ function MyAccount(){
                 <p className={"account-info-paragraph"}>{t("noData")}</p>
             )}
             <p className={"account-info-button"} onClick={handleChangeInfoButton}>{t("changeInfo")}</p>
-            <p className={"account-info-button"} onClick={handleChangePasswordButton}>"{t("changePassword")}</p>
+            <p className={"account-info-button"} onClick={handleChangePasswordButton}>{t("changePassword")}</p>
         </div>
         <div className={"user-panel-header"}>
             <h3>{t("addressBook")}</h3>

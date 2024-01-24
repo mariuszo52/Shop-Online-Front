@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "./NotificationContext";
+import {useTranslation} from "react-i18next";
 
 const DeleteConfirmContext = createContext();
 
@@ -10,7 +11,7 @@ export function DeleteConfirmProvider({children}) {
     const [index, setIndex] = useState(0)
     const [id, setId] = useState(null)
     const [paramName, setParamName] = useState("")
-    const {t} = useTranslate()
+    const {t} = useTranslation()
 
     function handleUserDeleteConfirm(){
         let url

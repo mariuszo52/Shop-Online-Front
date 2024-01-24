@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import ActivationCodes from "./ActivationCodes";
+import {useTranslation} from "react-i18next";
 
 function MyOrders() {
     const [orderProducts, setOrderProducts] = useState([])

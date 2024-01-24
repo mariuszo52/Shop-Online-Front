@@ -14,6 +14,7 @@ import {LoginSocialFacebook} from 'reactjs-social-login';
 import ForgetPasswordForm from "../components/ForgetPasswordForm";
 import NewPassword from "../components/NewPassword";
 import {useCart} from "../context/CartContext";
+import {useTranslation} from "react-i18next";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function LoginPage() {
     const [emailPass, setEmailPass] = useState("")
     const [facebookAppId, setFacebookAppId] = useState("")
     const {saveCartToDatabase} = useCart();
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     let loginCredentials = {
         "email": emailLogin,
         "password": emailPass
@@ -156,8 +157,8 @@ function LoginPage() {
             <NewPassword/>
             <div className={"login-page-container"}>
                 <div className={"login-form-container"}>
-                    <h1 className={"login-header"}>LOGIN</h1>
-                    <p>{t("alreadyRegistred")}</p>
+                    <h1 className={"login-header"}>{t("loginHeader")}</h1>
+                    <p>{t("alreadyRegistered")}</p>
                     <form id={"login-form"} onKeyDown={event => handleKeypress(event)}
                           onSubmit={event => onLoginButtonClick(event)}
                           className={"login-form"}>
@@ -182,7 +183,7 @@ function LoginPage() {
                         </div>
                     </form>
                     <hr/>
-                    <h1 className={"login-header"}>{"or"}</h1>
+                    <h1 className={"login-header"}>{t("or")}</h1>
                     <div className={"oauth-login-container"}>
                         {renderFacebookLogin()}
                         <div className={"google-button"}>

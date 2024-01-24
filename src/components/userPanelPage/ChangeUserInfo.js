@@ -1,12 +1,13 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
+import {useTranslation} from "react-i18next";
 
 function ChangeUserInfo(){
     const [name, setName] = useState("")
     const [lastName, setLastName] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
-    const {t} = useTranslate()
+    const {t} = useTranslation()
     function changeUserInfo(event) {
         event.preventDefault()
         const data = {
