@@ -1871,3 +1871,15 @@
 #select-language{
     text-align: center;
 }
+.privacy-policy{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 80%;
+}
+.privacy-policy p{
+    margin-bottom: 5px;
+}
+.privacy-policy h2{
+    margin-bottom: 10px;
+}

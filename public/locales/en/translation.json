@@ -52,7 +52,7 @@
   "changeAddressLabel": "CHANGE SHIPPING ADDRESS",
   "address": "Address",
   "city": "City",
-  "country": "country",
+  "country": "Country",
   "postalCode": "Postal postalCode",
   "phoneNumber": "Phone number",
   "passwordHasChanged": "PASSWORD HAS CHANGED.",
