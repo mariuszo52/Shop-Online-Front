@@ -1877,7 +1877,7 @@
     align-items: start;
     width: 80%;
 }
-.privacy-policy p{
+.privacy-policy p, li{
     margin-bottom: 5px;
 }
 .privacy-policy h2{
