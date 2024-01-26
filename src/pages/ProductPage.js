@@ -7,6 +7,8 @@ import axios from "axios";
 import ProductListElement from "../components/ProductListElement";
 import {useCart} from "../context/CartContext";
 import {useTranslation} from "react-i18next";
+import i18n from "../components/i18n";
+
 
 function ProductPage() {
     const {id} = useParams();
@@ -17,35 +19,49 @@ function ProductPage() {
     const [productActivation, setProductActivation] = useState([]);
     const {addToCart} = useCart();
     const {t} = useTranslation()
+    const [description, setDescription] = useState("")
 
-    useEffect(() => {
-        function activationInfo() {
-            let activationParagraphs = product?.activationDetails.split("\n");
-            setProductActivation(activationParagraphs)
+
+    function translate(description, activationDetails) {
+        if (i18n.language !== "en") {
+            axios.get("http://localhost:8080/translate", {
+                params: {"langCode": i18n.language, "text": description}
+            })
+                .then(response => setDescription(response.data))
+                .catch(reason => console.log(reason));
+            axios.get("http://localhost:8080/translate", {
+                params: {"langCode": i18n.language, "text": activationDetails}
+            })
+                .then(response => setProductActivation(response.data.split("\n")))
+                .catch(reason => console.log(reason));
         }
-
-        activationInfo()
-    }, [product, id]);
+    }
 
     useEffect(() => {
-        async function getProduct() {
+        function getProduct() {
             const params = {
                 id: id
             }
-            await axios.get("http://localhost:8080/product", {params})
-                .then(r => setProduct(r.data))
+            axios.get("http://localhost:8080/product", {params})
+                .then(r => {
+                    setProduct(r.data)
+                    setProductActivation(r.data.activationDetails.split("\n"))
+                    setDescription(r.data.description)
+                    translate(r.data.description, r.data.activationDetails)
+
+                })
                 .catch(err => console.log("Cannot fetch product info." + err))
         }
 
         getProduct()
-    }, [id]);
+    }, [id, i18n.language]);
 
     useEffect(() => {
-        async function getSimilarProducts() {
+        function getSimilarProducts() {
             const params = {
                 id: id
             }
-            await axios.get("http://localhost:8080/product/similar-products", {params})
+            axios.get("http://localhost:8080/product/similar-products", {params})
                 .then(r => setSimilarProducts(r.data))
                 .catch(err => console.log("Cannot fetch product info." + err))
         }
@@ -54,11 +70,11 @@ function ProductPage() {
     }, [id]);
 
     useEffect(() => {
-        async function getLanguages() {
+        function getLanguages() {
             const params = {
                 id: id
             }
-            await axios.get("http://localhost:8080/language", {params})
+            axios.get("http://localhost:8080/language", {params})
                 .then(r => setLanguages(r.data))
                 .catch(err => console.log("Cannot fetch languages." + err))
         }
@@ -103,7 +119,7 @@ function ProductPage() {
                     <img className={"product-image"} src={product?.coverImage} alt={"product"}/>
                     <div className={"product-details"}>
                         <p className={"product-name"}>{product?.name}</p>
-                        <p className={"product-description"}>{product?.description}</p>
+                        <p className={"product-description"}>{description}</p>
                         <p className={"products-price"}></p>
                         <span className={"price-span"}>{product?.price} PLN</span>
                         <button onClick={() => addToCart(product)}
@@ -161,7 +177,7 @@ function ProductPage() {
                        className={"more-info-el"}>{t("activation")}</p>
                 </div>
                 <div id={"information"} className={"more-info-content"}>
-                    <p>{product?.description}</p>
+                    <p>{description}</p>
                 </div>
                 <div id={"videos"} className={"more-info-content"}>
                     <iframe src={product?.videoUrl}

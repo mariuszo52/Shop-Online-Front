@@ -23,7 +23,7 @@ function LoginPage() {
     const [emailPass, setEmailPass] = useState("")
     const [facebookAppId, setFacebookAppId] = useState("")
     const {saveCartToDatabase} = useCart();
-    const {t} = useTranslation()
+    const {t, i18n} = useTranslation()
     let loginCredentials = {
         "email": emailLogin,
         "password": emailPass
@@ -191,7 +191,7 @@ function LoginPage() {
                                 onSuccess={response => googleLoginSuccess(response)}
                                 onError={() => googleLoginFailure()}
                                 type={"standard"}
-                                locale={"EN"}
+                                locale={i18n.language}
                                 size={"small"}
                                 width={"250"}
                                 shape={"rectangular"}/>

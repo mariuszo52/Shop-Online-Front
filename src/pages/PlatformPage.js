@@ -21,7 +21,6 @@ function PlatformPage(){
         for (let i = 0; i < data.totalPages; i++) {
             numbers.push(i);
         }
-        console.log(data.totalPages)
         setPagination(numbers);
     }
 
