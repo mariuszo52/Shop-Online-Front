@@ -27,8 +27,9 @@ function ForgetPasswordForm(){
             })
             .catch(reason =>{
                 console.log(reason)
+
                 setNotificationVisible();
-                setNotificationText(translate(reason.response.data))
+                setNotificationText(translate(reason?.response.data))
 
             } )
     }

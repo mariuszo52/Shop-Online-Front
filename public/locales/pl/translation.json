@@ -176,6 +176,7 @@
   "addressBook": "KSIĄŻKA ADRESOWA",
   "loginHeader": "ZALOGUJ SIĘ",
   "byContinuing": "Kontynuując potwierdzasz, że zapoznałeś się z",
-  "privacyPolicyHeader": "REGULAMIN"
+  "privacyPolicyHeader": "REGULAMIN",
+  "error": "WYSTĄPIŁ BŁĄD"
 }
 
