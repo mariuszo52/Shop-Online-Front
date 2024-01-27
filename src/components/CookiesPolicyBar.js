@@ -27,8 +27,7 @@ function CookiesPolicyBar() {
                 <div id={"cookies-bar"} className={"cookies-bar"}>
                     <p className={"cookies-bar-text"}>
                         {t("byContinuing")}
-                        <span onClick={handlePrivacyPolicyClick}> {t("privacyPolicy")}</span> {t("and")}
-                        <span onClick={handleTermsClick}> {t("terms")}</span>.
+                        <span onClick={handlePrivacyPolicyClick}> {t("privacyPolicy")}</span>
                     </p>
                     <p onClick={handleAllowButtonClick} className={"cookies-accept-button"}>
                         {t("allowCookies")}

@@ -4,6 +4,7 @@ import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../../context/TranslateContext";
 
 function MenageUsers({
                          pagination, setIsElementClicked, onDeleteButtonClick,
@@ -14,6 +15,7 @@ function MenageUsers({
     const {index} = useDeleteConfirm();
     const [page, setPage] = useState(0)
     const {t} = useTranslation()
+    const {translate} = useTranslate()
 
 
     useEffect(() => {
@@ -67,11 +69,14 @@ function MenageUsers({
                 form.style.display = "none"
                 setIsElementClicked(false)
             })
-            .catch(reason => {
-                setNotificationText(reason.response.data)
-                setNotificationVisible(true)
-                closeForm(form, span)
-                console.log(reason)
+            .catch(err => {
+                translate(err.response.data)
+                    .then(translation => {
+                        setNotificationText(translation)
+                        setNotificationVisible(true)
+                    })
+                    .catch(translationErr => console.log(translationErr))
+                console.log(err)
             })
     }
 
@@ -128,8 +133,8 @@ function MenageUsers({
                     <th>{t("options")}</th>
                 </tr>
                 </thead>
-                    <tbody>
-                    {users?.content?.map((user, index) => (
+                <tbody>
+                {users?.content?.map((user, index) => (
                     <tr key={index}>
                         <td>{user?.id}</td>
                         <td
@@ -199,8 +204,8 @@ function MenageUsers({
                         <td>{user?.userInfo.id}</td>
                         <td onClick={() => onDeleteButtonClick(user?.id, "userId")}>{t("delete")}</td>
                     </tr>
-                    ))}
-                    </tbody>
+                ))}
+                </tbody>
             </table>
             <Pagination
                 productsPageable={users}

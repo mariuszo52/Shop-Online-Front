@@ -5,6 +5,7 @@ import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import Pagination from "../Pagination";
 import OrderDetails from "./OrderDetails";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../../context/TranslateContext";
 
 function MenageOrders({
                           pagination, setIsElementClicked,
@@ -18,6 +19,7 @@ function MenageOrders({
     const [searchParam, setSearchParam] = useState("")
     const [orderProducts, setOrderProducts] = useState([])
     const {t} = useTranslation()
+    const {translate} = useTranslate();
 
 
     useEffect(() => {
@@ -81,11 +83,14 @@ function MenageOrders({
                 form.style.display = "none"
                 setIsElementClicked(false)
             })
-            .catch(reason => {
-                setNotificationText(reason.response.data)
-                setNotificationVisible(true)
-                closeForm(form, span)
-                console.log(reason)
+            .catch(err => {
+                translate(err.response.data)
+                    .then(translation => {
+                        setNotificationText(translation)
+                        setNotificationVisible(true)
+                    })
+                    .catch(translationErr => console.log(translationErr))
+                console.log(err)
             })
     }
 
@@ -116,8 +121,9 @@ function MenageOrders({
         fetchOrderDetails(orderId)
         document.getElementById("admin-order-details").style.display = "flex"
     }
-    function fetchOrderDetails(orderId){
-        const params ={
+
+    function fetchOrderDetails(orderId) {
+        const params = {
             orderId: orderId
         }
         axios.get("http://localhost:8080/admin/order-management/order-products", {params})
@@ -135,7 +141,7 @@ function MenageOrders({
                 orderProducts={orderProducts}
                 closeForm={closeForm}
                 setIsElementClicked={setIsElementClicked}
-                showElementEditor ={showElementEditor}
+                showElementEditor={showElementEditor}
             />
             <div className={"menu-my-account"}>
                 <h1>{t("orderList")}</h1>

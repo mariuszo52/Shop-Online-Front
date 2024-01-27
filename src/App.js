@@ -24,6 +24,7 @@ import AdminPanelPage from "./pages/AdminPanelPage";
 import {AdminRoute} from "./routes/AdminRoute";
 import DeleteConfirmComponent from "./components/DeleteConfirmComponent";
 import {DeleteConfirmProvider} from "./context/DeleteConfirmContext";
+import {TranslateProvider} from "./context/TranslateContext";
 
 function App() {
     const [googleClientId, setGoogleClientId] = useState("")
@@ -43,6 +44,7 @@ function App() {
             clientId={googleClientId}>
             <CookiesPolicyProvider>
                 <CookiesPolicyBar/>
+                <TranslateProvider>
                 <NotificationProvider>
                     <NotificationBar/>
                     <BrowserRouter>
@@ -71,6 +73,7 @@ function App() {
                         </DeleteConfirmProvider>
                     </BrowserRouter>
                 </NotificationProvider>
+                </TranslateProvider>
             </CookiesPolicyProvider>
         </GoogleOAuthProvider>
     );

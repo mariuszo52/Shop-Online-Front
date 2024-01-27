@@ -2,12 +2,14 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../../context/TranslateContext";
 
 function ChangeUserInfo(){
     const [name, setName] = useState("")
     const [lastName, setLastName] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {t} = useTranslation()
+    const {translate} = useTranslate()
     function changeUserInfo(event) {
         event.preventDefault()
         const data = {
@@ -20,12 +22,15 @@ function ChangeUserInfo(){
                     setNotificationVisible(true)
                     handleCloseButtonClick()
                 })
-                .catch(reason =>{
-                    setNotificationText(reason.response.data)
-                    setNotificationVisible(true)
-                    console.log(reason)
-                })
-        }
+                .catch(err => {
+                    translate(err.response.data)
+                        .then(translation => {
+                            setNotificationText(translation)
+                            setNotificationVisible(true)
+                        })
+                        .catch(translationErr => console.log(translationErr))
+                    console.log(err)
+                })}
     const handleEnterDown = event =>  {
         if(event.keyCode === 13){
            changeUserInfo(event)

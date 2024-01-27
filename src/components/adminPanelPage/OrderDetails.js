@@ -2,10 +2,12 @@ import React from "react";
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../../context/TranslateContext";
 
 function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElementEditor}) {
     const {t} = useTranslation()
     const {setNotificationVisible, setNotificationText} = useNotification();
+    const {translate} = useTranslate();
 
     function handleCloseButtonClick() {
         document.getElementById("admin-order-details").style.display = "none"
@@ -21,7 +23,8 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
             case "code":
                 url = "http://localhost:8080/admin/order-management/order-product-code"
                 break
-            default: console.log(t("illegalValue"));
+            default:
+                console.log(t("illegalValue"));
         }
         let value = event.target.querySelector("input")?.value;
         let span = document.getElementById("edit-span-" + fieldName + index)
@@ -37,11 +40,14 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
                 form.style.display = "none"
                 setIsElementClicked(false)
             })
-            .catch(reason => {
-                setNotificationText(reason.response.data)
-                setNotificationVisible(true)
-                closeForm(form, span)
-                console.log(reason)
+            .catch(err => {
+                translate(err.response.data)
+                    .then(translation => {
+                        setNotificationText(translation)
+                        setNotificationVisible(true)
+                    })
+                    .catch(translationErr => console.log(translationErr))
+                console.log(err)
             })
     }
 
@@ -74,6 +80,8 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
                                 id={"edit-form-quantity" + index}
                                 className={"edit-quantity-form"}>
                                 <input
+                                    min={1}
+                                    max={5}
                                     type={"number"}
                                     required={true}
                                 />

@@ -186,9 +186,8 @@ function CheckoutPage() {
                 <h2>{t("total")}: {totalPrice?.toFixed(2)} PLN</h2>
 
                 <label><input required={true} type={"checkbox"}/>{t("iAgree")}
-                    <span className={"span-link"} onClick={onTermsClick}> {t("terms")}</span> {t("and")}
-                    <span className={"span-link"} onClick={onPrivacyPolicyClick}> {t("privacyPolicy")}</span></label>
-                <button type={"submit"} className={"submit-button"}>{t("order")}</button>
+                    <span className={"span-link"} onClick={onTermsClick}> {t("terms")}</span>
+                    <button type={"submit"} className={"submit-button"}>{t("order")}</button></label>
             </form>
 
         </div>

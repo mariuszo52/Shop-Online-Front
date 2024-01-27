@@ -1,7 +1,8 @@
-import React, {createContext, useContext, useEffect, useState} from "react";
+import React, {createContext, useContext, useState} from "react";
 import axios from "axios";
 import {useNotification} from "./NotificationContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "./TranslateContext";
 
 const DeleteConfirmContext = createContext();
 
@@ -12,31 +13,37 @@ export function DeleteConfirmProvider({children}) {
     const [id, setId] = useState(null)
     const [paramName, setParamName] = useState("")
     const {t} = useTranslation()
+    const {translate} = useTranslate()
 
-    function handleUserDeleteConfirm(){
+
+    function handleUserDeleteConfirm() {
         let url
-        switch (paramName){
-            case "userId": url = "http://localhost:8080/admin/user-management/user"
+        switch (paramName) {
+            case "userId":
+                url = "http://localhost:8080/admin/user-management/user"
                 break
-            case "productId": url = "http://localhost:8080/admin/product-management/product"
+            case "productId":
+                url = "http://localhost:8080/admin/product-management/product"
                 break
         }
         const params = {
             [paramName]: id
         }
-        axios.delete(url, {params} )
+        axios.delete(url, {params})
             .then(response => {
                 setNotificationText(t("done"))
                 setNotificationVisible()
                 setIsComponentVisible(false)
-                setIndex(prevState => prevState +1)
-            }).catch(reason => {
-            console.log(reason)
-            setNotificationText(reason.response.data)
-            setNotificationVisible()
-            setIsComponentVisible(false)
-            })
-
+                setIndex(prevState => prevState + 1)
+            }).catch(err => {
+            translate(err.response.data)
+                .then(translation => {
+                    setNotificationText(translation)
+                    setNotificationVisible(true)
+                })
+                .catch(translationErr => console.log(translationErr))
+            console.log(err)
+        })
     }
 
     return (

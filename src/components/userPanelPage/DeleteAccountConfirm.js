@@ -1,10 +1,12 @@
 import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../../context/TranslateContext";
 
 function DeleteAccountConfirm(){
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {t} = useTranslation()
+    const {translate} = useTranslate()
     function deleteAccount() {
         axios.delete("http://localhost:8080/user/sm")
             .then(response => {
@@ -15,12 +17,15 @@ function DeleteAccountConfirm(){
                 window.location.href = "/account/login"
 
             })
-            .catch(reason =>{
-                setNotificationText(reason.response.data)
-                setNotificationVisible(true)
-                console.log(reason)
-            })
-    }
+            .catch(err => {
+                translate(err.response.data)
+                    .then(translation => {
+                        setNotificationText(translation)
+                        setNotificationVisible(true)
+                    })
+                    .catch(translationErr => console.log(translationErr))
+                console.log(err)
+            })}
 
 
     function handleCloseButtonClick() {

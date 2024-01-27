@@ -4,14 +4,18 @@ import axios from "axios";
 import {useNotification} from "../../context/NotificationContext";
 import {useDeleteConfirm} from "../../context/DeleteConfirmContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../../context/TranslateContext";
 
-function MenageProducts({pagination, setIsElementClicked, showElementEditor,
-                            closeForm, calculatePageNumbers, onDeleteButtonClick}) {
+function MenageProducts({
+                            pagination, setIsElementClicked, showElementEditor,
+                            closeForm, calculatePageNumbers, onDeleteButtonClick
+                        }) {
     const [products, setProducts] = useState(null)
     const [page, setPage] = useState(0)
     const {setNotificationVisible, setNotificationText} = useNotification()
     const {index} = useDeleteConfirm();
     const {t} = useTranslation()
+    const {translate} = useTranslate()
 
 
     useEffect(() => {
@@ -44,6 +48,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                 setNotificationVisible()
             })
     }
+
     function updateProductField(event, fieldName, productId, index) {
         let url;
         let value;
@@ -70,11 +75,14 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                 form.style.display = "none"
                 setIsElementClicked(false)
             })
-            .catch(reason => {
-                setNotificationText(reason.response.data)
-                setNotificationVisible(true)
-                closeForm(form, span)
-                console.log(reason)
+            .catch(err => {
+                translate(err.response.data)
+                    .then(translation => {
+                        setNotificationText(translation)
+                        setNotificationVisible(true)
+                    })
+                    .catch(translationErr => console.log(translationErr))
+                console.log(err)
             })
     }
 
@@ -84,7 +92,7 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
         setIsElementClicked(false)
     }
 
-        return (
+    return (
         <div className={"menu-my-account"}>
             <h1>{t("productsList")}</h1>
             <form
@@ -108,8 +116,8 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                     <th>{t("options")}</th>
                 </tr>
                 </thead>
-                    <tbody>
-                    {products?.content?.map((product, index) => (
+                <tbody>
+                {products?.content?.map((product, index) => (
                     <tr key={index}>
                         <td>{product?.id}</td>
                         <td
@@ -145,8 +153,8 @@ function MenageProducts({pagination, setIsElementClicked, showElementEditor,
                             <span id={"edit-span-price" + index}>{product?.price}</span></td>
                         <td onClick={() => onDeleteButtonClick(product?.id, "productId")}>{t("delete")}</td>
                     </tr>
-                    ))}
-                    </tbody>
+                ))}
+                </tbody>
             </table>
             <Pagination
                 productsPageable={products}

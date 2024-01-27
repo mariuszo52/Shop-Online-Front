@@ -2,6 +2,7 @@ import React, {createContext, useContext, useEffect, useState} from "react";
 import {useNotification} from "./NotificationContext";
 import axios from "axios";
 import {useTranslation} from "react-i18next";
+import i18n from "../components/i18n";
 const CartContext = createContext();
 
 export function CartProvider({children}) {
@@ -19,6 +20,25 @@ export function CartProvider({children}) {
                 .catch(reason => console.log(reason))
         }
     }
+    function translate(text) {
+        return new Promise((resolve, reject) => {
+            if (i18n.language !== "en") {
+                axios.get("http://localhost:8080/translate", {
+                    params: {"langCode": i18n.language, "text": text}
+                })
+                    .then(response => {
+                        resolve(response.data);
+                    })
+                    .catch(reason => {
+                        console.error(reason);
+                        reject("Translation failed");
+                    });
+            } else {
+                resolve(text);
+            }
+        });
+    }
+
 
     function fetchCart() {
         if (sessionStorage.getItem("jwt")) {
@@ -63,12 +83,17 @@ export function CartProvider({children}) {
                         console.log(response.data)
                         setIndex((prevState) => prevState + 1);
                     })
-                    .catch(reason => {
-                        setNotificationVisible();
-                        setNotificationText(reason.response.data)
-                        console.log(reason)
+                    .catch(err => {
+                        translate(err.response.data)
+                            .then(translation => {
+                                setNotificationText(translation)
+                                setNotificationVisible(true)
+                            })
+                            .catch(translationErr => console.log(translationErr))
+                        console.log(err)
                     })
             }
+
         } else {
             setNotificationVisible();
             setNotificationText(t("prodInCart"))

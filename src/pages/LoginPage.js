@@ -15,6 +15,7 @@ import ForgetPasswordForm from "../components/ForgetPasswordForm";
 import NewPassword from "../components/NewPassword";
 import {useCart} from "../context/CartContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../context/TranslateContext";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ function LoginPage() {
     const [facebookAppId, setFacebookAppId] = useState("")
     const {saveCartToDatabase} = useCart();
     const {t, i18n} = useTranslation()
+    const {translate} = useTranslate();
     let loginCredentials = {
         "email": emailLogin,
         "password": emailPass
@@ -54,9 +56,13 @@ function LoginPage() {
                 }
             })
             .catch(err => {
+                translate(err.response.data)
+                    .then(translation => {
+                        setNotificationText(translation)
+                        setNotificationVisible(true)
+                    })
+                    .catch(translationErr => console.log(translationErr))
                 console.log(err)
-                setNotificationText(err.response?.data)
-                setNotificationVisible(true)
             })
     }
 
@@ -81,8 +87,12 @@ function LoginPage() {
                 window.location.href = "/";
             })
             .catch(err => {
-                setNotificationText(err.response.data)
-                setNotificationVisible()
+                translate(err.response.data)
+                    .then(translation => {
+                        setNotificationText(translation)
+                        setNotificationVisible(true)
+                    })
+                    .catch(translationErr => console.log(translationErr))
                 console.log(err)
             })
     }
@@ -113,10 +123,17 @@ function LoginPage() {
                     saveCartToDatabase()
                     window.location.href = "/";
                     console.log(response.data)
-                }}).catch(err => {
-                    setNotificationText(err.response.data)
+                }
+            }).catch(err => {
+            translate(err.response.data)
+                .then(translation => {
+                    alert(translation)
+                    setNotificationText(translation)
                     setNotificationVisible(true)
                 })
+                .catch(translationErr => console.log(translationErr))
+            console.log(err)
+        })
     }
 
     function facebookLoginReject(response) {

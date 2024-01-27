@@ -2,12 +2,14 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../context/TranslateContext";
 
 function NewPassword(){
     const [token, setToken] = useState(null)
     const [newPassword, setNewPassword] = useState("")
     const {setNotificationVisible, setNotificationText} = useNotification();
     const {t} = useTranslation()
+    const {translate} = useTranslate();
 
     useEffect(() => {
         let urlSearchParams = new URLSearchParams(window.location.search);
@@ -34,12 +36,15 @@ function NewPassword(){
                 .then(response => {
                     handleCloseButtonClick()
                 })
-                .catch(reason => {
-                    setNotificationText(reason.response.data)
-                    setNotificationVisible(true)
-                    console.log(reason)
-                })
-        }
+                .catch(err => {
+                    translate(err.response.data)
+                        .then(translation => {
+                            setNotificationText(translation)
+                            setNotificationVisible(true)
+                        })
+                        .catch(translationErr => console.log(translationErr))
+                    console.log(err)
+                })}
     }
     const handleEnterDown = event =>  {
         if(event.keyCode === 13){

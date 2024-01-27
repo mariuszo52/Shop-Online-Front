@@ -2,10 +2,12 @@ import {useState} from "react";
 import axios from "axios";
 import {useNotification} from "../context/NotificationContext";
 import {useTranslation} from "react-i18next";
+import {useTranslate} from "../context/TranslateContext";
 
 function ForgetPasswordForm(){
     const [email, setEmail] = useState("");
     const {t} = useTranslation()
+    const {translate} = useTranslate()
     let {setNotificationVisible, setNotificationText} = useNotification();
     function handleCloseButtonClick() {
         let forgetPasswordForm = document.getElementById("fp-main-container");
@@ -26,7 +28,7 @@ function ForgetPasswordForm(){
             .catch(reason =>{
                 console.log(reason)
                 setNotificationVisible();
-                setNotificationText(reason.response.data)
+                setNotificationText(translate(reason.response.data))
 
             } )
     }
