@@ -7,6 +7,7 @@
 }
 
 .main-div {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1867,18 +1868,42 @@
     flex-direction: column;
     width: 20%;
 }
-#select-language{
+
+#select-language {
     text-align: center;
 }
-.privacy-policy{
+
+.privacy-policy {
     display: flex;
     flex-direction: column;
     align-items: start;
     width: 80%;
 }
-.privacy-policy p, li{
+
+.privacy-policy p, li {
     margin-bottom: 5px;
 }
-.privacy-policy h2{
+
+.privacy-policy h2 {
     margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .menu-div {
+        flex-direction: column;
+    }
+
+    .pages-numbers {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info-div {
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .info-div > div{
+        margin: 5px;
+    }
 }
