@@ -24,12 +24,12 @@ function ProductPage() {
 
     function translate(description, activationDetails) {
         if (i18n.language !== "en") {
-            axios.get("http://localhost:8080/translate", {
+            axios.get(process.env.REACT_APP_SERVER_URL + "/translate", {
                 params: {"langCode": i18n.language, "text": description}
             })
                 .then(response => setDescription(response.data))
                 .catch(reason => console.log(reason));
-            axios.get("http://localhost:8080/translate", {
+            axios.get(process.env.REACT_APP_SERVER_URL + "/translate", {
                 params: {"langCode": i18n.language, "text": activationDetails}
             })
                 .then(response => setProductActivation(response.data.split("\n")))
@@ -42,7 +42,7 @@ function ProductPage() {
             const params = {
                 id: id
             }
-            axios.get("http://localhost:8080/product", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/product", {params})
                 .then(r => {
                     setProduct(r.data)
                     setProductActivation(r.data.activationDetails.split("\n"))
@@ -61,7 +61,7 @@ function ProductPage() {
             const params = {
                 id: id
             }
-            axios.get("http://localhost:8080/product/similar-products", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/product/similar-products", {params})
                 .then(r => setSimilarProducts(r.data))
                 .catch(err => console.log("Cannot fetch product info." + err))
         }
@@ -74,7 +74,7 @@ function ProductPage() {
             const params = {
                 id: id
             }
-            axios.get("http://localhost:8080/language", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/language", {params})
                 .then(r => setLanguages(r.data))
                 .catch(err => console.log("Cannot fetch languages." + err))
         }

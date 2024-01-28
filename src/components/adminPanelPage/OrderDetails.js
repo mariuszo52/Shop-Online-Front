@@ -18,10 +18,10 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
         let url
         switch (fieldName) {
             case "quantity":
-                url = "http://localhost:8080/admin/order-management/order-product-quantity"
+                url = process.env.REACT_APP_SERVER_URL + "/admin/order-management/order-product-quantity"
                 break
             case "code":
-                url = "http://localhost:8080/admin/order-management/order-product-code"
+                url = process.env.REACT_APP_SERVER_URL + "/admin/order-management/order-product-code"
                 break
             default:
                 console.log(t("illegalValue"));

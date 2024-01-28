@@ -10,7 +10,7 @@ function Wishlist() {
     const {t} = useTranslation()
     useEffect(() => {
         function fetchFavoriteProducts() {
-            axios.get("http://localhost:8080/favorite-product")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/favorite-product")
                 .then(response => setWishlist(response.data))
                 .catch(reason => console.log(reason))
         }
@@ -19,7 +19,7 @@ function Wishlist() {
     }, []);
 
     function handleRemoveAllItems() {
-        axios.delete("http://localhost:8080/favorite-product/all")
+        axios.delete(process.env.REACT_APP_SERVER_URL + "/favorite-product/all")
             .then(() => setWishlist([]))
             .catch(reason => console.log(reason))
     }

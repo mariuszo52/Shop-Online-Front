@@ -32,7 +32,7 @@ function NewPassword(){
             "newPassword": newPassword
         }
         if (token !== null) {
-            axios.post("http://localhost:8080/login/reset-password", data)
+            axios.post(process.env.REACT_APP_SERVER_URL + "/login/reset-password", data)
                 .then(response => {
                     handleCloseButtonClick()
                 })

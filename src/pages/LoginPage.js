@@ -32,7 +32,7 @@ function LoginPage() {
     }
     useEffect(() => {
         function fetchFacebookAppId() {
-            axios.get("http://localhost:8080/login/facebook/app-id")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/login/facebook/app-id")
                 .then(response => setFacebookAppId(response.data))
                 .catch(reason => console.log(reason))
         }
@@ -47,7 +47,7 @@ function LoginPage() {
                 'Authorization': `GOOGLE ${response.credential}`
             }
         }
-        axios.get("http://localhost:8080/login/google", authHeader)
+        axios.get(process.env.REACT_APP_SERVER_URL + "/login/google", authHeader)
             .then(response => {
                 console.log(response.data)
                 if (response.tokenId !== null) {
@@ -77,7 +77,7 @@ function LoginPage() {
 
     function onLoginButtonClick(submit) {
         submit.preventDefault();
-        axios.post("http://localhost:8080/login", loginCredentials)
+        axios.post(process.env.REACT_APP_SERVER_URL + "/login", loginCredentials)
             .then(response => {
                 sessionStorage.setItem("jwt", "Bearer " + response?.data.accessToken)
                 sessionStorage.setItem("refreshToken", "Bearer " + response?.data.refreshToken)
@@ -117,7 +117,7 @@ function LoginPage() {
                 'Authorization': `FB ${response.data.accessToken}`,
             }
         }
-        axios.post("http://localhost:8080/login/facebook", data, authHeader)
+        axios.post(process.env.REACT_APP_SERVER_URL + "/login/facebook", data, authHeader)
             .then(response => {
                 if (response.data.accessToken !== null) {
                     saveCartToDatabase()

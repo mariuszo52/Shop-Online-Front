@@ -14,7 +14,7 @@ function MyAccount(){
     const {t} = useTranslation()
     useEffect(() => {
         function fetchUserAccountInfo(){
-            axios.get("http://localhost:8080/user")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/user")
                 .then(response => setUserAccountInfo(response.data))
                 .catch(reason => console.log(reason))
         }

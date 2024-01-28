@@ -16,7 +16,7 @@ function ChangeUserInfo(){
             "name": name,
             "lastName": lastName,
         }
-            axios.patch("http://localhost:8080/user-info/edit", data)
+            axios.patch(process.env.REACT_APP_SERVER_URL + "/user-info/edit", data)
                 .then(response => {
                     setNotificationText(t("userInfoHasChanged"))
                     setNotificationVisible(true)

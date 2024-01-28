@@ -27,7 +27,7 @@ function AxiosInterceptor(){
                     }
                 }
                 if (localStorage.getItem("refreshToken")) {
-                    axios.get("http://localhost:8080/login/access-token", config)
+                    axios.get(process.env.REACT_APP_SERVER_URL + "/login/access-token", config)
                         .then(response => {
                             sessionStorage.setItem("jwt", "Bearer " + response.data)
                             if(error.config.method.toLowerCase() === "get"

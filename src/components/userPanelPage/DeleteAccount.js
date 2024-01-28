@@ -16,7 +16,7 @@ function DeleteAccount() {
                 "password": password
             }
         }
-        axios.delete("http://localhost:8080/user/standard", config)
+        axios.delete(process.env.REACT_APP_SERVER_URL + "/user/standard", config)
             .then(response => {
                 sessionStorage.removeItem("jwt")
                 setNotificationText(t("accountDeleted"))

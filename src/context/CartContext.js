@@ -15,7 +15,7 @@ export function CartProvider({children}) {
     function saveCartToDatabase() {
         let cart = JSON.parse(sessionStorage.getItem("cart"));
         if (sessionStorage.getItem("jwt") && cart) {
-            axios.put("http://localhost:8080/cart", cart)
+            axios.put(process.env.REACT_APP_SERVER_URL + "/cart", cart)
                 .then(response => console.log(response.data))
                 .catch(reason => console.log(reason))
         }
@@ -23,7 +23,7 @@ export function CartProvider({children}) {
     function translate(text) {
         return new Promise((resolve, reject) => {
             if (i18n.language !== "en") {
-                axios.get("http://localhost:8080/translate", {
+                axios.get(process.env.REACT_APP_SERVER_URL + "/translate", {
                     params: {"langCode": i18n.language, "text": text}
                 })
                     .then(response => {
@@ -42,7 +42,7 @@ export function CartProvider({children}) {
 
     function fetchCart() {
         if (sessionStorage.getItem("jwt")) {
-            axios.get("http://localhost:8080/cart")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/cart")
                 .then(response => {
                     setCartItems(response.data)
                     let totalElements = 0;
@@ -78,7 +78,7 @@ export function CartProvider({children}) {
                 cart.push(product);
                 updateCartAndTotalElements(cart);
             } else {
-                axios.post("http://localhost:8080/cart", product)
+                axios.post(process.env.REACT_APP_SERVER_URL + "/cart", product)
                     .then(response => {
                         console.log(response.data)
                         setIndex((prevState) => prevState + 1);
@@ -108,7 +108,7 @@ export function CartProvider({children}) {
             for (const cartInput of document.getElementsByClassName("cart-input")) {
                 cartInput.disabled = false
             }
-            axios.patch("http://localhost:8080/cart/quantity", product)
+            axios.patch(process.env.REACT_APP_SERVER_URL + "/cart/quantity", product)
                 .then(response =>{
                     for (const cartInput of document.getElementsByClassName("cart-input")) {
                         cartInput.disabled = false
@@ -132,7 +132,7 @@ export function CartProvider({children}) {
 
     const removeProductFromCart = (product) => {
         if(sessionStorage.getItem("jwt")){
-            axios.delete("http://localhost:8080/cart/".concat(product.id))
+            axios.delete(process.env.REACT_APP_SERVER_URL + "/cart/".concat(product.id))
                 .then(() => setIndex((prevState) => prevState + 1))
                 .catch(reason => console.log(reason))
             } else {
@@ -149,7 +149,7 @@ export function CartProvider({children}) {
 
     function clearCart() {
         if(sessionStorage.getItem("jwt")){
-            axios.delete("http://localhost:8080/cart")
+            axios.delete(process.env.REACT_APP_SERVER_URL + "/cart")
                 .then(response => {
                     console.log(response)
                     setIndex((prevState) => prevState + 1);

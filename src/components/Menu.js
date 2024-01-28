@@ -24,7 +24,7 @@ function Menu() {
 
     useEffect(() => {
         function fetchMenuElements(){
-            axios.get("http://localhost:8080/platform/all-devices")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/platform/all-devices")
                 .then(response => setMenuElements(response.data))
                 .catch(reason => console.log(reason))
         }

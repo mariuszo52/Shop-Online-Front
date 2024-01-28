@@ -20,10 +20,10 @@ export function DeleteConfirmProvider({children}) {
         let url
         switch (paramName) {
             case "userId":
-                url = "http://localhost:8080/admin/user-management/user"
+                url = process.env.REACT_APP_SERVER_URL + "/admin/user-management/user"
                 break
             case "productId":
-                url = "http://localhost:8080/admin/product-management/product"
+                url = process.env.REACT_APP_SERVER_URL + "/admin/product-management/product"
                 break
         }
         const params = {

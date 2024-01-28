@@ -20,7 +20,7 @@ function ChangePassword(){
             "newPassword": newPassword,
             "confirmNewPassword": confirmNewPassword
         }
-            axios.patch("http://localhost:8080/user/password", data)
+            axios.patch(process.env.REACT_APP_SERVER_URL + "/user/password", data)
                 .then(response => {
                     setNotificationText(t("passwordHasChanged"))
                     setNotificationVisible(true)

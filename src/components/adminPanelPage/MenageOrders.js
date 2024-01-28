@@ -28,7 +28,7 @@ function MenageOrders({
         }
 
         function fetchAllOrders() {
-            axios.get("http://localhost:8080/admin/order-management/all-orders", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/admin/order-management/all-orders", {params})
                 .then(response => {
                     setOrders(response.data)
                     calculatePageNumbers(response.data)
@@ -41,7 +41,7 @@ function MenageOrders({
 
     useEffect(() => {
         function fetchAllOrdersStatuses() {
-            axios.get("http://localhost:8080/admin/order-management/all-statuses")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/admin/order-management/all-statuses")
                 .then(response => setOrderStatuses(response.data))
                 .catch(reason => console.log(reason))
         }
@@ -68,7 +68,7 @@ function MenageOrders({
 
     function updateOrderStatusField(event, fieldName, orderId, index) {
         event.preventDefault()
-        const url = "http://localhost:8080/admin/order-management/order-status"
+        const url = process.env.REACT_APP_SERVER_URL + "/admin/order-management/order-status"
         let orderStatus = event.target.querySelector("select")?.value;
         let span = document.getElementById("edit-span-" + fieldName + index)
         let form = document.getElementById("edit-form-" + fieldName + index);
@@ -98,7 +98,7 @@ function MenageOrders({
         const params = {
             orderId: value
         }
-        axios.get("http://localhost:8080/admin/order-management/order", {params})
+        axios.get(process.env.REACT_APP_SERVER_URL + "/admin/order-management/order", {params})
             .then(response => setOrders({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
@@ -108,7 +108,7 @@ function MenageOrders({
     }
 
     function searchOrdersByParameter(params) {
-        axios.get("http://localhost:8080/admin/order-management/orders", {params})
+        axios.get(process.env.REACT_APP_SERVER_URL + "/admin/order-management/orders", {params})
             .then(response => setOrders(response.data))
             .catch(reason => {
                 console.log(reason)
@@ -126,7 +126,7 @@ function MenageOrders({
         const params = {
             orderId: orderId
         }
-        axios.get("http://localhost:8080/admin/order-management/order-products", {params})
+        axios.get(process.env.REACT_APP_SERVER_URL + "/admin/order-management/order-products", {params})
             .then(response => setOrderProducts(response.data))
             .catch(reason => {
                 setNotificationText(t("orderDetailsError"))

@@ -19,7 +19,7 @@ function ForgetPasswordForm(){
         const params = {
             "email":email
         };
-        axios.get("http://localhost:8080/login/forget-password", {params})
+        axios.get(process.env.REACT_APP_SERVER_URL + "/login/forget-password", {params})
             .then(response => {
                 handleCloseButtonClick()
                 setNotificationText(response.data)

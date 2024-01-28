@@ -31,7 +31,7 @@ function App() {
 
     useEffect(() => {
         function fetchGoogleClientId() {
-            axios.get("http://localhost:8080/login/google/client-id")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/login/google/client-id")
                 .then(response => setGoogleClientId(response.data))
                 .catch(reason => console.log(reason))
         }

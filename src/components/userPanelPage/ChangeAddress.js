@@ -22,7 +22,7 @@ function ChangeAddress(){
             "postalCode": postalCode,
             "phoneNumber": phoneNumber
         }
-            axios.patch("http://localhost:8080/shipping-address/edit", data)
+            axios.patch(process.env.REACT_APP_SERVER_URL + "/shipping-address/edit", data)
                 .then(response => {
                     setNotificationText(t("addressChanged"))
                     setNotificationVisible(true)

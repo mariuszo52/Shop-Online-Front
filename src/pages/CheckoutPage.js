@@ -58,7 +58,7 @@ function CheckoutPage() {
 
     useEffect(() => {
         function fetchUserAccountInfo() {
-            axios.get("http://localhost:8080/user")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/user")
                 .then(response => {
                     setCountry(response.data?.country)
                     setName(response.data?.name)
@@ -87,7 +87,7 @@ function CheckoutPage() {
             paymentMethod: payment,
             productList: cartItems
         }
-        axios.post("http://localhost:8080/order/checkout", data)
+        axios.post(process.env.REACT_APP_SERVER_URL + "/order/checkout", data)
             .then(response => console.log(response.data))
             .catch(reason => console.log(reason))
     }

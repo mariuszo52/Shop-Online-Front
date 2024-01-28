@@ -8,7 +8,7 @@ function DeleteAccountConfirm(){
     const {t} = useTranslation()
     const {translate} = useTranslate()
     function deleteAccount() {
-        axios.delete("http://localhost:8080/user/sm")
+        axios.delete(process.env.REACT_APP_SERVER_URL + "/user/sm")
             .then(response => {
                 sessionStorage.removeItem("jwt")
                 sessionStorage.removeItem("refreshToken")

@@ -9,7 +9,7 @@ export function TranslateProvider({children}) {
     function translate(text) {
         return new Promise((resolve, reject) => {
             if (i18n.language !== "en") {
-                axios.get("http://localhost:8080/translate", {
+                axios.get(process.env.REACT_APP_SERVER_URL + "/translate", {
                     params: {"langCode": i18n.language, "text": text}
                 })
                     .then(response => {

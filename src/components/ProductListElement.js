@@ -14,7 +14,7 @@ function ProductListElement({products, classname}) {
 
     function fetchFavoriteProducts() {
         if (sessionStorage.getItem("jwt")) {
-            axios.get("http://localhost:8080/favorite-product")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/favorite-product")
                 .then(response => setFavoriteProducts(response.data))
                 .catch(reason => console.log(reason))
         }
@@ -51,7 +51,7 @@ function ProductListElement({products, classname}) {
     }
 
     function addProductToFavorite(product) {
-        axios.post("http://localhost:8080/favorite-product", product)
+        axios.post(process.env.REACT_APP_SERVER_URL + "/favorite-product", product)
             .then(() => fetchFavoriteProducts())
             .catch(reason => console.log(reason))
     }
@@ -60,7 +60,7 @@ function ProductListElement({products, classname}) {
         const params = {
             productId: product?.id
         }
-        axios.delete("http://localhost:8080/favorite-product", {params})
+        axios.delete(process.env.REACT_APP_SERVER_URL + "/favorite-product", {params})
             .then(() => fetchFavoriteProducts())
             .catch(reason => console.log(reason))
     }

@@ -30,7 +30,7 @@ function FilterProducts({
         };
 
         function getPlatforms() {
-            axios.get("http://localhost:8080/platform/device-platforms", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/platform/device-platforms", {params})
                 .then(r => setPlatforms(r.data))
                 .catch(err => console.log(err))
         }
@@ -44,7 +44,7 @@ function FilterProducts({
         };
 
         function getGenres() {
-            axios.get("http://localhost:8080/genre/device-genres", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/genre/device-genres", {params})
                 .then(r => setGenres(r.data))
                 .catch(err => console.log(err))
         }
@@ -54,7 +54,7 @@ function FilterProducts({
 
     useEffect(() => {
         function getLanguages() {
-            axios.get("http://localhost:8080/language/all")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/language/all")
                 .then(r => setLanguages(r.data))
                 .catch(err => console.log(err))
         }
@@ -90,7 +90,7 @@ function FilterProducts({
             maxPrice: maxPrice,
             sort: sort
         };
-        axios.get("http://localhost:8080/product/products", {params})
+        axios.get(process.env.REACT_APP_SERVER_URL + "/product/products", {params})
             .then(response => {
                 setProductsPageable(response.data)
                 calculatePageNumbers(response.data)

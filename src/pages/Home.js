@@ -34,7 +34,7 @@ function Home() {
     }
 
 
-    async function fetchProducts() {
+     function fetchProducts() {
         setDataLoading(true)
         const params = {
             page: currentPage,
@@ -43,21 +43,20 @@ function Home() {
         if (productName !== null) {
             params.name = productName;
         }
-        await axios.get("http://localhost:8080/product/products", {params})
+         axios.get(process.env.REACT_APP_SERVER_URL + "/product/products", {params})
             .then(response => {
                 setProductsPageable(response.data)
                 calculatePageNumbers(response.data)
                 console.log(response.data)
             })
             .catch(error => console.log(error));
+
         setDataLoading(prevState => false)
 
     }
 
     useEffect(() => {
         fetchProducts()
-            .then(() => console.log("Products fetched"))
-            .catch(reason => console.log(reason))
     }, [currentPage]);
 
 

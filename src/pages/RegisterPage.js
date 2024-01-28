@@ -35,7 +35,7 @@ function RegisterPage() {
     };
 
     function handleSuggestStrongPassButton() {
-        axios.get("http://localhost:8080/register/suggest-pass")
+        axios.get(process.env.REACT_APP_SERVER_URL + "/register/suggest-pass")
             .then(response => {
                 let passwordInput = document.getElementById("password-input");
                 let confirmPasswordInput = document.getElementById("confirm-password-input");
@@ -51,7 +51,7 @@ function RegisterPage() {
 
     function registerUser(event) {
         event.preventDefault()
-        axios.post("http://localhost:8080/register", userRegister)
+        axios.post(process.env.REACT_APP_SERVER_URL + "/register", userRegister)
             .then(() => {
                 setNotificationText(t("confirmEmail")+ userRegister.email)
                 setNotificationVisible()

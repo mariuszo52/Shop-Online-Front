@@ -10,7 +10,7 @@ function MyOrders() {
 
     useEffect(() => {
         function fetchOrderProducts() {
-            axios.get("http://localhost:8080/order-product")
+            axios.get(process.env.REACT_APP_SERVER_URL + "/order-product")
                 .then(response => setOrderProducts(response.data))
                 .catch(reason => console.log(reason))
 

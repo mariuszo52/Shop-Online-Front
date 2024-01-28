@@ -23,7 +23,7 @@ function MenageProducts({
             const params = {
                 page: page
             }
-            axios.get("http://localhost:8080/admin/product-management/all-products", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/admin/product-management/all-products", {params})
                 .then(response => {
                     setProducts(response.data)
                     calculatePageNumbers(response.data)
@@ -40,7 +40,7 @@ function MenageProducts({
             searchBy: event.target?.querySelector("select")?.value,
             value: event.target?.querySelector("input")?.value
         }
-        axios.get("http://localhost:8080/admin/product-management/product", {params})
+        axios.get(process.env.REACT_APP_SERVER_URL + "/admin/product-management/product", {params})
             .then(response => setProducts({content: new Array(response.data)}))
             .catch(reason => {
                 console.log(reason)
@@ -56,11 +56,11 @@ function MenageProducts({
         let form = document.getElementById("edit-form-" + fieldName + index);
         switch (fieldName) {
             case "name":
-                url = "http://localhost:8080/admin/product-management/name"
+                url = process.env.REACT_APP_SERVER_URL + "/admin/product-management/name"
                 value = event.target.querySelector("input")?.value
                 break
             case "price":
-                url = "http://localhost:8080/admin/product-management/price"
+                url = process.env.REACT_APP_SERVER_URL + "/admin/product-management/price"
                 value = event.target.querySelector("input")?.value
                 break
         }
