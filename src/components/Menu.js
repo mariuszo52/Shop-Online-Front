@@ -7,6 +7,7 @@ import {useCart} from "../context/CartContext";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
 import {useTranslation} from "react-i18next";
+import menu from "../images/menu.png"
 
 function Menu() {
     const navigate = useNavigate();
@@ -55,6 +56,13 @@ function Menu() {
         i18n.changeLanguage(language).then(() => console.log("Language changed"))
     }
 
+    function onMenuClick() {
+        let menuPanels = document.querySelectorAll(".menu-panel, .user-panel");
+        menuPanels.forEach(panel => {
+            panel.style.display === "none" ? panel.style.display = "flex" : panel.style.display = "none"
+        })
+    }
+
     return (
         <>
             <div className={"menu-div"}>
@@ -63,6 +71,8 @@ function Menu() {
                         <p key={index} onClick={() => navigate("/" + menuElement)}>{menuElement}</p>))}
                 </div>
                 <div className={"logo-div"}>
+                    <img onClick={onMenuClick}
+                        className={"menu-icon"} alt={"menu"} src={menu}/>
                     <img onClick={() => window.location.href = "/"} alt="logo" className={"logo"}
                          src={logo}/>
                 </div>

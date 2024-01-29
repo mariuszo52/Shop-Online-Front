@@ -255,12 +255,12 @@
 
 .social-media-div > img {
     width: 50px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .social-media-div > p {
     font-weight: bolder;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .social-media-div > img:hover {
@@ -1418,6 +1418,9 @@
     width: 90%;
     align-items: center;
 }
+.menu-icon{
+    width: 50px;
+}
 
 .account-information-div {
     justify-content: space-between;
@@ -1888,11 +1891,12 @@
     margin-bottom: 10px;
 }
 
-@media only screen and (max-width: 600px) {
-    .menu-div {
-        flex-direction: column;
-    }
+.page-navigate {
+    width: 150px;
+    text-align: center;
+}
 
+@media only screen and (max-width: 600px) {
     .pages-numbers {
         flex-direction: column;
         align-items: center;
@@ -1903,7 +1907,39 @@
         align-items: center;
 
     }
-    .info-div > div{
-        margin: 5px;
+
+    .page-button {
+        display: none;
+    }
+
+    .menu-div {
+        width: 100%;
+        flex-direction: column;
+        height: min-content;
+    }
+    .menu-div > div{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .menu-panel, .user-panel{
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    .select-language, .user-panel-icon{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .logo-div{
+        display: flex;
+        height: 100%;
+        width: 100px;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 !important;
+    }
+    .logo {
+        max-height: none;
+        max-width: none;
     }
 }

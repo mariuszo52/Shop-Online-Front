@@ -44,8 +44,8 @@ function Pagination({productsPageable, currentPage, setCurrentPage, currentSize,
                 productsPageable?.totalElements} {t("pagination.total", {total: productsPageable?.totalElements})}</p>
             <p>{t("pagination.current")} {currentPage + 1}</p>
             <div className={"pages-numbers"}>
-                <li onClick={setFirstPage}>{t("pagination.first")}</li>
-                <li onClick={setPreviousPage}>{t("pagination.prev")}</li>
+                <li className={"page-navigate"} onClick={setFirstPage}>{t("pagination.first")}</li>
+                <li className={"page-navigate"} onClick={setPreviousPage}>{t("pagination.prev")}</li>
                 {productsPageable?.totalPages <= 15 ? (
                     pagination?.map((value, index) => (
                         <li className={"page-button"} id={"page-button" + value}
@@ -70,8 +70,8 @@ function Pagination({productsPageable, currentPage, setCurrentPage, currentSize,
                         ))}
                     </>
                 )}
-                <li onClick={setNextPage}>{t("pagination.next")}</li>
-                <li onClick={setLastPage}>{t("pagination.last")}</li>
+                <li className={"page-navigate"} onClick={setNextPage}>{t("pagination.next")}</li>
+                <li className={"page-navigate"} onClick={setLastPage}>{t("pagination.last")}</li>
             </div>
         </div>
     );
