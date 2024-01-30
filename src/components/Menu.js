@@ -24,11 +24,12 @@ function Menu() {
     }
 
     useEffect(() => {
-        function fetchMenuElements(){
+        function fetchMenuElements() {
             axios.get(process.env.REACT_APP_SERVER_URL + "/platform/all-devices")
                 .then(response => setMenuElements(response.data))
                 .catch(reason => console.log(reason))
         }
+
         fetchMenuElements()
     }, []);
 
@@ -36,9 +37,9 @@ function Menu() {
         if (!sessionStorage.getItem("jwt")) {
             window.location.href = "/account/login";
         } else if (sessionStorage.getItem("jwt")?.startsWith("Bearer")) {
-            if(jwtDecode(sessionStorage.getItem("jwt"))?.role === "ADMIN") {
+            if (jwtDecode(sessionStorage.getItem("jwt"))?.role === "ADMIN") {
                 window.location.href = "/account/admin-panel?tab=users";
-            }else {
+            } else {
                 window.location.href = "/account/user-panel?tab=my-account";
             }
         } else {
@@ -66,15 +67,15 @@ function Menu() {
     return (
         <>
             <div className={"menu-div"}>
+                <div className={"logo-div"}>
+                    <img onClick={onMenuClick}
+                         className={"menu-icon"} alt={"menu"} src={menu}/>
+                    <img onClick={() => window.location.href = "/"} alt="logo" className={"logo"}
+                         src={logo}/>
+                </div>
                 <div className={"menu-panel"}>
                     {menuElements.map((menuElement, index) => (
                         <p key={index} onClick={() => navigate("/" + menuElement)}>{menuElement}</p>))}
-                </div>
-                <div className={"logo-div"}>
-                    <img onClick={onMenuClick}
-                        className={"menu-icon"} alt={"menu"} src={menu}/>
-                    <img onClick={() => window.location.href = "/"} alt="logo" className={"logo"}
-                         src={logo}/>
                 </div>
                 <div className={"user-panel"}>
                     <form onSubmit={event => onSelectLanguageSubmit(event)}

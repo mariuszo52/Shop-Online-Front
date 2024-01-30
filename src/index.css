@@ -18,11 +18,12 @@
 .menu-panel {
     display: flex;
     flex-direction: row;
-    width: 47%;
+    width: 60%;
     margin: auto;
-    max-width: 33%;
+    max-width: 60%;
     max-height: 100%;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .menu-panel p {
@@ -79,7 +80,7 @@
 .logo-div {
     margin: auto;
     background: #4b4f5a;
-    width: 20%;
+    width: 7%;
     text-align: center;
     max-height: 100%;
 }
@@ -122,7 +123,6 @@
 .slideshow-container {
     width: 100%;
     height: 500px;
-
 }
 
 #first-slide {
@@ -1420,6 +1420,7 @@
 }
 .menu-icon{
     width: 50px;
+    display: none;
 }
 
 .account-information-div {
@@ -1941,5 +1942,18 @@
     .logo {
         max-height: none;
         max-width: none;
+    }
+    .menu-icon{
+        display: flex;
+    }
+    .slideshow-container{
+        height: max-content;
+    }
+    .slide{
+        height: 100%;
+    }
+    .search-form > input[type=text]{
+        width: 85%;
+        font-size: 0.8em;
     }
 }
