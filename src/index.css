@@ -5,6 +5,11 @@
     padding: 0;
     font-family: 'Quantico', sans-serif;
 }
+#root {
+    width: 100%;
+    max-width: 100%;
+}
+
 
 .main-div {
     width: 100%;
@@ -66,7 +71,6 @@
     display: flex;
     flex-direction: row;
     z-index: 20;
-    position: fixed;
 }
 
 
@@ -1896,6 +1900,51 @@
     width: 150px;
     text-align: center;
 }
+@media only screen and (max-width: 1000px) {
+    .page-button {
+        display: none;
+    }
+    .pages-numbers {
+        flex-direction: column;
+        align-items: center;
+    }
+    .products-list-el, .wishlist-el{
+        width: 30%;
+    }
+    .menu-div {
+        width: 100%;
+        flex-direction: column;
+        height: min-content;
+    }
+    .menu-div > div{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .menu-panel, .user-panel{
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    .select-language, .user-panel-icon{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .logo-div{
+        display: flex;
+        height: 100%;
+        width: 100px;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 !important;
+    }
+    .logo {
+        max-height: none;
+        max-width: none;
+    }
+    .menu-icon{
+        display: flex;
+    }
+}
 
 @media only screen and (max-width: 600px) {
     .pages-numbers {
@@ -1955,5 +2004,8 @@
     .search-form > input[type=text]{
         width: 85%;
         font-size: 0.8em;
+    }
+    .products-list-el, .wishlist-el{
+        width: 40%;
     }
 }
