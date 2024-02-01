@@ -486,11 +486,11 @@
 }
 
 .add-product-to-cart {
+    padding: 10px 0 10px 0;
     background-color: darkgreen;
     color: white;
     width: 50%;
-    padding: 10px;
-    font-size: 25px;
+    font-size: 15px;
     border-radius: 20px;
 }
 
