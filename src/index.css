@@ -65,6 +65,7 @@
 }
 
 .menu-div {
+    position: fixed;
     width: 100%;
     background: #4b4f5a;
     height: 15%;
@@ -75,6 +76,7 @@
 
 
 .user-panel {
+    align-items: center;
     margin: auto;
     display: flex;
     flex-direction: row-reverse;
@@ -82,6 +84,7 @@
 }
 
 .logo-div {
+    display: flex;
     margin: auto;
     background: #4b4f5a;
     width: 7%;
@@ -416,7 +419,8 @@
 .product-info-container {
     margin-top: 100px;
     width: 75%;
-    height: 800px;
+    height: max-content;
+    margin-bottom: 50px;
 }
 
 .navigation-item {
@@ -587,7 +591,9 @@
 #screenshots {
     height: max-content;
 }
-
+.screenshot{
+    width: 100%;
+}
 .cart-preview-container {
     color: white;
     position: fixed;
@@ -2007,5 +2013,23 @@
     }
     .products-list-el, .wishlist-el{
         width: 40%;
+    }
+    .main-div *{
+        font-size: 0.9em;
+    }
+    .product-main-infos{
+        flex-direction: column;
+        width: 100%;
+    }
+    .product-image{
+        width: 100%;
+        height: max-content;
+    }
+    .navigation-bar{
+        margin: 0 0 10px 0;
+    }
+    .product-details {
+        width: 100%;
+
     }
 }
