@@ -96,7 +96,6 @@ function RegisterPage() {
                 onSubmit={event => registerUser(event)}
                 onKeyDown={event => handleKeypress(event)}
                 className={"register-sign-in-info"}>
-                <div>
                     <h1 className={"login-header"}>{t("signInInfo")}</h1>
                     <div className={"personal-info-inputs"}>
                         <div className={"login-input"}>
@@ -153,7 +152,6 @@ function RegisterPage() {
                         <p onClick={handleSuggestStrongPassButton} className={"password-generate-button"}>{t("strongPass")}</p>
                         <span>{t("passRestrictions")}</span>
                     </div>
-                </div>
                 <div className={"submit-register-container"}>
                     <p onClick={() => navigate("/account/login")} className={"back-to-login-button"}>{t("back")}</p>
                     <button className={"register-form-button"}>{t("createAccount")}</button>

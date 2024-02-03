@@ -26,6 +26,7 @@ function AdminPanelPage() {
         setParamName(paramName)
         setId(id)
         setIsComponentVisible(true)
+        window.scrollTo(0, 0)
     }
 
 

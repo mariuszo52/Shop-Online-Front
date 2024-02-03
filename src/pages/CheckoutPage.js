@@ -92,10 +92,6 @@ function CheckoutPage() {
             .catch(reason => console.log(reason))
     }
 
-    function onTermsClick() {
-        window.open("http://localhost:3000/terms-and-conditions", "_blank")
-    }
-
     function onPrivacyPolicyClick() {
         window.open("http://localhost:3000/privacy-policy", "_blank")
     }
@@ -185,9 +181,11 @@ function CheckoutPage() {
                     </div>))}
                 <h2>{t("total")}: {totalPrice?.toFixed(2)} PLN</h2>
 
-                <label><input required={true} type={"checkbox"}/>{t("iAgree")}
-                    <span className={"span-link"} onClick={onTermsClick}> {t("terms")}</span>
-                    <button type={"submit"} className={"submit-button"}>{t("order")}</button></label>
+                <label className={"accept-policy"}><input required={true} type={"checkbox"}/>{t("iAgree")}
+                    <span className={"span-link"} onClick={onPrivacyPolicyClick}> {t("privacyPolicy")}</span></label>
+                    <div className={"order-button-container"}>
+                        <button type={"submit"} className={"submit-button"}>{t("order")}</button>
+                    </div>
             </form>
 
         </div>

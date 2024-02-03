@@ -98,6 +98,7 @@ function OrderDetails({orderProducts, closeForm, setIsElementClicked, showElemen
                                 id={"edit-form-code" + index}
                                 className={"edit-code-form"}>
                                 <input
+                                    value={""}
                                     required={true}
                                 />
                             </form>

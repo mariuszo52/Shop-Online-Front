@@ -22,7 +22,11 @@ function MyOrders() {
 
     function showOrderCode(codes) {
         setCodesList(codes)
-        document.getElementsByClassName("activation-codes-container").item(0).style.display = "flex"
+        let codesContainer = document
+            .getElementsByClassName("activation-codes-container");
+        codesContainer.item(0).style.display = "flex"
+        let scrollHeight = codesContainer.item(0)?.scrollHeight;
+        window.scrollTo(0, scrollHeight)
     }
 
     function formatOrderDate(order) {

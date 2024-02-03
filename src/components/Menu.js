@@ -60,7 +60,7 @@ function Menu() {
     function onMenuClick() {
         let menuPanels = document.querySelectorAll(".menu-panel, .user-panel");
         menuPanels.forEach(panel => {
-            panel.style.display === "none" ? panel.style.display = "flex" : panel.style.display = "none"
+            panel.style.display === "flex" ? panel.style.display = "none" : panel.style.display = "flex"
         })
     }
 

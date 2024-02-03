@@ -127,7 +127,6 @@ function LoginPage() {
             }).catch(err => {
             translate(err.response.data)
                 .then(translation => {
-                    alert(translation)
                     setNotificationText(translation)
                     setNotificationVisible(true)
                 })

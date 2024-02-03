@@ -22,6 +22,7 @@ function MyAccount(){
     }, []);
 
     function handleChangePasswordButton() {
+        window.scrollTo(0,0)
         if(sessionStorage.getItem("jwt").startsWith("FB")){
             setNotificationText(t("fbAuth"))
             setNotificationVisible(true);
@@ -36,13 +37,15 @@ function MyAccount(){
     }
 
     function handleChangeInfoButton() {
-        let forgetPasswordForm = document.getElementById("user-info-change-container");
-        forgetPasswordForm.style.display = "flex";
+        let changeInfoButton = document.getElementById("user-info-change-container");
+        changeInfoButton.style.display = "flex";
+        window.scrollTo(0, 0)
     }
 
     function handleChangeAddressButton() {
         let forgetPasswordForm = document.getElementById("address-change-container");
         forgetPasswordForm.style.display = "flex";
+        window.scrollTo(0,0)
     }
     function handleAccountDeleteButton() {
         let token = sessionStorage.getItem("jwt");

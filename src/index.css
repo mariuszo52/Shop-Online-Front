@@ -162,7 +162,7 @@
 .products-list-el, .wishlist-el {
     position: relative;
     border-radius: 10px 10px 10px 10px;
-    width: 15%;
+    width: 200px;
     height: 500px;
     margin-top: 20px;
     margin-right: 20px;
@@ -170,10 +170,6 @@
     flex-direction: column;
     align-items: center;
     background-color: #160e2a;
-}
-
-.wishlist-el {
-    width: 20%;
 }
 
 .products-list-el:hover, .wishlist-el:hover {
@@ -231,7 +227,7 @@
 
 .pages-numbers li {
     border-radius: 30px;
-    padding: 5px 15px 5px 15px;
+    padding: 5px 10px 5px 10px;
     border: solid 1px white;
     margin: 10px 5px;
 }
@@ -365,7 +361,8 @@
     margin-right: 10px;
     padding: 5px;
     border-radius: 20px;
-    height: 150px;
+    height: max-content;
+    flex-wrap: wrap;
     width: 100%;
     align-items: center;
     justify-items: center;
@@ -989,7 +986,7 @@
     display: flex;
     flex-direction: row;
     width: 80%;
-    height: 550px;
+    height: max-content;
     justify-content: space-between;
 }
 
@@ -1115,6 +1112,9 @@
 
 .login-form-container > hr {
     width: 90%;
+}
+.login-form{
+    width: 100%;
 }
 
 .oauth-login-container {
@@ -1620,7 +1620,6 @@
 
 .submit-button {
     color: white;
-    margin-right: 20px;
     width: max-content;
     border-radius: 25px;
     display: flex;
@@ -1657,7 +1656,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 5%;
+    width: 100px;
     height: 100%;
 }
 
@@ -1683,6 +1682,7 @@
     flex-direction: column;
     width: 90%;
     height: max-content;
+    flex-wrap: wrap;
 }
 
 .wishlist {
@@ -1702,7 +1702,6 @@
     color: white;
     align-items: center;
     justify-content: space-between;
-    font-size: 25px;
     display: flex;
     flex-direction: row;
     position: fixed;
@@ -1712,6 +1711,7 @@
     background-color: black;
     height: 50px;
     width: 100%;
+    font-size: 0.9em;
 }
 
 .cookies-bar span {
@@ -1904,7 +1904,26 @@
     width: 150px;
     text-align: center;
 }
+.order-button-container{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.accept-policy{
+    display: flex;
+    flex-direction: row;
+    pointer-events: auto;
+    align-items: center;
+}
+.filter-container input{
+    width: 100%;
+}
 @media only screen and (max-width: 1000px) {
+    .products-list-el, .wishlist-el{
+        width: 150px;
+    }
     .page-button {
         display: none;
     }
@@ -1912,9 +1931,7 @@
         flex-direction: column;
         align-items: center;
     }
-    .products-list-el, .wishlist-el{
-        width: 30%;
-    }
+
     .menu-div {
         width: 100%;
         flex-direction: column;
@@ -1948,9 +1965,78 @@
     .menu-icon{
         display: flex;
     }
+    .login-page-container{
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+    .register-form-container, .login-form-container{
+        width: 90%;
+        margin-bottom: 100px;
+    }
+    .register-button, .oauth-login-container{
+        margin-bottom: 10px;
+    }
+    .register-personal-info{
+        height: max-content;
+    }
+    .personal-info-inputs .login-input, #register-form .login-input{
+        width: 90%;
+    }
+    .personal-info-inputs{
+        flex-direction: column;
+    }
+    #register-form{
+        height: max-content;
+    }
+    #fp-main-container{
+        width: 90%;
+    }
+    .wishlist{
+        width: 100%;
+        margin-left: 20px;
+    }
+    .account-panel-container > div, .account-panel-container > ul{
+        width: 90%;
+    }
+    .account-panel-container{
+        flex-direction: column;
+    }
+    .purchased-games-el{
+        flex-direction: column;
+        align-items: center;
+        height: max-content;
+    }
+    .purchased-games-el > div{
+        width: 90%;
+    }
+    .account-panel-container{
+        align-items: center;
+    }
+    .order-cover-container{
+        width: 60% !important ;
+    }
+    #admin-order-details,
+    .activation-codes-container{
+        width: 90%;
+        position: absolute;
+        top: auto;
+        left: auto;
+        justify-content: center;
+    }
+    .fp-main-container{
+        width: 90%;
+    }
+    .action-confirm-container{
+        left: 5%;
+        align-items: center;
+        width: 90%;
+    }
+
 }
 
 @media only screen and (max-width: 600px) {
+
     .pages-numbers {
         flex-direction: column;
         align-items: center;
@@ -1965,40 +2051,6 @@
     .page-button {
         display: none;
     }
-
-    .menu-div {
-        width: 100%;
-        flex-direction: column;
-        height: min-content;
-    }
-    .menu-div > div{
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .menu-panel, .user-panel{
-        display: none;
-        flex-direction: column;
-        align-items: center;
-    }
-    .select-language, .user-panel-icon{
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .logo-div{
-        display: flex;
-        height: 100%;
-        width: 100px;
-        align-items: center;
-        justify-content: space-between;
-        margin: 0 !important;
-    }
-    .logo {
-        max-height: none;
-        max-width: none;
-    }
-    .menu-icon{
-        display: flex;
-    }
     .slideshow-container{
         height: max-content;
     }
@@ -2008,9 +2060,6 @@
     .search-form > input[type=text]{
         width: 85%;
         font-size: 0.8em;
-    }
-    .products-list-el, .wishlist-el{
-        width: 40%;
     }
     .main-div *{
         font-size: 0.9em;
@@ -2047,4 +2096,15 @@
     .title-container{
         overflow: auto;
     }
+    .billing-address-form, .payment-method-form{
+        width: 90%;
+    }
+    .filter-container label{
+        width: 33%;
+    }
+    .pagination-bar *{
+        font-size: 0.9em !important;
+    }
+
+
 }
