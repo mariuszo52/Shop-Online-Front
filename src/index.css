@@ -1965,6 +1965,7 @@
     }
 
     .select-language {
+        margin-right: 10px;
         width: max-content;
     }
 
