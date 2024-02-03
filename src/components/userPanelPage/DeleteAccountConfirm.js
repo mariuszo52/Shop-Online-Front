@@ -15,7 +15,6 @@ function DeleteAccountConfirm(){
                 setNotificationText(t("accountDeleted"))
                 setNotificationVisible(true)
                 window.location.href = "/account/login"
-
             })
             .catch(err => {
                 translate(err.response.data)

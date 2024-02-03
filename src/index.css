@@ -1278,7 +1278,7 @@
     height: 20px;
     text-align: center;
     background-color: #0d7edc;
-    padding: 5px 50px;
+    padding: 5px 10px;
 }
 
 .password-generate-button:hover,
@@ -1449,7 +1449,7 @@
     display: flex;
     margin-bottom: 50px;
     width: 90%;
-    height: 300px;
+    height: max-content;
     background-color: #160e2a;
 }
 
@@ -1736,7 +1736,7 @@
 }
 
 .cookies-accept-button {
-    margin-right: 20px;
+    font-size: 0.7em;
     width: max-content;
     border-radius: 25px;
     display: flex;
@@ -2108,7 +2108,7 @@
     }
 
     .main-div * {
-        font-size: 0.9em;
+        font-size: 0.93em;
     }
 
     .product-main-infos {

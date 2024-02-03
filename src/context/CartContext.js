@@ -108,27 +108,30 @@ export function CartProvider({children}) {
             for (const cartInput of document.getElementsByClassName("cart-input")) {
                 cartInput.disabled = false
             }
-            axios.patch(process.env.REACT_APP_SERVER_URL + "/cart/quantity", product)
-                .then(response =>{
-                    for (const cartInput of document.getElementsByClassName("cart-input")) {
-                        cartInput.disabled = false
-                    }
-                    console.log(response.data)
-                    setIndex((prevState) => prevState + 1);
-                })
-                .catch(reason => console.log(reason))
+                axios.patch(process.env.REACT_APP_SERVER_URL + "/cart/quantity", product)
+                    .then(response => {
+                        for (const cartInput of document.getElementsByClassName("cart-input")) {
+                            cartInput.disabled = false
+                        }
+                        console.log(response.data)
+                        setIndex((prevState) => prevState + 1);
+                    })
+                    .catch(reason => console.log(reason))
 
         }else {
-            setIndex((prevState) => prevState + 1);
-            let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-            for (const cartElement of cart) {
-                if (cartElement.id === product.id) {
-                    cartElement.cartQuantity = event.target.value;
+            if (event.target.value !== "") {
+                setIndex((prevState) => prevState + 1);
+                let cart = JSON.parse(sessionStorage.getItem("cart") || []);
+                for (const cartElement of cart) {
+                    if (cartElement.id === product.id) {
+                        cartElement.cartQuantity = event.target.value;
+                    }
                 }
+                updateCartAndTotalElements(cart);
             }
-            updateCartAndTotalElements(cart);
         }
-    };
+
+        }
 
     const removeProductFromCart = (product) => {
         if(sessionStorage.getItem("jwt")){
