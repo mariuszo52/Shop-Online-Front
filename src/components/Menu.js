@@ -14,6 +14,9 @@ function Menu() {
     const {setIsCartVisible} = useCart();
     const [menuElements, setMenuElements] = useState([])
     const {t, i18n} = useTranslation()
+    const [width, setWidth] = useState(window.innerWidth)
+
+
 
     function onCartIconClick() {
         if (window.location.pathname === "/checkout") {
@@ -47,6 +50,24 @@ function Menu() {
         }
     }
 
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            setWidth(window.innerWidth)
+        })
+        let menuDiv = document.getElementsByClassName("menu-div")?.item(0);
+        let menuPanel = document.getElementsByClassName("menu-panel")?.item(0);
+        if(window.innerWidth >= 1000){
+            menuPanel.style.display = "flex"
+            menuDiv.style.flexDirection = "row";
+            menuPanel.style.width = "50%";
+        } else {
+            menuPanel.style.display = "none"
+            menuDiv.style.flexDirection = "column";
+            menuPanel.style.width = "100%";
+        }
+
+    }, [width]);
+
     function onFavIconClick() {
         window.location.href = "/account/user-panel?tab=wishlist";
     }
@@ -58,39 +79,41 @@ function Menu() {
     }
 
     function onMenuClick() {
-        let menuPanels = document.querySelectorAll(".menu-panel, .user-panel");
-        menuPanels.forEach(panel => {
-            panel.style.display === "flex" ? panel.style.display = "none" : panel.style.display = "flex"
-        })
+        let menuPanel = document.querySelectorAll(".menu-panel").item(0);
+        menuPanel?.style.display === "flex" ? menuPanel.style.display = "none" : menuPanel.style.display = "flex"
     }
 
     return (
         <>
             <div className={"menu-div"}>
-                <div className={"logo-div"}>
-                    <img onClick={onMenuClick}
-                         className={"menu-icon"} alt={"menu"} src={menu}/>
-                    <img onClick={() => window.location.href = "/"} alt="logo" className={"logo"}
-                         src={logo}/>
+                <div className={"main-menu"}>
+                    <div className={"user-panel"}>
+                        <form onSubmit={event => onSelectLanguageSubmit(event)}
+                              className={"select-language"}>
+                            <select id={"select-language"}>
+                                <option value={"pl"}>{t("language.polish")}</option>
+                                <option value={"en"}>{t("language.english")}</option>
+                            </select>
+                            <button className={"select-language-button"}>{t("languageButton")}</button>
+                        </form>
+                        <FontAwesomeIcon onClick={onUserIconClick} className={"user-panel-icon"} icon={faUser}/>
+                        <FontAwesomeIcon onClick={onFavIconClick} className={"user-panel-icon"} icon={faHeart}/>
+                        <FontAwesomeIcon onClick={onCartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
+                    </div>
+                    <div className={"logo-div"}>
+                        <img onClick={() => window.location.href = "/"} alt="logo" className={"logo"}
+                             src={logo}/>
+                        <img onClick={onMenuClick}
+                             className={"menu-icon"} alt={"menu"} src={menu}/>
+                    </div>
                 </div>
                 <div className={"menu-panel"}>
                     {menuElements.map((menuElement, index) => (
                         <p key={index} onClick={() => navigate("/" + menuElement)}>{menuElement}</p>))}
                 </div>
-                <div className={"user-panel"}>
-                    <form onSubmit={event => onSelectLanguageSubmit(event)}
-                          className={"select-language"}>
-                        <select id={"select-language"}>
-                            <option value={"pl"}>{t("language.polish")}</option>
-                            <option value={"en"}>{t("language.english")}</option>
-                        </select>
-                        <button className={"select-language-button"}>{t("languageButton")}</button>
-                    </form>
-                    <FontAwesomeIcon onClick={onUserIconClick} className={"user-panel-icon"} icon={faUser}/>
-                    <FontAwesomeIcon onClick={onFavIconClick} className={"user-panel-icon"} icon={faHeart}/>
-                    <FontAwesomeIcon onClick={onCartIconClick} className={"user-panel-icon"} icon={faCartShopping}/>
-                </div>
             </div>
+
+
         </>
     );
 }

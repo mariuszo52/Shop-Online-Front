@@ -5,6 +5,7 @@
     padding: 0;
     font-family: 'Quantico', sans-serif;
 }
+
 #root {
     width: 100%;
     max-width: 100%;
@@ -24,11 +25,10 @@
     display: flex;
     flex-direction: row;
     width: 60%;
-    margin: auto;
-    max-width: 60%;
     max-height: 100%;
+    align-items: center;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: end;
 }
 
 .menu-panel p {
@@ -65,29 +65,37 @@
 }
 
 .menu-div {
-    position: fixed;
-    width: 100%;
-    background: #4b4f5a;
-    height: 15%;
     display: flex;
     flex-direction: row;
+    width: 100%;
+    position: fixed;
+    background: #4b4f5a;
+    height: 15%;
     z-index: 20;
+
+}
+
+.main-menu {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
 }
 
 
 .user-panel {
+    justify-content: start;
     align-items: center;
-    margin: auto;
     display: flex;
-    flex-direction: row-reverse;
-    width: 33%;
+    flex-direction: row;
+    width: 50%;
 }
 
 .logo-div {
+    justify-content: center;
     display: flex;
     margin: auto;
     background: #4b4f5a;
-    width: 7%;
+    width: 50%;
     text-align: center;
     max-height: 100%;
 }
@@ -588,9 +596,11 @@
 #screenshots {
     height: max-content;
 }
-.screenshot{
+
+.screenshot {
     width: 100%;
 }
+
 .cart-preview-container {
     color: white;
     position: fixed;
@@ -1113,7 +1123,8 @@
 .login-form-container > hr {
     width: 90%;
 }
-.login-form{
+
+.login-form {
     width: 100%;
 }
 
@@ -1426,7 +1437,8 @@
     width: 90%;
     align-items: center;
 }
-.menu-icon{
+
+.menu-icon {
     width: 50px;
     display: none;
 }
@@ -1904,29 +1916,35 @@
     width: 150px;
     text-align: center;
 }
-.order-button-container{
+
+.order-button-container {
     margin-top: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.accept-policy{
+
+.accept-policy {
     display: flex;
     flex-direction: row;
     pointer-events: auto;
     align-items: center;
 }
-.filter-container input{
+
+.filter-container input {
     width: 100%;
 }
+
 @media only screen and (max-width: 1000px) {
-    .products-list-el, .wishlist-el{
+    .products-list-el, .wishlist-el {
         width: 150px;
     }
+
     .page-button {
         display: none;
     }
+
     .pages-numbers {
         flex-direction: column;
         align-items: center;
@@ -1934,105 +1952,128 @@
 
     .menu-div {
         width: 100%;
-        flex-direction: column;
+        align-items: center;
         height: min-content;
     }
-    .menu-div > div{
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .menu-panel, .user-panel{
+
+    .menu-panel {
         display: none;
         flex-direction: column;
         align-items: center;
-    }
-    .select-language, .user-panel-icon{
+        background-color: #4b4f5a;
         width: 100%;
-        margin-bottom: 10px;
     }
-    .logo-div{
+
+    .select-language {
+        width: max-content;
+    }
+
+    .logo-div {
         display: flex;
         height: 100%;
-        width: 100px;
+        width: 50%;
         align-items: center;
-        justify-content: space-between;
+        justify-content: end;
         margin: 0 !important;
     }
+
     .logo {
         max-height: none;
         max-width: none;
     }
-    .menu-icon{
+
+    .menu-icon {
         display: flex;
     }
-    .login-page-container{
+
+    .login-page-container {
         flex-direction: column;
         width: 100%;
         align-items: center;
     }
-    .register-form-container, .login-form-container{
+
+    .register-form-container, .login-form-container {
         width: 90%;
         margin-bottom: 100px;
     }
-    .register-button, .oauth-login-container{
+
+    .register-button, .oauth-login-container {
         margin-bottom: 10px;
     }
-    .register-personal-info{
+
+    .register-personal-info {
         height: max-content;
     }
-    .personal-info-inputs .login-input, #register-form .login-input{
+
+    .personal-info-inputs .login-input, #register-form .login-input {
         width: 90%;
     }
-    .personal-info-inputs{
+
+    .personal-info-inputs {
         flex-direction: column;
     }
-    #register-form{
+
+    #register-form {
         height: max-content;
     }
-    #fp-main-container{
+
+    #fp-main-container {
         width: 90%;
     }
-    .wishlist{
+
+    .wishlist {
         width: 100%;
         margin-left: 20px;
     }
-    .account-panel-container > div, .account-panel-container > ul{
+
+    .account-panel-container > div, .account-panel-container > ul {
         width: 90%;
     }
-    .account-panel-container{
+
+    .account-panel-container {
         flex-direction: column;
     }
-    .purchased-games-el{
+
+    .purchased-games-el {
         flex-direction: column;
         align-items: center;
         height: max-content;
     }
-    .purchased-games-el > div{
+
+    .purchased-games-el > div {
         width: 90%;
     }
-    .account-panel-container{
+
+    .account-panel-container {
         align-items: center;
     }
-    .order-cover-container{
-        width: 60% !important ;
+
+    .order-cover-container {
+        width: 60% !important;
     }
+
     #admin-order-details,
-    .activation-codes-container{
+    .activation-codes-container {
         width: 90%;
         position: absolute;
         top: auto;
         left: auto;
         justify-content: center;
     }
-    .fp-main-container{
+
+    .fp-main-container {
         width: 90%;
     }
-    .action-confirm-container{
+
+    .action-confirm-container {
         left: 5%;
         align-items: center;
         width: 90%;
     }
 
+    .main-menu {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -2051,58 +2092,75 @@
     .page-button {
         display: none;
     }
-    .slideshow-container{
+
+    .slideshow-container {
         height: max-content;
     }
-    .slide{
+
+    .slide {
         height: 100%;
     }
-    .search-form > input[type=text]{
+
+    .search-form > input[type=text] {
         width: 85%;
         font-size: 0.8em;
     }
-    .main-div *{
+
+    .main-div * {
         font-size: 0.9em;
     }
-    .product-main-infos{
+
+    .product-main-infos {
         flex-direction: column;
         width: 100%;
     }
-    .product-image{
+
+    .product-image {
         width: 100%;
         height: max-content;
     }
-    .navigation-bar{
+
+    .navigation-bar {
         margin: 0 0 10px 0;
     }
+
     .product-details {
         width: 100%;
     }
-    .cart-preview-container{
+
+    .cart-preview-container {
         width: 100%;
     }
-    .notification-bar{
+
+    .notification-bar {
         font-size: 0.9em;
     }
-    .checkout-container, .checkout-button-container{
+
+    .checkout-container, .checkout-button-container {
         width: 80%;
     }
-    .checkout-button{
+
+    .checkout-button {
         scale: 0.9;
     }
-    .product-cover{
+
+    .product-cover {
         height: fit-content;
     }
-    .title-container{
+
+    .title-container {
         overflow: auto;
     }
-    .billing-address-form, .payment-method-form{
+
+    .billing-address-form, .payment-method-form {
         width: 90%;
     }
-    .filter-container label{
+
+    .filter-container label {
         width: 33%;
     }
-    .pagination-bar *{
+
+    .pagination-bar * {
         font-size: 0.9em !important;
     }
 
