@@ -177,6 +177,10 @@
   "loginHeader": "ZALOGUJ SIĘ",
   "byContinuing": "Kontynuując potwierdzasz, że zapoznałeś się z",
   "privacyPolicyHeader": "REGULAMIN",
-  "error": "WYSTĄPIŁ BŁĄD"
+  "error": "WYSTĄPIŁ BŁĄD",
+  "wrongNumber": "Please enter a valid phone number.",
+  "wrongPostalCode": "Wprowadź poprawny kod pocztowy (5 cyfr).",
+  "quantityError": "Ilość musi być w przedziale między 1 a 5."
+
 }
 

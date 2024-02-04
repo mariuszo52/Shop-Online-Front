@@ -178,5 +178,9 @@
   "loginHeader": "LOGIN",
   "byContinuing": "By continuing to use this site you automatically accept our",
   "privacyPolicyHeader": "PRIVACY POLICY",
-  "error": "ERROR"
+  "error": "ERROR",
+  "wrongNumber": "Please enter a valid phone number.",
+  "wrongPostalCode": "Please enter a valid postal code (5 digits).",
+  "quantityError": "Quantity needs to be between 1 and 5."
+
 }
