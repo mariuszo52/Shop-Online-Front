@@ -103,35 +103,39 @@ export function CartProvider({children}) {
     };
 
     const onQuantityChange = (event, product) => {
-        if(sessionStorage.getItem("jwt")){
-            product.cartQuantity = event.target.value;
-            for (const cartInput of document.getElementsByClassName("cart-input")) {
-                cartInput.disabled = false
-            }
+        if (event.target.value > 0 && event.target.value <= 5) {
+            if (sessionStorage.getItem("jwt")) {
+                product.cartQuantity = event.target.value;
+                for (const cartInput of document.getElementsByClassName("cart-input")) {
+                    cartInput.disabled = false;
+                }
                 axios.patch(process.env.REACT_APP_SERVER_URL + "/cart/quantity", product)
                     .then(response => {
                         for (const cartInput of document.getElementsByClassName("cart-input")) {
-                            cartInput.disabled = false
+                            cartInput.disabled = false;
                         }
-                        console.log(response.data)
+                        console.log(response.data);
                         setIndex((prevState) => prevState + 1);
                     })
-                    .catch(reason => console.log(reason))
-
-        }else {
-            if (event.target.value !== "") {
-                setIndex((prevState) => prevState + 1);
-                let cart = JSON.parse(sessionStorage.getItem("cart") || []);
-                for (const cartElement of cart) {
-                    if (cartElement.id === product.id) {
-                        cartElement.cartQuantity = event.target.value;
+                    .catch(reason => console.log(reason));
+            } else {
+                if (event.target.value !== "") {
+                    setIndex((prevState) => prevState + 1);
+                    let cart = JSON.parse(sessionStorage.getItem("cart") || "[]");
+                    for (const cartElement of cart) {
+                        if (cartElement.id === product.id) {
+                            cartElement.cartQuantity = event.target.value;
+                        }
                     }
+                    updateCartAndTotalElements(cart);
                 }
-                updateCartAndTotalElements(cart);
             }
+        } else {
+            setNotificationVisible(true);
+            setNotificationText(t("quantityError"));
         }
+    }
 
-        }
 
     const removeProductFromCart = (product) => {
         if(sessionStorage.getItem("jwt")){
