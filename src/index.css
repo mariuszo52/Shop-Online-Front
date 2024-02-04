@@ -1931,6 +1931,9 @@
     pointer-events: auto;
     align-items: center;
 }
+.accept-policy > *{
+    margin: 0 2px 0 2px;
+}
 
 .filter-container input {
     width: 100%;

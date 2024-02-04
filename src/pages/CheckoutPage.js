@@ -182,7 +182,7 @@ function CheckoutPage() {
                 <h2>{t("total")}: {totalPrice?.toFixed(2)} PLN</h2>
 
                 <label className={"accept-policy"}><input required={true} type={"checkbox"}/>{t("iAgree")}
-                    <span className={"span-link"} onClick={onPrivacyPolicyClick}> {t("privacyPolicy")}</span></label>
+                    <span className={"span-link"} onClick={onPrivacyPolicyClick}>   {t("privacyPolicy")}</span></label>
                     <div className={"order-button-container"}>
                         <button type={"submit"} className={"submit-button"}>{t("order")}</button>
                     </div>
