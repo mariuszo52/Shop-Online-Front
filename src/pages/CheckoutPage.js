@@ -122,13 +122,15 @@ function CheckoutPage() {
                        onChange={event => setCity(event.target.value)} required={true}/>
                 <label>{t("postalCode")}*</label>
                 <input defaultValue={shippingAddress?.postalCode}
-                       minLength={5}
-                       maxLength={5}
+                       pattern= "\b\d{5}\b"
+                       title = {t("wrongPostalCode")}
                        onChange={event => setPostalCode(event.target.value)} type={"text"} required={true}/>
                 <label>{t("phoneNumber")}*</label>
                 <input defaultValue={shippingAddress?.phoneNumber}
+                       pattern={"^\\d{9}$"}
+                       title={t("wrongNumber")}
                        onChange={event => setPhoneNumber(event.target.value)}
-                       type={"tel"} required={true}/>
+                       required={true}/>
                 <button className={"submit-button"} type={"submit"}>{t("confirmAddress")}</button>
             </form>
             <form className={"payment-method-form"}
