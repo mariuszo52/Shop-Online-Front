@@ -6,6 +6,7 @@ function AxiosInterceptor(){
         (config) => {
             const jwtToken = sessionStorage.getItem("jwt");
             if (jwtToken) {
+
                 config.headers.Authorization = jwtToken;
             }
             return config;
