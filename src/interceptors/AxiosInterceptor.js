@@ -47,6 +47,7 @@ function AxiosInterceptor(){
 
                     });
                 } else {
+                    sessionStorage.removeItem()
                     if(window.location.href !== loginPage)
                         window.location.href = '/account/login';
                 }
