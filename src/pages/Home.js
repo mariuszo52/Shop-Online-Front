@@ -48,10 +48,11 @@ function Home() {
                 setProductsPageable(response.data)
                 calculatePageNumbers(response.data)
                 console.log(response.data)
+                setDataLoading(prevState => false)
             })
             .catch(error => console.log(error));
 
-        setDataLoading(prevState => false)
+        
 
     }
 
