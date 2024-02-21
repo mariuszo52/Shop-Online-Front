@@ -13,15 +13,15 @@ function FilterProducts({
                             setCurrentPage
                         }) {
     const {t} = useTranslation()                       
-    let [platforms, setPlatforms] = useState([]);
-    let [genres, setGenres] = useState([]);
-    let [languages, setLanguages] = useState([]);
+    let [platforms, setPlatforms] = useState(null);
+    let [genres, setGenres] = useState(null);
+    let [languages, setLanguages] = useState(null);
     let [minPrice, setMinPrice] = useState()
     let [maxPrice, setMaxPrice] = useState()
-    let [platform, setPlatform] = useState("");
-    let [genre, setGenre] = useState("");
-    let [language, setLanguage] = useState("");
-    let [sort, setSort] = useState("");
+    let [platform, setPlatform] = useState(null);
+    let [genre, setGenre] = useState(null);
+    let [language, setLanguage] = useState(null);
+    let [sort, setSort] = useState(null);
 
 
     useEffect(() => {
@@ -137,8 +137,10 @@ function FilterProducts({
                        value={maxPrice} type="range" step={10} id="maxRange" min="0" max="10000" defaultValue={10000}/>
             </label>
             <label><p>{t("genre")}</p>
-                <select onChange={event => setGenre(event.target.value)} className={"filter"}>
-                    <option className={"filter-option"} value={""}>{t("allGenres")}</option>
+                <select onChange={event => {
+                    setGenre(event.target.value)}}
+                    className={"filter"}>
+                    <option className={"filter-option"} value={null}>{t("allGenres")}</option>
                     {genres?.map((genre, index) => (
                         <option key={index} className={"filter-option"}>{genre}</option>
                     ))}
