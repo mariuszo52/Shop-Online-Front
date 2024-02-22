@@ -39,12 +39,9 @@ function FilterProducts({
     }, [productsPageable]);
 
     useEffect(() => {
-        const params = {
-            device: deviceName
-        };
 
         function getGenres() {
-            axios.get(process.env.REACT_APP_SERVER_URL + "/genre/device-genres", {params})
+            axios.get(process.env.REACT_APP_SERVER_URL + "/genre/device-genres")
                 .then(r => setGenres(r.data))
                 .catch(err => console.log(err))
         }
