@@ -12,7 +12,7 @@ function FilterProducts({
                             setDataLoading,
                             setCurrentPage
                         }) {
-    const {t} = useTranslation()                       
+    const {t} = useTranslation()
     let [platforms, setPlatforms] = useState(null);
     let [genres, setGenres] = useState(null);
     let [languages, setLanguages] = useState(null);
@@ -80,13 +80,14 @@ function FilterProducts({
             page: currentPage,
             size: currentSize,
             device: deviceName,
-            platform: platform,
-            language: language,
-            genre: genre,
-            minPrice: minPrice,
-            maxPrice: maxPrice,
-            sort: sort
+            ...(platform && {platform}),
+            ...(language && {language}),
+            ...(genre && {genre}),
+            ...(minPrice && {minPrice}),
+            ...(maxPrice && {maxPrice}),
+            ...(sort && {sort}),
         };
+
         axios.get(process.env.REACT_APP_SERVER_URL + "/product/products", {params})
             .then(response => {
                 setProductsPageable(response.data)
@@ -114,7 +115,8 @@ function FilterProducts({
                 </select>
             </label>
             <label><p>{t("platform")}</p>
-                <select onChange={event => setPlatform(event.target.value)}
+                <select onChange={event =>
+                    event.target.value === "" ? setPlatform(null) : setPlatform(event.target.value)}
                         className={"filter"}>
                     <option className={"filter-option"} value={""}>{t("allPlatforms")}</option>
                     {platforms?.map((platform, index) => (
@@ -124,27 +126,40 @@ function FilterProducts({
                 </select>
             </label>
             <label>
-                <p>Min {t("price")}: <span><input value={minPrice} onChange={event => handleMinPrice(event)} type={"number"}/>PLN</span>
+                <p>Min {t("price")}:
+                    <span><input value={minPrice}
+                                 min={0}
+                                 max={10000}
+                                 onChange={event => handleMinPrice(event)}
+                                 type={"number"}/>PLN</span>
                 </p>
                 <input onChange={event => handleMinPrice(event)}
                        value={minPrice} defaultValue={0} step={10} type="range" id="minRange" min="0" max="10000"/>
-                <p>Max {t("price")}: <span><input value={maxPrice} onChange={event => handleMaxPrice(event)} type={"number"}/>PLN</span>
+                <p>Max {t("price")}:
+                    <span>
+                        <input value={maxPrice}
+                               min={0}
+                               max={10000}
+                               onChange={event => handleMaxPrice(event)}
+                               type={"number"}/>PLN</span>
                 </p>
                 <input onChange={event => handleMaxPrice(event)}
                        value={maxPrice} type="range" step={10} id="maxRange" min="0" max="10000" defaultValue={10000}/>
             </label>
             <label><p>{t("genre")}</p>
-                <select onChange={event => {
-                    setGenre(event.target.value)}}
-                    className={"filter"}>
-                    <option className={"filter-option"} value={null}>{t("allGenres")}</option>
+                <select onChange={event =>
+                    event.target.value === "" ? setGenre(null) : setGenre(event.target.value)}
+                        className={"filter"}>
+                    <option className={"filter-option"} value={""}>{t("allGenres")}</option>
                     {genres?.map((genre, index) => (
                         <option key={index} className={"filter-option"}>{genre}</option>
                     ))}
                 </select>
             </label>
             <label><p>{t("languages")}</p>
-                <select onChange={event => setLanguage(event.target.value)} className={"filter"}>
+                <select onChange={event =>
+                    event.target.value === "" ? setLanguage(null) : setLanguage(event.target.value)}
+                        className={"filter"}>
                     <option className={"filter-option"} value={""}>{t("allLanguages")}</option>
                     {languages?.map((language, index) => (
                         <option key={index} className={"filter-option"}>{language}</option>
