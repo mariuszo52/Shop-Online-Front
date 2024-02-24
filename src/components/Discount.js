@@ -1,6 +1,10 @@
 function Discount({product, classname}) {
     return (
-        <p className={classname}>-{product?.discount}%</p>
+        <>
+            {product?.discount && (
+                <p className={classname}>-{product?.discount}%</p>
+            )}
+        </>
     )
 }
 
