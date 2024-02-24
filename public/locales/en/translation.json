@@ -181,6 +181,6 @@
   "error": "ERROR",
   "wrongNumber": "Please enter a valid phone number.",
   "wrongPostalCode": "Please enter a valid postal code (5 digits).",
-  "quantityError": "Quantity needs to be between 1 and 5."
-
+  "quantityError": "Quantity needs to be between 1 and 5.",
+  "regulationsHeader": "Regulations"
 }

@@ -7,7 +7,7 @@ function PrivacyPolicyPage() {
     const {t, i18n} = useTranslation()
     return (
         <div className={"main-div"}>
-            <h1 className={"checkout-h1"}>{t("privacyPolicyHeader")}</h1>
+            <h1 className={"checkout-h1"}>{t("regulationsHeader")}</h1>
             {i18n.language === "en" && (<PrivacyPolicyEn/>)}
             {i18n.language === "pl" && (<PrivacyPolicyPl />)}
             <Menu/>

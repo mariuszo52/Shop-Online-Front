@@ -1941,6 +1941,9 @@
 .filter-container input {
     width: 100%;
 }
+.privacy-policy a{
+    color: white;
+}
 
 @media only screen and (max-width: 1000px) {
     .products-list-el, .wishlist-el {
