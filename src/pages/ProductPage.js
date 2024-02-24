@@ -123,7 +123,9 @@ function ProductPage() {
                         <p className={"product-description"}>{description}</p>
                         <div className={"price-container"}>
                             <Discount
-                                product={product}/>
+                                product={product}
+                                classname={"discount-container"}
+                            />
                             <div className={"product-price"}>
                                 <span className={"old-price-span"}>{product?.oldPrice} PLN</span>
                                 <span className={"price-span"}>{product?.price} PLN</span>

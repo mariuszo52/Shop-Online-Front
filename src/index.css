@@ -1970,7 +1970,20 @@
     border-bottom: #cc4133 5px solid;
     font-size: 2em;
 }
+.product-el-discount-container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    background-color: #dc5c5c;
+    border-bottom: #cc4133 5px solid;
+    font-size: 2em;
+    bottom: 205px;
+    right: 10px;
 
+}
 .old-price-span{
     color: grey;
     text-decoration-line: line-through;

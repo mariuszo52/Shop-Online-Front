@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";
 import axios from "axios";
 import {useTranslation} from "react-i18next";
+import Discount from "./Discount";
 
 function ProductListElement({products, classname}) {
     const {addToCart} = useCart();
@@ -103,6 +104,10 @@ function ProductListElement({products, classname}) {
                     onMouseOut={() => handleMouseOut(product?.id)}
                     className={classname ? classname : "products-list-el"}
                 >
+                    <Discount
+                        product={product}
+                        classname={"product-el-discount-container"}
+                    />
         <span onClick={() => addToCart(product)}
               className={"add-to-cart"}
               id={"add-to-cart-" + product?.id}>

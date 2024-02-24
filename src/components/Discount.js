@@ -1,6 +1,6 @@
-function Discount({product}) {
+function Discount({product, classname}) {
     return (
-        <p className={"discount-container"}>-{product?.discount}%</p>
+        <p className={classname}>-{product?.discount}%</p>
     )
 }
 
