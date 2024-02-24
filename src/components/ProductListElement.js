@@ -25,17 +25,21 @@ function ProductListElement({products, classname}) {
     }, []);
 
     function handleMouseOut(productId) {
-        let span = document.getElementById("add-to-cart-" + productId);
-        let favButton = document.getElementById("fav-heart-" + productId)
-        favButton.style.display = "none";
-        span.style.display = "none";
+        if(window.innerWidth >= 1000) {
+            let span = document.getElementById("add-to-cart-" + productId);
+            let favButton = document.getElementById("fav-heart-" + productId)
+            favButton.style.display = "none";
+            span.style.display = "none";
+        }
     }
 
     function handleMouseOver(productId) {
-        let span = document.getElementById("add-to-cart-" + productId);
-        let favButton = document.getElementById("fav-heart-" + productId)
-        favButton.style.display = "flex";
-        span.style.display = "flex";
+        if(window.innerWidth >= 1000) {
+            let span = document.getElementById("add-to-cart-" + productId);
+            let favButton = document.getElementById("fav-heart-" + productId)
+            favButton.style.display = "flex";
+            span.style.display = "flex";
+        }
     }
 
     function handleFavIconClick(product) {
