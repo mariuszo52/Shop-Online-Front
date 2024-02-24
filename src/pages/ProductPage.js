@@ -8,6 +8,7 @@ import ProductListElement from "../components/ProductListElement";
 import {useCart} from "../context/CartContext";
 import {useTranslation} from "react-i18next";
 import i18n from "../components/i18n";
+import Discount from "../components/Discount";
 
 
 function ProductPage() {
@@ -120,8 +121,14 @@ function ProductPage() {
                     <div className={"product-details"}>
                         <p className={"product-name"}>{product?.name}</p>
                         <p className={"product-description"}>{description}</p>
-                        <p className={"products-price"}></p>
-                        <span className={"price-span"}>{product?.price} PLN</span>
+                        <div className={"price-container"}>
+                            <Discount
+                                product={product}/>
+                            <div className={"product-price"}>
+                                <span className={"old-price-span"}>{product?.oldPrice} PLN</span>
+                                <span className={"price-span"}>{product?.price} PLN</span>
+                            </div>
+                        </div>
                         <button onClick={() => addToCart(product)}
                                 className={"add-product-to-cart"}>
                             {product?.isPreorder ? t("buyPreorder") : t("buyNow")}
