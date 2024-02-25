@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping, faHeart, faUser} from '@fortawesome/free-solid-svg-icons'
-import logo from "../images/logo.jpg"
+import logo from "../images/logo.png"
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {useCart} from "../context/CartContext";

@@ -9,6 +9,9 @@ import {useCart} from "../context/CartContext";
 import {useTranslation} from "react-i18next";
 import i18n from "../components/i18n";
 import Discount from "../components/Discount";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faHeart} from "@fortawesome/free-solid-svg-icons";
+
 
 
 function ProductPage() {
@@ -18,6 +21,7 @@ function ProductPage() {
     const [languages, setLanguages] = useState([]);
     const [similarProducts, setSimilarProducts] = useState([]);
     const [productActivation, setProductActivation] = useState([]);
+    const [favoriteProducts, setFavoriteProducts] = useState([])
     const {addToCart} = useCart();
     const {t} = useTranslation()
     const [description, setDescription] = useState("")
@@ -82,6 +86,53 @@ function ProductPage() {
 
         getLanguages()
     }, [id]);
+    function fetchFavoriteProducts() {
+        if (sessionStorage.getItem("jwt")) {
+            axios.get(process.env.REACT_APP_SERVER_URL + "/favorite-product")
+                .then(response => setFavoriteProducts(response.data))
+                .catch(reason => console.log(reason))
+        }
+    }
+
+    useEffect(() => {
+        fetchFavoriteProducts()
+    }, []);
+
+    function isProductInFavorites(product) {
+        let containProduct = false;
+        favoriteProducts.forEach(fProduct => {
+            if (fProduct?.id === product?.id) {
+                containProduct = true;
+            }
+        })
+        return containProduct;
+    }
+    function handleFavIconClick(product) {
+        if (sessionStorage.getItem("jwt")) {
+            if (isProductInFavorites(product)) {
+                deleteProductFromFavorite(product)
+            } else {
+                addProductToFavorite(product)
+            }
+        } else {
+            navigate("/account/login")
+        }
+    }
+
+    function addProductToFavorite(product) {
+        axios.post(process.env.REACT_APP_SERVER_URL + "/favorite-product", product)
+            .then(() => fetchFavoriteProducts())
+            .catch(reason => console.log(reason))
+    }
+
+    function deleteProductFromFavorite(product) {
+        const params = {
+            productId: product?.id
+        }
+        axios.delete(process.env.REACT_APP_SERVER_URL + "/favorite-product", {params})
+            .then(() => fetchFavoriteProducts())
+            .catch(reason => console.log(reason))
+    }
 
     const handleClickInfoMenuButton = (event) => {
         let moreInfoContentName = event.target.id?.toLowerCase();
@@ -119,6 +170,7 @@ function ProductPage() {
                 <div className={"product-main-infos"}>
                     <img className={"product-image"} src={product?.coverImage} alt={"product"}/>
                     <div className={"product-details"}>
+
                         <p className={"product-name"}>{product?.name}</p>
                         <p className={"product-description"}>{description}</p>
                         <div className={"price-container"}>
@@ -127,14 +179,21 @@ function ProductPage() {
                                 classname={"discount-container"}
                             />
                             <div className={"product-price"}>
-                                <span className={"old-price-span"}>{product?.oldPrice} PLN</span>
+                                {product?.oldPrice &&(
+                                    <span className={"old-price-span"}>{product?.oldPrice} PLN</span>
+                                    )}
                                 <span className={"price-span"}>{product?.price} PLN</span>
                             </div>
                         </div>
-                        <button onClick={() => addToCart(product)}
-                                className={"add-product-to-cart"}>
+                        <div className={"product-action"}>
+                        <button className={"add-product-to-cart"} onClick={() => addToCart(product)}>
                             {product?.isPreorder ? t("buyPreorder") : t("buyNow")}
                         </button>
+                            <FontAwesomeIcon
+                                onClick={() => handleFavIconClick(product)}
+                                className={isProductInFavorites(product)? "product-page-fav" : "no-product-page-fav"}
+                                icon={faHeart}/>
+                        </div>
                         <ul>
                             <li>{product?.regionalLimitations}</li>
                             <li>{product?.inStock ? t("currentlyInStock") : t("availablePreorder")}</li>
