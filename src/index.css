@@ -2254,7 +2254,8 @@
     .product-action{
         font-size: 1.2em;
     }
-    .product-page-fav{
+    .product-page-fav, .no-product-page-fav{
         font-size: 3em;
     }
+
 }
