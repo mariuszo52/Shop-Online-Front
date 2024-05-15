@@ -127,7 +127,7 @@ function ProductListElement({products, classname}) {
                     <div className={"product-main-info"}>
                         <p className={"product-name-p"} onMouseEnter={() => onMouseEnterProductName(product.id)}
                            id={"product-name-" + product.id}>{product.name}</p>
-                        <p id={"product-price"}>{product.price} PLN</p>
+                        <p id={"product-price"}>{product.price} zł</p>
                     </div>
                 </div>
             ))}

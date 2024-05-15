@@ -75,7 +75,7 @@ function Menu() {
     function onSelectLanguageSubmit(event) {
         event.preventDefault()
         let language = event.target?.querySelector("select")?.value;
-        i18n.changeLanguage(language).then(() => console.log("Language changed"))
+        i18n.changeLanguage(language).then(() => console.log("Language changed to: " + language) )
     }
 
     function onMenuClick() {

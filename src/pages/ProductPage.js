@@ -13,7 +13,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
 
 
-
 function ProductPage() {
     const {id} = useParams();
     const [product, setProduct] = useState(null)
@@ -28,7 +27,6 @@ function ProductPage() {
 
 
     function translate(description, activationDetails) {
-        if (i18n.language !== "en") {
             axios.get(process.env.REACT_APP_SERVER_URL + "/translate", {
                 params: {"langCode": i18n.language, "text": description}
             })
@@ -39,7 +37,7 @@ function ProductPage() {
             })
                 .then(response => setProductActivation(response.data.split("\n")))
                 .catch(reason => console.log(reason));
-        }
+
     }
 
     useEffect(() => {
@@ -86,6 +84,7 @@ function ProductPage() {
 
         getLanguages()
     }, [id]);
+
     function fetchFavoriteProducts() {
         if (sessionStorage.getItem("jwt")) {
             axios.get(process.env.REACT_APP_SERVER_URL + "/favorite-product")
@@ -107,6 +106,7 @@ function ProductPage() {
         })
         return containProduct;
     }
+
     function handleFavIconClick(product) {
         if (sessionStorage.getItem("jwt")) {
             if (isProductInFavorites(product)) {
@@ -179,19 +179,19 @@ function ProductPage() {
                                 classname={"discount-container"}
                             />
                             <div className={"product-price"}>
-                                {product?.oldPrice &&(
-                                    <span className={"old-price-span"}>{product?.oldPrice} PLN</span>
-                                    )}
-                                <span className={"price-span"}>{product?.price} PLN</span>
+                                {product?.oldPrice && (
+                                    <span className={"old-price-span"}>{product?.oldPrice} zł</span>
+                                )}
+                                <span className={"price-span"}>{product?.price} zł</span>
                             </div>
                         </div>
                         <div className={"product-action"}>
-                        <button className={"add-product-to-cart"} onClick={() => addToCart(product)}>
-                            {product?.isPreorder ? t("buyPreorder") : t("buyNow")}
-                        </button>
+                            <button className={"add-product-to-cart"} onClick={() => addToCart(product)}>
+                                {product?.isPreorder ? t("buyPreorder") : t("buyNow")}
+                            </button>
                             <FontAwesomeIcon
                                 onClick={() => handleFavIconClick(product)}
-                                className={isProductInFavorites(product)? "product-page-fav" : "no-product-page-fav"}
+                                className={isProductInFavorites(product) ? "product-page-fav" : "no-product-page-fav"}
                                 icon={faHeart}/>
                         </div>
                         <ul>

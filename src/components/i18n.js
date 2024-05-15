@@ -8,7 +8,8 @@ i18next
     .use(LanguageDetector)
     .use(HttpApi)
     .init({
-        fallbackLng: "en",
+        lng: "pl",
+        fallbackLng: "pl",
         interpolation:{
             escapeValue: false
         }

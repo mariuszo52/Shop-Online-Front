@@ -8,7 +8,7 @@ export function TranslateProvider({children}) {
     const {i18n} = useTranslation()
     function translate(text) {
         return new Promise((resolve, reject) => {
-            if (i18n.language !== "en") {
+            if (i18n.language !== "pl") {
                 axios.get(process.env.REACT_APP_SERVER_URL + "/translate", {
                     params: {"langCode": i18n.language, "text": text}
                 })
